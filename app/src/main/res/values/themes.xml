@@ -3,6 +3,7 @@
     <style name="Base.Theme.RecipeAndroid" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:includeFontPadding">false</item>
     </style>
 
     <style name="Theme.RecipeAndroid" parent="Base.Theme.RecipeAndroid" />
