@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Recipe Android</string>
+
+    <string name="splash_text">Shop Ingredients For Any Recipe</string>
+    <string name="onboarding1_title">Personalized Recipe Discovery</string>
+    <string name="onboarding1_text">Tell us your food preferences and we’ll only serve you delicious recipes ideas.</string>
+    <string name="onboarding2_title">Never Forget an Ingredient</string>
+    <string name="onboarding2_text">Build your weekly grocery list and stay organized while you shop..</string>
+    <string name="onboarding3_title">Your Favourite Recipes at Your Fingertips</string>
+    <string name="onboarding3_text">Save time on planning by having your favourite recipes always within reach.</string>
+    <string name="lbl_next">NEXT</string>
+    <string name="lbl_login">LOG IN</string>
+    <string name="lbl_get_started">GET STARTED</string>
+
+
 </resources>
