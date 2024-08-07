@@ -4,7 +4,7 @@
     <color name="white">#FAFAFA</color>
     <color name="brown">#A67B5B</color>
     <color name="dark_blue">#2E353D</color>
-    <color name="color_error">F44336</color>
+    <color name="color_error">#F44336</color>
     <color name="gray">#C6C6C6</color>
 
 </resources>
