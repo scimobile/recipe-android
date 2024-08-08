@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".feature.auth.ui.screen.SignupOptionsFragment">
+    tools:context=".feature.auth.ui.screen.authentication.AuthOptionFragment">
 
 
     <ImageView
@@ -37,28 +37,28 @@
         app:layout_constraintGuide_end="24dp" />
 
     <Button
-        android:id="@+id/button8"
+        android:id="@+id/google_btn"
         android:layout_width="0dp"
         android:layout_height="55dp"
         android:text=""
         android:layout_marginBottom="16dp"
         android:backgroundTint="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/button10"
-        app:layout_constraintEnd_toStartOf="@+id/button9"
+        app:layout_constraintBottom_toTopOf="@+id/signup_with_email_btn"
+        app:layout_constraintEnd_toStartOf="@+id/facebook_btn"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="@+id/guideline_start" />
 
     <Button
-        android:id="@+id/button9"
+        android:id="@+id/facebook_btn"
         android:layout_width="0dp"
         android:layout_height="55dp"
         android:layout_marginStart="16dp"
         android:backgroundTint="#415792"
         android:text=""
-        app:layout_constraintBottom_toBottomOf="@+id/button8"
+        app:layout_constraintBottom_toBottomOf="@+id/google_btn"
         app:layout_constraintEnd_toStartOf="@+id/guideline_end"
-        app:layout_constraintStart_toEndOf="@+id/button8"
-        app:layout_constraintTop_toTopOf="@+id/button8"
+        app:layout_constraintStart_toEndOf="@+id/google_btn"
+        app:layout_constraintTop_toTopOf="@+id/google_btn"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
@@ -87,7 +87,7 @@
         app:layout_constraintStart_toStartOf="@+id/guideline_start" />
 
     <Button
-        android:id="@+id/button10"
+        android:id="@+id/signup_with_email_btn"
         android:layout_width="0dp"
         android:layout_height="55dp"
         android:layout_marginBottom="24dp"
@@ -107,20 +107,20 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:src="@drawable/ic_google"
-        app:layout_constraintBottom_toBottomOf="@+id/button8"
-        app:layout_constraintEnd_toEndOf="@+id/button8"
+        app:layout_constraintBottom_toBottomOf="@+id/google_btn"
+        app:layout_constraintEnd_toEndOf="@+id/google_btn"
         app:layout_constraintStart_toStartOf="@+id/guideline_start"
-        app:layout_constraintTop_toTopOf="@+id/button8" />
+        app:layout_constraintTop_toTopOf="@+id/google_btn" />
 
     <ImageView
         android:id="@+id/imageView4"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:src="@drawable/ic_facebook"
-        app:layout_constraintBottom_toBottomOf="@+id/button9"
+        app:layout_constraintBottom_toBottomOf="@+id/facebook_btn"
         app:layout_constraintEnd_toStartOf="@+id/guideline_end"
-        app:layout_constraintStart_toStartOf="@+id/button9"
-        app:layout_constraintTop_toTopOf="@+id/button9" />
+        app:layout_constraintStart_toStartOf="@+id/facebook_btn"
+        app:layout_constraintTop_toTopOf="@+id/facebook_btn" />
 
     <TextView
         android:id="@+id/textView6"
@@ -131,7 +131,7 @@
         android:textColor="@color/white"
         android:textSize="26sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/button8"
+        app:layout_constraintBottom_toTopOf="@+id/google_btn"
         app:layout_constraintEnd_toStartOf="@+id/guideline_end"
         app:layout_constraintStart_toStartOf="@+id/guideline_start" />
 
