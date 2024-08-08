@@ -56,4 +56,10 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.mmkv.android)
     implementation(libs.kotlinx.serialization)
+
+    //google login and sign up
+    implementation (libs.androidx.credentials)
+    implementation (libs.androidx.credentials.play.services.auth)
+    implementation (libs.googleid)
+    
 }
