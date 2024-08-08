@@ -14,10 +14,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:textColorHint="@color/color_text_secondary"
+        app:hintTextColor="@color/color_text_secondary"
         app:boxBackgroundMode="filled"
+        app:boxStrokeColor="@color/color_text_secondary"
         app:endIconMode="clear_text"
         app:endIconTint="@color/black"
-        app:boxStrokeColor="@android:color/transparent"
         app:layout_constraintEnd_toStartOf="@+id/guideline_end"
         app:layout_constraintStart_toStartOf="@+id/guideline_start"
         app:layout_constraintTop_toBottomOf="@+id/textView2">
@@ -35,15 +36,17 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout2"
+        android:id="@+id/textInputLayoutPw"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:textColorHint="@color/color_text_secondary"
         app:boxBackgroundMode="filled"
-        app:boxStrokeColor="@android:color/transparent"
+        app:boxStrokeColor="@color/color_text_secondary"
         app:endIconMode="password_toggle"
         app:endIconTint="@color/black"
+        app:errorEnabled="false"
+        app:hintTextColor="@color/color_text_secondary"
         app:layout_constraintEnd_toStartOf="@+id/guideline_end"
         app:layout_constraintStart_toStartOf="@+id/guideline_start"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutEmail">
@@ -76,35 +79,25 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="24dp"
         android:src="@drawable/icon_arrow_back"
         app:layout_constraintStart_toStartOf="@+id/guideline_start"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <View
-        android:id="@+id/divider"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginTop="16dp"
-        android:background="#C3C3C3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="32dp"
         android:fontFamily="@font/poppins_semibold"
         android:text="@string/log_in_title"
         android:textColor="@color/color_text_primary"
         android:textSize="26sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/guideline_start"
-        app:layout_constraintTop_toBottomOf="@+id/divider" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <TextView
         android:id="@+id/textView2"
@@ -118,15 +111,17 @@
         app:layout_constraintStart_toStartOf="@+id/guideline_start"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/button"
+    <Button
+        android:id="@+id/btn_login"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
         android:fontFamily="@font/poppins_semibold"
         android:text="@string/start_cooking"
+        android:textColor="@color/white"
+        style="@style/Widget.Material3.Button.IconButton.Filled"
         app:backgroundTint="@color/color_border_active"
         app:layout_constraintEnd_toStartOf="@+id/guideline_end"
         app:layout_constraintStart_toStartOf="@+id/guideline_start"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutPw" />
 </androidx.constraintlayout.widget.ConstraintLayout>

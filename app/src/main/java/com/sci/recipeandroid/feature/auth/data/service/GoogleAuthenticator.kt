@@ -10,7 +10,7 @@ import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import com.google.android.libraries.identity.googleid.GoogleIdTokenParsingException
 
-class GoogleAuthenticator() {
+class GoogleAuthenticator {
     //TODO has to add server client id into gradle and handle exception
     suspend fun onAuthenticate(context: Context): Result<String> {
         val credentialManager = CredentialManager.create(context)

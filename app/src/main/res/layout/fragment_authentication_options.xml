@@ -6,9 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".feature.auth.ui.screen.authentication.AuthOptionFragment">
 
-
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/iv_background"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:foreground="@drawable/signup_options_fg"
@@ -66,6 +65,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
+        android:fontFamily="@font/poppins"
         android:text="@string/privacy_notice_terms_of_use_string"
         android:textAlignment="center"
         android:textColor="@color/white"
@@ -75,10 +75,11 @@
         app:layout_constraintStart_toStartOf="@+id/guideline_start" />
 
     <TextView
-        android:id="@+id/tv_log_in"
+        android:id="@+id/btn_tv_log_in"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
+        android:fontFamily="@font/poppins"
         android:text="@string/already_have_an_account"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/tv_privacy_notice"
@@ -92,18 +93,19 @@
         android:layout_height="55dp"
         android:layout_marginBottom="24dp"
         android:backgroundTint="@color/white"
+        android:fontFamily="@font/poppins_semibold"
         android:text="@string/sign_up_with_email"
         android:textColor="@color/black"
         app:icon="@drawable/ic_email"
         app:iconGravity="textStart"
         app:iconSize="0dp"
         app:iconTint="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/tv_log_in"
+        app:layout_constraintBottom_toTopOf="@+id/btn_tv_log_in"
         app:layout_constraintEnd_toStartOf="@+id/guideline_end"
         app:layout_constraintStart_toStartOf="@+id/guideline_start" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/iv_google"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:src="@drawable/ic_google"
@@ -113,7 +115,7 @@
         app:layout_constraintTop_toTopOf="@+id/google_btn" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/iv_facebook"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:src="@drawable/ic_facebook"
@@ -123,10 +125,11 @@
         app:layout_constraintTop_toTopOf="@+id/facebook_btn" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/tv_app_slogan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="32dp"
+        android:fontFamily="@font/poppins_semibold"
         android:text="@string/cook_with_confidence"
         android:textColor="@color/white"
         android:textSize="26sp"
@@ -134,5 +137,32 @@
         app:layout_constraintBottom_toTopOf="@+id/google_btn"
         app:layout_constraintEnd_toStartOf="@+id/guideline_end"
         app:layout_constraintStart_toStartOf="@+id/guideline_start" />
+
+    <ImageView
+        android:id="@+id/iv_app_icon"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/ic_app_logo"
+        app:layout_constraintBottom_toTopOf="@+id/tv_app_slogan"
+        app:layout_constraintEnd_toStartOf="@+id/tv_app_name_title"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="@+id/guideline_start" />
+
+    <TextView
+        android:id="@+id/tv_app_name_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/poppins"
+        android:text="@string/app_name_title"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_app_icon"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_end"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/iv_app_icon"
+        app:layout_constraintTop_toTopOf="@+id/iv_app_icon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
