@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">Recipe Android</string>
 
+    <!--for facebook login-->
+    <string name="facebook_app_id">1040751190736566</string>
+    <string name="fb_login_protocol_scheme">fb1040751190736566</string>
+    <string name="facebook_client_token">77588807aea293f7870694f931e83da8</string>
+
     <string name="sign_up">Sign Up</string>
     <string name="save_delicious_recipes_and_get_personalized_content">Save delicious recipes and get personalized content.</string>
 

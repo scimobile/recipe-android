@@ -1,11 +1,13 @@
 package com.sci.recipeandroid.feature.auth.ui.screen.authentication
 
+import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.StyleSpan
 import android.text.style.UnderlineSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,10 +17,21 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
+import com.facebook.AccessToken
+import com.facebook.CallbackManager
+import com.facebook.FacebookCallback
+import com.facebook.FacebookException
 import com.sci.recipeandroid.R
 import com.sci.recipeandroid.databinding.FragmentAuthenticationOptionsBinding
 import com.sci.recipeandroid.feature.auth.ui.viewmodel.AuthOptionViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginManager
+import com.facebook.login.LoginResult
+import com.sci.recipeandroid.MainActivity
+
 
 class AuthOptionFragment : Fragment() {
 
@@ -26,6 +39,8 @@ class AuthOptionFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val authViewModel: AuthOptionViewModel by viewModel()
+
+    private lateinit var callbackManager: CallbackManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,14 +53,26 @@ class AuthOptionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         authViewModel.uiEvent.observe(viewLifecycleOwner) {
             Toast.makeText(this.context, it, Toast.LENGTH_LONG).show()
         }
         binding.googleBtn.setOnClickListener {
             authViewModel.googleAuthentication(requireActivity())
         }
+
+        // Facebook login button
+        binding.facebookBtn.setOnClickListener {
+            authViewModel.facebookLogin(this)
+        }
         textDecoration()
 
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        authViewModel.handleFacebookActivityResult(requestCode, resultCode, data)
     }
 
     private fun textDecoration() {

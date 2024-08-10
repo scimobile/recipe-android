@@ -11,10 +11,6 @@ class AuthRepositoryImpl(
         return authRemoteDataSource.googleAuthentication(token)
     }
 
-    override suspend fun facebookAuthentication(): Result<String> {
-        return authRemoteDataSource.facebookAuthentication("")
-    }
-
     override suspend fun signUp(name: String, email: String, password: String): Result<Unit> {
         return authRemoteDataSource.signUp(name, email, password)
             .map { authLocalDataSource.saveToken(it) }
@@ -23,7 +19,10 @@ class AuthRepositoryImpl(
     override suspend fun logIn(email: String, password: String): Result<Unit> {
         return authRemoteDataSource.logIn(email, password)
             .map { authLocalDataSource.saveToken(it) }
+    }
 
+    override suspend fun facebookAuthentication(token: String): Result<String> {
+        return authRemoteDataSource.facebookAuthentication(token)
     }
 
 }

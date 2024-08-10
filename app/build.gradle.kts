@@ -8,6 +8,7 @@ android {
     namespace = "com.sci.recipeandroid"
     compileSdk = 34
 
+
     defaultConfig {
         applicationId = "com.sci.recipeandroid"
         minSdk = 24
@@ -47,6 +48,7 @@ android {
     viewBinding{
         enable = true
     }
+
 }
 
 dependencies {
@@ -70,5 +72,9 @@ dependencies {
     implementation (libs.androidx.credentials)
     implementation (libs.androidx.credentials.play.services.auth)
     implementation (libs.googleid)
+
+    // Facebook SDK
+    implementation(libs.facebook.sdk)
+
     
 }
