@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fillViewport="true"
-    tools:context=".feature.onboarding.ui.fragment.PersonalizeOptionsFragment">
+    tools:context=".feature.personalize.ui.fragment.PersonalizeOptionsFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -39,7 +39,7 @@
             style="@style/CustomFont_Login_Regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="@string/lbl_skip"
+            android:text="@string/lbl_skip"
             android:textStyle="bold"
             android:textAllCaps="true"
             android:textAlignment="center"
@@ -52,7 +52,7 @@
             android:id="@+id/tvTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            tools:text="@string/personalize_option_title"
+            android:text="@string/personalize_option_title"
             android:textAllCaps="true"
             android:textAlignment="center"
             android:lines="2"
@@ -69,7 +69,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            tools:text="@string/recipe_diet_desc"
+            android:text="@string/recipe_diet_desc"
             android:layout_marginTop="@dimen/margin_medium_x_16"
             app:layout_constraintTop_toBottomOf="@id/tvTitle"
             app:layout_constraintStart_toStartOf="@id/tvTitle"
@@ -77,12 +77,15 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvRecipeDiet"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/margin_none"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/tvRecipeDiet"
             app:layout_constraintStart_toStartOf="@id/tvTitle"
             app:layout_constraintEnd_toEndOf="@id/tvTitle"
-            android:layout_marginTop="@dimen/margin_medium_x_16"/>
+            android:layout_marginTop="@dimen/margin_medium_x_16"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="4"
+            tools:listitem="@layout/item_view_diet_recipe"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvAllergiesIngredient"
@@ -90,39 +93,40 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            tools:text="@string/allergies_ingredient"
+            android:text="@string/allergies_ingredient"
             android:layout_marginTop="@dimen/margin_medium_x_30"
             app:layout_constraintTop_toBottomOf="@id/rvRecipeDiet"
             app:layout_constraintStart_toStartOf="@id/tvTitle"
             app:layout_constraintEnd_toEndOf="@id/tvTitle"/>
 
-        <com.sci.recipeandroid.feature.onboarding.customtagcontainer.TagContainerLayout
+        <com.sci.recipeandroid.feature.personalize.customtagcontainer.TagContainerLayout
             android:id="@+id/mTagAllergiesIngredient"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_medium_x_16"
             android:background="@android:color/white"
             android:minWidth="55dp"
-            app:container_background_color="#FFF"
-            app:container_border_color="#FFF"
+            app:container_background_color="@color/color_surface"
+            app:container_border_color="@color/color_surface"
             app:container_enable_drag="false"
             app:layout_constraintTop_toBottomOf="@id/tvAllergiesIngredient"
             app:layout_constraintStart_toStartOf="@id/tvTitle"
             app:layout_constraintEnd_toEndOf="@id/tvTitle"
             android:layout_marginBottom="@dimen/margin_medium_x_12"
-            app:tag_background_color="@color/color_primary"
-            app:tag_border_color="@color/color_primary"
-            app:tag_border_width="0dp"
-            app:tag_vertical_padding="@dimen/margin_medium_x_12"
+            app:tag_background_color="@color/color_surface"
+            app:tag_border_color="@color/gray"
+            app:tag_border_width="1dp"
+            app:tag_vertical_padding="@dimen/margin_medium_x_10"
+            app:tag_horizontal_padding="@dimen/margin_medium_2"
             app:tag_clickable="true"
-            app:tag_corner_radius="18dp"
+            app:tag_corner_radius="20dp"
             app:tag_max_length="50"
-            app:tag_text_color="#FFF"
+            app:tag_text_color="@color/color_text_secondary"
             app:tag_text_size="13sp"
-            app:tag_theme="none" />
+            app:tag_theme="none"/>
 
         <Button
-            android:id="@+id/btnGetStarted"
+            android:id="@+id/btnContinue"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             style="@style/CustomFont_Button_Semi_Bold"
@@ -134,7 +138,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="@dimen/margin_medium_x_16"
             android:layout_marginTop="@dimen/margin_medium_x_30"
-            android:text="@string/lbl_get_started"
+            android:text="@string/lbl_continue"
             android:paddingTop="@dimen/value_padding"
             android:backgroundTint="@color/color_primary"
             />

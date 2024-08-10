@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.sci.recipeandroid.R
 import com.sci.recipeandroid.databinding.FragmentOnboardBinding
@@ -30,6 +31,7 @@ class OnBoardFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         onBoardList.addAll(
             listOf(
                 OnBoardModel(
@@ -40,22 +42,23 @@ class OnBoardFragment: Fragment() {
                 OnBoardModel(
                     title = "Never Forget an Ingredient",
                     description = "Build your weekly grocery list and stay organized while you shop..",
-                    imagePath = R.drawable.onboard2
+                    imagePath = R.drawable.onboard3
                 ),
                 OnBoardModel(
                     title = "Your Favourite Recipes at Your Fingertips",
                     description = "Save time on planning by having your favourite recipes always within reach.",
-                    imagePath = R.drawable.onboard3
+                    imagePath = R.drawable.onboard2
                 )
             )
         )
         onBindSliderCount()
+        clickEvent()
     }
 
     private fun clickEvent() {
         binding?.apply {
             btnGetStarted.setOnClickListener {
-
+                findNavController().navigate(R.id.action_onBoardFragment_to_personalizeOptionsFragment)
             }
             btnNext.setOnClickListener {
                 currentPage++
@@ -87,7 +90,8 @@ class OnBoardFragment: Fragment() {
                 sliderDots.addView(dots[i], params)
             }
         }
-        dots[currentPage]?.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.indicator_inactive))
+
+        dots[currentPage]?.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.indicator_active))
         onBind()
 
     }
@@ -122,6 +126,7 @@ class OnBoardFragment: Fragment() {
 
             if (currentPage == totalPage) {
                 btnNext.visibility = View.INVISIBLE
+                ivlogo.visibility = View.VISIBLE
                 btnGetStarted.visibility = View.VISIBLE
             }
 

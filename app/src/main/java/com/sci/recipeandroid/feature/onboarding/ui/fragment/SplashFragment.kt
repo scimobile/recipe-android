@@ -1,6 +1,8 @@
 package com.sci.recipeandroid.feature.onboarding.ui.fragment
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,6 +38,10 @@ class SplashFragment : Fragment() {
         binding.root.setOnClickListener {
             findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToOnBoardFragment())
         }
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            findNavController().navigate(R.id.action_splashFragment_to_onBoardFragment)
+        }, 3000)
     }
 
 }

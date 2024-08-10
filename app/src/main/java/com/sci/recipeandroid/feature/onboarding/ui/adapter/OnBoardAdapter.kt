@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.sci.recipeandroid.databinding.ItemViewOnboardBinding
 import com.sci.recipeandroid.feature.onboarding.ui.model.OnBoardModel
-import com.sci.recipeandroid.feature.onboarding.ui.viewholder.OnBoardViewHolder
+import com.sci.recipeandroid.feature.personalize.ui.viewholder.OnBoardViewHolder
 
 class OnBoardAdapter: RecyclerView.Adapter<OnBoardViewHolder>() {
     private var List = emptyList<OnBoardModel>()
