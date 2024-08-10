@@ -9,8 +9,12 @@
     <string name="onboarding3_title">Your Favourite Recipes at Your Fingertips</string>
     <string name="onboarding3_text">Save time on planning by having your favourite recipes always within reach.</string>
     <string name="lbl_next">NEXT</string>
-    <string name="lbl_login">LOG IN</string>
+    <string name="lbl_login"><u>LOG IN</u></string>
+    <string name="lbl_skip"><u>SKIP</u></string>
     <string name="lbl_get_started">GET STARTED</string>
-
-
+    <string name="lbl_continue">CONTINUE</string>
+    <string name="personalize_option_title">Do you follow any of the following diets?</string>
+    <string name="recipe_diet_desc">We’ll only show you recipes for your diet.</string>
+    <string name="allergies_ingredient">Any ingredient allergies or intolerances?</string>
+    <string name="lbl_none">None</string>
 </resources>

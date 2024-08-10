@@ -30,6 +30,7 @@ kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutine
 
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
+ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "ktor" }
 ktor-content-negotation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
 ktor-kotlin-serialization = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 
@@ -45,7 +46,7 @@ nav-ui = { module = "androidx.navigation:navigation-fragment-ktx", version.ref =
 nav-fragment = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "nav_version" }
 
 [bundles]
-ktor-bundle = ["ktor-client-core", "ktor-client-okhttp", "ktor-content-negotation", "ktor-kotlin-serialization"]
+ktor-bundle = ["ktor-client-core", "ktor-client-okhttp", "ktor-content-negotation", "ktor-kotlin-serialization","ktor-client-android"]
 koin-bundle = ["koin-core", "koin-android"]
 
 [plugins]

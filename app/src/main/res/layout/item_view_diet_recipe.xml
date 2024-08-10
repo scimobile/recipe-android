@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/recipe_diet_width"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/ic_recipe_diet_bg"
+    android:id="@+id/container">
+
+    <ImageView
+        android:id="@+id/ivRecipeDiet"
+        android:layout_width="@dimen/recipe_diet_width_height"
+        android:layout_height="@dimen/recipe_diet_width_height"
+        android:src="@drawable/none"
+        android:layout_margin="5dp"/>
+
+    <TextView
+        android:id="@+id/tvRecipeDiet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lbl_none"
+        android:layout_gravity="center"/>
+
+</LinearLayout>
