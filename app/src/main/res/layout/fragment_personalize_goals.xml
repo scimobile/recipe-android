@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/margin_medium_2"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fitsSystemWindows="true">
+
+    <ImageButton
+        android:id="@+id/btn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/margin_medium_x_18"
+        android:src="@drawable/leftarrow_icon"
+        android:background="@color/color_surface"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/btn_skip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_skip"
+        android:textColor="@color/color_text_primary"
+        android:textSize="@dimen/text_small"
+        android:fontFamily="@font/jetbrains_mono_semibold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/btn_back"
+        app:layout_constraintBottom_toBottomOf="@id/btn_back"
+        android:clickable="true"/>
+
+    <View
+        android:id="@+id/v_personalize_indicator"
+        android:layout_width="@dimen/margin_none"
+        android:layout_height="@dimen/margin_card_medium"
+        android:layout_marginStart="@dimen/margin_medium_2"
+        android:layout_marginEnd="@dimen/margin_medium_2"
+        app:layout_constraintStart_toEndOf="@id/btn_back"
+        app:layout_constraintEnd_toStartOf="@id/btn_skip"
+        app:layout_constraintTop_toTopOf="@id/btn_back"
+        app:layout_constraintBottom_toBottomOf="@id/btn_back"
+        android:background="@drawable/rounded_corner"
+        android:backgroundTint="@color/color_primary"/>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_medium_3"
+        android:text="@string/title"
+        android:textAlignment="center"
+        android:textSize="@dimen/text_heading_1x"
+        android:fontFamily="@font/poppins_semi_bold"
+        app:layout_constraintTop_toBottomOf="@id/btn_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_bodyText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_medium_x_10"
+        android:text="@string/body"
+        android:textAlignment="center"
+        android:textSize="@dimen/text_regular"
+        android:fontFamily="@font/poppins_regular"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        app:layout_constraintStart_toStartOf="@id/tv_title"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <GridLayout
+        android:id="@+id/gl_personalize_goals"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_medium_3"
+        android:columnCount="2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_bodyText">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/eat_healthy"
+            android:layout_width="@dimen/margin_none"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            app:cardCornerRadius="@dimen/margin_medium_x_12"
+            app:cardElevation="@dimen/margin_small"
+            app:cardUseCompatPadding="true"
+            app:cardPreventCornerOverlap="true"
+            android:backgroundTint="@color/color_surface"
+            app:strokeColor="@color/color_primary">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/margin_medium_3">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/eat_healthy_icon" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_medium_x_10"
+                    android:text="@string/eat_healthy"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/text_small"
+                    android:textColor="@color/color_text_primary"
+                    android:fontFamily="@font/poppins_semi_bold"/>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/budget_friendly"
+            android:layout_width="@dimen/margin_none"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            app:cardCornerRadius="@dimen/margin_medium_x_12"
+            app:cardElevation="@dimen/margin_small"
+            app:cardUseCompatPadding="true"
+            app:cardPreventCornerOverlap="true"
+            android:backgroundTint="@color/color_surface"
+            app:strokeColor="@color/color_surface">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/margin_medium_3">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/budget_friendly_icon" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_medium_x_10"
+                    android:text="@string/budget_friendly"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/text_small"
+                    android:textColor="@color/color_text_primary"
+                    android:fontFamily="@font/poppins_semi_bold"/>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/plan_better"
+            android:layout_width="@dimen/margin_none"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            app:cardCornerRadius="@dimen/margin_medium_x_12"
+            app:cardElevation="@dimen/margin_small"
+            app:cardUseCompatPadding="true"
+            app:cardPreventCornerOverlap="true"
+            android:backgroundTint="@color/color_surface"
+            app:strokeColor="@color/color_surface">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/margin_medium_3">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/plan_better_icon" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_medium_x_10"
+                    android:text="@string/plan_better"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/text_small"
+                    android:textColor="@color/color_text_primary"
+                    android:fontFamily="@font/poppins_semi_bold"/>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/learn_cook"
+            android:layout_width="@dimen/margin_none"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            app:cardCornerRadius="@dimen/margin_medium_x_12"
+            app:cardElevation="@dimen/margin_small"
+            app:cardUseCompatPadding="true"
+            app:cardPreventCornerOverlap="true"
+            android:backgroundTint="@color/color_surface"
+            app:strokeColor="@color/color_surface">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/margin_medium_3">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/learn_to_cook_icon" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_medium_x_10"
+                    android:text="@string/learn_cook"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/text_small"
+                    android:textColor="@color/color_text_primary"
+                    android:fontFamily="@font/poppins_semi_bold"/>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/quick_easy"
+            android:layout_width="@dimen/margin_none"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            app:cardCornerRadius="@dimen/margin_medium_x_12"
+            app:cardElevation="@dimen/margin_small"
+            app:cardUseCompatPadding="true"
+            app:cardPreventCornerOverlap="true"
+            android:backgroundTint="@color/color_surface"
+            app:strokeColor="@color/color_surface">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/margin_medium_3">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/quick_and_easy_icon" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_medium_x_10"
+                    android:text="@string/quick_easy"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/text_small"
+                    android:textColor="@color/color_text_primary"
+                    android:fontFamily="@font/poppins_semi_bold"/>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </GridLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_continue"
+        android:layout_width="@dimen/margin_none"
+        android:layout_height="40dp"
+        android:text="@string/lbl_continue"
+        android:textSize="@dimen/text_regular"
+        android:textColor="@color/color_button_label"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:backgroundTint="@color/color_primary"
+        android:background="@drawable/rounded_corner"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

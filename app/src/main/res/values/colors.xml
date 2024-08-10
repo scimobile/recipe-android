@@ -13,4 +13,6 @@
     <color name="color_button_label">#FFFFFF</color>
     <color name="color_onboard_bg">#FDF6ED</color>
 
+    <color name="color_surface">#FFFFFF</color>
+
 </resources>
