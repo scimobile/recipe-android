@@ -16,7 +16,7 @@ class GoogleAuthenticator {
         val credentialManager = CredentialManager.create(context)
         val googleIdOption = GetGoogleIdOption.Builder()
             .setFilterByAuthorizedAccounts(false)
-            .setServerClientId("127639427576-1efh5hubhdf3tm5j6lkp6bj4cqnksvau.apps.googleusercontent.com")
+            .setServerClientId("512517043540-n2607og1tv5an2oqj179cifj2pqhtg02.apps.googleusercontent.com")
             .build()
 
         val credentialRequest = GetCredentialRequest.Builder()

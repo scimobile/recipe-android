@@ -18,6 +18,15 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs{
+        getByName("debug") {
+            storeFile = file("../keystore/coffee_debug.keystore")
+            storePassword = "coffee2024"
+            keyAlias = "key0"
+            keyPassword = "coffee2024"
+        }
+    }
+
 
     buildTypes {
         release {

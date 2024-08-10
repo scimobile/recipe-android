@@ -9,4 +9,12 @@ class FakeAuthRemoteDataSource: AuthRemoteDataSource {
         TODO("Not yet implemented")
     }
 
+    override suspend fun signUp(name: String, email: String, password: String): Result<String> {
+        return Result.success("signUpToken1234")
+    }
+
+    override suspend fun logIn(email: String, password: String): Result<String> {
+        return Result.success("loginToken123")
+    }
+
 }

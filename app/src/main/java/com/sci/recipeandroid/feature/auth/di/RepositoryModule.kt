@@ -8,6 +8,7 @@ val repositoryModule = module {
     single {
         AuthRepositoryImpl(
             authRemoteDataSource = get(),
+            authLocalDataSource = get()
         ) as AuthRepository
     }
 }

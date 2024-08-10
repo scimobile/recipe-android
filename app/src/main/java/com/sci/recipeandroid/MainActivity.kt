@@ -7,6 +7,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.sci.recipeandroid.feature.auth.data.service.GoogleAuthenticator
 import com.sci.recipeandroid.feature.auth.ui.screen.authentication.AuthOptionFragment
+import com.sci.recipeandroid.feature.auth.ui.screen.authentication.LoginFragment
+import com.sci.recipeandroid.feature.auth.ui.screen.authentication.SignUpFragment
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
@@ -26,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             // Dynamically add the fragment
             supportFragmentManager.beginTransaction()
-                .replace(R.id.host_fragment, AuthOptionFragment())
+                .replace(R.id.host_fragment, SignUpFragment())
                 .commit()
         }
 

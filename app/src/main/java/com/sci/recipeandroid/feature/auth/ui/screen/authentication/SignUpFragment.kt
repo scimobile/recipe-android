@@ -5,69 +5,88 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.updateLayoutParams
 import androidx.core.widget.addTextChangedListener
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
 import com.sci.recipeandroid.R
 import com.sci.recipeandroid.databinding.FragmentSignUpBinding
 import com.sci.recipeandroid.feature.auth.ui.viewmodel.RegistrationFormEvent
-import com.sci.recipeandroid.feature.auth.ui.viewmodel.ValidationEvent
-import com.sci.recipeandroid.feature.auth.ui.viewmodel.ValidationViewModel
+import com.sci.recipeandroid.feature.auth.ui.viewmodel.SignUpViewModel
+import com.sci.recipeandroid.feature.auth.ui.viewmodel.SignUpScreenEvent
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class SignUpFragment : Fragment() {
 
-    private var binding: FragmentSignUpBinding? = null
+    private var _binding: FragmentSignUpBinding? = null
+    private val binding get() = _binding!!
 
-    private val validationViewModel: ValidationViewModel by viewModels()
+    private val signUpViewModel: SignUpViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentSignUpBinding.inflate(inflater, container, false)
-        getActivity()?.getWindow()?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-        return binding?.root
+    ): View {
+        _binding = FragmentSignUpBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding?.apply {
-
+        binding.apply {
             //button initial state
             btnSignUp.isEnabled = false
-            btnSignUp.setBackgroundColor(ContextCompat.getColor(requireContext(),
-                R.color.color_button_inactive))
+            btnSignUp.setBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.color_button_inactive
+                )
+            )
+            loadingIndicator.visibility = View.GONE
 
             textChangeListenerEvent()
 
             btnSignUp.setOnClickListener {
-                validationViewModel.onEvent(RegistrationFormEvent.Submit)
+                signUpViewModel.onEvent(RegistrationFormEvent.Submit)
             }
         }
 
         // Observe the form state
-        validationViewModel.state.observe(viewLifecycleOwner){ state ->
-            binding?.apply {
+        signUpViewModel.formState.observe(viewLifecycleOwner) { state ->
+            binding.apply {
+                signUpBtnVisibility(
+                    state.displayName.isNotEmpty() and
+                            state.email.isNotEmpty()
+                )
+
                 emailInputLayout.error = state.emailError
                 passwordInputLayout.error = state.passwordError
                 confirmPassInputLayout.error = state.repeatedPasswordError
             }
         }
-        // Observe validation events
-        validationViewModel.validationEvent.observe(viewLifecycleOwner) { event ->
-            when (event) {
-                is ValidationEvent.Success -> {
-                    Snackbar.make(view, "Registration Successful!", Snackbar.LENGTH_SHORT).show()
-                    // Navigate to the next screen
 
+        // Observe validation events
+        signUpViewModel.signUpScreenEvent.observe(viewLifecycleOwner) { event ->
+            when (event) {
+                is SignUpScreenEvent.Success -> {
+                    Snackbar.make(
+                        view,
+                        getString(R.string.registration_successful), Snackbar.LENGTH_SHORT
+                    ).show()
+                    // Navigate to the next screen
+                    binding.loadingIndicator.visibility = View.GONE
+                }
+
+                is SignUpScreenEvent.Error -> {
+                    Snackbar.make(
+                        view,
+                        "Something went wrong", Snackbar.LENGTH_SHORT
+                    ).show()
+                }
+
+                is SignUpScreenEvent.Loading -> {
+                    binding.loadingIndicator.visibility = View.VISIBLE
+                    binding.btnSignUp.isEnabled = false
                 }
             }
         }
@@ -75,45 +94,51 @@ class SignUpFragment : Fragment() {
     }
 
     private fun textChangeListenerEvent() {
-        binding?.apply {
+        binding.apply {
             edtName.addTextChangedListener {
-                validateEmptyField()
+                signUpViewModel.onEvent(RegistrationFormEvent.NameChanged(it.toString()))
             }
             edtEmail.addTextChangedListener {
-                validationViewModel.onEvent(RegistrationFormEvent.EmailChanged(it.toString()))
-                validationViewModel.clearEmailError()
+                signUpViewModel.onEvent(RegistrationFormEvent.EmailChanged(it.toString()))
+                signUpViewModel.clearEmailError()
                 emailInputLayout.isErrorEnabled = false
-                validateEmptyField()
             }
             edtPassword.addTextChangedListener {
-                validationViewModel.onEvent(RegistrationFormEvent.PasswordChanged(it.toString()))
-                validationViewModel.clearPasswordError()
+                signUpViewModel.onEvent(RegistrationFormEvent.PasswordChanged(it.toString()))
+                signUpViewModel.clearPasswordError()
                 passwordInputLayout.isErrorEnabled = false
-                validateEmptyField()
             }
             edtConfirmPassword.addTextChangedListener {
-                validationViewModel.onEvent(RegistrationFormEvent.RepeatedPasswordChanged(it.toString()))
-                validationViewModel.clearRepeatedPasswordError()
+                signUpViewModel.onEvent(RegistrationFormEvent.RepeatedPasswordChanged(it.toString()))
+                signUpViewModel.clearRepeatedPasswordError()
                 confirmPassInputLayout.isErrorEnabled = false
-                validateEmptyField()
             }
         }
     }
 
-    //validate empty field
-    private fun validateEmptyField() {
-        val isAnyFilledField = binding?.edtName?.text.toString().isNotBlank() &&
-                binding?.edtEmail?.text.toString().isNotBlank()
-
-        if (isAnyFilledField) {
-            binding?.btnSignUp?.isEnabled = true
-            binding?.btnSignUp?.setBackgroundColor(ContextCompat.getColor(requireContext(),
-                R.color.color_border_active))
+    private fun signUpBtnVisibility(shouldShow: Boolean) {
+        if (shouldShow) {
+            binding.btnSignUp.isEnabled = true
+            binding.btnSignUp.setBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.color_border_active
+                )
+            )
         } else {
-            binding?.btnSignUp?.isEnabled = false
-            binding?.btnSignUp?.setBackgroundColor(ContextCompat.getColor(requireContext(),
-                R.color.color_button_inactive))
+            binding.btnSignUp.isEnabled = false
+            binding.btnSignUp.setBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.color_button_inactive
+                )
+            )
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }
