@@ -31,17 +31,6 @@ class AuthOptionFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-//        WindowCompat.setDecorFitsSystemWindows(requireActivity().window, true)
-//        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _view, windowInsets ->
-//            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
-//            _view.updateLayoutParams<ViewGroup.MarginLayoutParams> {
-//                // Push all content below the top system status bar
-//                topMargin = 0
-//                // Push all content to the right of the right system status bar
-//                bottomMargin = 0
-//            }
-//            WindowInsetsCompat.CONSUMED
-//        }
         _binding = FragmentAuthenticationOptionsBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -81,7 +70,7 @@ class AuthOptionFragment : Fragment() {
             privacyStart, privacyEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         spannablePrivacyString.setSpan(UnderlineSpan(),
             termsOfUseStart, termsOfUseEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        binding?.tvPrivacyNotice?.text = spannablePrivacyString
+        binding.tvPrivacyNotice.text = spannablePrivacyString
 
         // Underline only "Log in"
         val alreadyLogInString = getString(R.string.already_have_an_account)
@@ -94,7 +83,7 @@ class AuthOptionFragment : Fragment() {
             logInEnd,
             Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
         )
-        binding?.btnTvLogIn?.text = spannableStringForAlreadyLogIn
+        binding.btnTvLogIn.text = spannableStringForAlreadyLogIn
 
     }
 

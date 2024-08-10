@@ -41,15 +41,6 @@ class AuthOptionViewModel(
                         )
                     }
                 )
-//            authRepository.googleAuthentication(context = context)
-//                .fold(
-//                    onSuccess = {
-//                        _uiEvent.postValue("")
-//                    },
-//                    onFailure = {
-//                        _uiEvent.postValue(it.localizedMessage ?: "An Unknown Error Occurred")
-//                    }
-//                )
         }
     }
 }
