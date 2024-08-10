@@ -6,7 +6,7 @@ class AuthRemoteDataSourceImpl(): AuthRemoteDataSource {
     }
 
     override suspend fun facebookAuthentication(token: String): Result<String> {
-        return Result.success("`")
+        return Result.success(token)
     }
 
     override suspend fun signUp(name: String, email: String, password: String): Result<String> {

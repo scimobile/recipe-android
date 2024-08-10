@@ -13,7 +13,8 @@ val viewModelModule = module {
     viewModel {
         AuthOptionViewModel(
             authRepository = get(),
-            googleAuthenticator = get()
+            googleAuthenticator = get(),
+            facebookAuthenticator = get()
         )
     }
     viewModel {
