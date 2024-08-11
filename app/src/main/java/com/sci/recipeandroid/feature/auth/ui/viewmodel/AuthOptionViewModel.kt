@@ -7,11 +7,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.facebook.CallbackManager
-import com.facebook.FacebookCallback
-import com.facebook.FacebookException
-import com.facebook.login.LoginManager
-import com.facebook.login.LoginResult
 import com.sci.recipeandroid.feature.auth.data.service.FacebookAuthenticator
 import com.sci.recipeandroid.feature.auth.data.service.GoogleAuthenticator
 import com.sci.recipeandroid.feature.auth.domain.repository.AuthRepository
@@ -59,14 +54,14 @@ class AuthOptionViewModel(
 
     fun facebookLogin(fragment: Fragment){
         facebookAuthenticator.facebookLogin(fragment = fragment,
-            onSuccess = {
-                facebookAuthentication()
+            onSuccess = { accessToken ->
+                facebookAuthentication(accessToken)
             },
             onCancel = {
-                _uiEvent.postValue("User Cancelled")
+                _uiEvent.postValue("Facebook Authentication Cancelled")
             },
             onError = {
-                _uiEvent.postValue("Error")
+                _uiEvent.postValue(it.localizedMessage ?: "Something went wrong")
             })
     }
 
@@ -78,19 +73,11 @@ class AuthOptionViewModel(
         )
 
     }
-    private fun facebookAuthentication() {
+    private fun facebookAuthentication(accessToken: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            facebookAuthenticator.onAuthentication().fold(
-                onSuccess = {
-                    authRepository.facebookAuthentication(it).fold(
-                        onSuccess = { token ->
-                            Log.d("AuthOptionViewModel","Token - $token" )
-                            _uiEvent.postValue("Facebook login successful")
-                        },
-                        onFailure = {
-                            _uiEvent.postValue(it.localizedMessage ?: "Something went wrong")
-                        }
-                    )
+            authRepository.facebookAuthentication(accessToken).fold(
+                onSuccess = { token ->
+                    _uiEvent.postValue(token)
                 },
                 onFailure = {
                     _uiEvent.postValue(it.localizedMessage ?: "Something went wrong")

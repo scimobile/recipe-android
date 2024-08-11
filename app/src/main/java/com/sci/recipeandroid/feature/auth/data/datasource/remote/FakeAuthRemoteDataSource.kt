@@ -6,7 +6,7 @@ class FakeAuthRemoteDataSource: AuthRemoteDataSource {
     }
 
     override suspend fun facebookAuthentication(token: String): Result<String> {
-        return Result.success(token)
+        return Result.success("Success")
     }
 
     override suspend fun signUp(name: String, email: String, password: String): Result<String> {
