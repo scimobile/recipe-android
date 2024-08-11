@@ -13,27 +13,15 @@ class FacebookAuthenticator {
 
     private val callbackManager: CallbackManager = CallbackManager.Factory.create()
 
-    suspend fun onAuthentication(): Result<String> {
-        val accessToken = AccessToken.getCurrentAccessToken()
-        return try {
-            if(accessToken != null && !accessToken.isExpired){
-                Result.success(accessToken.token)
-            } else {
-                Result.failure(Exception("Facebook access token is invalid or expired"))
-            }
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
-    }
     fun handleFacebookActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         callbackManager.onActivityResult(requestCode, resultCode, data)
     }
 
     fun facebookLogin(
         fragment: Fragment,
-        onSuccess:() -> Unit,
+        onSuccess:(String) -> Unit,
         onCancel:() -> Unit,
-        onError:() -> Unit
+        onError:(FacebookException) -> Unit
         ) {
         LoginManager.getInstance().logInWithReadPermissions(
             fragment,
@@ -42,7 +30,7 @@ class FacebookAuthenticator {
         LoginManager.getInstance().registerCallback(callbackManager, object :
             FacebookCallback<LoginResult> {
             override fun onSuccess(result: LoginResult) {
-                onSuccess()
+                onSuccess(result.accessToken.token)
             }
 
             override fun onCancel() {
@@ -50,7 +38,7 @@ class FacebookAuthenticator {
             }
 
             override fun onError(error: FacebookException) {
-               onError()
+               onError(error)
             }
         })
     }
