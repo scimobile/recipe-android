@@ -49,6 +49,13 @@ android {
         enable = true
     }
 
+
+    kapt {
+        arguments {
+            arg("room.schemaLocation", "$projectDir/schemas")
+        }
+    }
+
 }
 
 dependencies {
@@ -76,5 +83,11 @@ dependencies {
     // Facebook SDK
     implementation(libs.facebook.sdk)
 
-    
+    //room set up
+    kapt(libs.androidx.room.runtime)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.room.ktx)
+    annotationProcessor(libs.androidx.room.compiler)
+
+
 }
