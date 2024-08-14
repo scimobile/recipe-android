@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/card_diet_recipe"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:strokeColor="@color/color_surface"
+    app:cardElevation="@dimen/margin_small"
+    app:cardCornerRadius="@dimen/margin_medium_x_12"
+    app:cardUseCompatPadding="true"
+    app:cardPreventCornerOverlap="true"
+    app:cardBackgroundColor="@color/color_surface">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_card_medium"
+        android:orientation="vertical"
+        android:id="@+id/container">
+
+        <ImageView
+            android:id="@+id/ivRecipeDiet"
+            android:layout_width="@dimen/recipe_diet_width_height"
+            android:layout_height="@dimen/recipe_diet_width_height"
+            android:scaleType="fitXY"
+            android:src="@drawable/none"/>
+
+        <TextView
+            android:id="@+id/tvRecipeDiet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lbl_none"
+            android:layout_gravity="center"
+            android:paddingTop="@dimen/margin_medium"
+            style="@style/CustomFont_Small_Semi_Bold"/>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
+

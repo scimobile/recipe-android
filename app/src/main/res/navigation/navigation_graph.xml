@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.sci.recipeandroid.feature.onboarding.ui.fragment.SplashFragment"
+        android:label="fragment_first"
+        tools:layout="@layout/fragment_splash" >
+        <action
+            android:id="@+id/action_splashFragment_to_onBoardFragment"
+            app:destination="@id/onBoardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/onBoardFragment"
+        android:name="com.sci.recipeandroid.feature.onboarding.ui.fragment.OnBoardFragment"
+        android:label="OnBoardFragment"
+        tools:layout="@layout/item_view_onboard">
+
+        <argument
+            android:name="onboardStep"
+            app:argType="integer"
+            android:defaultValue="1" />
+        <action
+            android:id="@+id/action_onboardFragment_to_nextOnboardFragment"
+            app:destination="@id/onBoardFragment">
+            <argument
+                android:name="onboardStep"
+                app:argType="integer"
+                android:defaultValue="2" />
+        </action>
+        <action
+            android:id="@+id/action_onBoardFragment_to_personalizeOptionsFragment"
+            app:destination="@id/personalizeOptionsFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/personalizeOptionsFragment"
+        android:name="com.sci.recipeandroid.feature.personalize.ui.fragment.PersonalizeOptionsFragment"
+        android:label="fragment_personalize_options"
+        tools:layout="@layout/fragment_personalize_options" >
+        <action
+            android:id="@+id/action_personalizeOptionsFragment_to_personalizeGoalsFragment"
+            app:destination="@id/personalizeGoalsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/personalizeGoalsFragment"
+        android:name="com.sci.recipeandroid.feature.personalize.ui.fragment.PersonalizeGoalsFragment"
+        android:label="PersonalizeGoalsFragment" >
+        <action
+            android:id="@+id/action_personalizeGoalsFragment_to_personalizeOptionsFragment"
+            app:destination="@id/personalizeOptionsFragment" />
+        <action
+            android:id="@+id/action_personalizeGoalsFragment_to_nextFragment"
+            app:destination="@id/nextFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/nextFragment"
+        android:name="com.sci.recipeandroid.feature.personalize.ui.fragment.NextFragment"
+        android:label="NextFragment" />
+
+
+</navigation>

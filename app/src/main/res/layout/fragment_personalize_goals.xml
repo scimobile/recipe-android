@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="@dimen/margin_medium_2"
+    android:layout_margin="@dimen/margin_medium_2"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fitsSystemWindows="true">
+
+    <ProgressBar
+        android:id="@+id/loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/margin_medium_x_18"
+        android:src="@drawable/leftarrow_icon"
+        android:background="@color/color_surface"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/btn_skip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_skip"
+        android:textColor="@color/color_text_primary"
+        android:textSize="@dimen/text_small"
+        android:fontFamily="@font/jetbrains_mono_semibold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/btn_back"
+        app:layout_constraintBottom_toBottomOf="@id/btn_back"
+        android:clickable="true"/>
+
+    <View
+        android:id="@+id/v_personalize_indicator"
+        android:layout_width="@dimen/margin_none"
+        android:layout_height="@dimen/margin_card_medium"
+        android:layout_marginStart="@dimen/margin_medium_2"
+        android:layout_marginEnd="@dimen/margin_medium_2"
+        app:layout_constraintStart_toEndOf="@id/btn_back"
+        app:layout_constraintEnd_toStartOf="@id/btn_skip"
+        app:layout_constraintTop_toTopOf="@id/btn_back"
+        app:layout_constraintBottom_toBottomOf="@id/btn_back"
+        android:background="@drawable/rounded_corner"
+        android:backgroundTint="@color/color_primary"/>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_medium_3"
+        android:text="@string/title"
+        android:textAlignment="center"
+        android:textSize="@dimen/text_heading_1x"
+        android:fontFamily="@font/poppins_semi_bold"
+        app:layout_constraintTop_toBottomOf="@id/btn_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_bodyText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_medium_x_10"
+        android:text="@string/body"
+        android:textAlignment="center"
+        android:textSize="@dimen/text_regular"
+        android:fontFamily="@font/poppins_regular"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        app:layout_constraintStart_toStartOf="@id/tv_title"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_personalizeGoals"
+        android:layout_width="@dimen/margin_none"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_medium_3"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_bodyText"
+        tools:listitem="@layout/item_view_personalize_goals"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_continue"
+        android:layout_width="@dimen/margin_none"
+        android:layout_height="40dp"
+        android:text="@string/lbl_continue"
+        android:textSize="@dimen/text_regular"
+        android:textColor="@color/color_button_label"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:backgroundTint="@color/color_btn_disable"
+        android:background="@drawable/rounded_corner"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
