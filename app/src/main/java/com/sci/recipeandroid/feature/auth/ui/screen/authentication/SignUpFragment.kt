@@ -44,7 +44,7 @@ class SignUpFragment : Fragment() {
             )
             loadingIndicator.visibility = View.GONE
 
-            textChangeListenerEvent()
+            setUpTextChangeListenerEvent()
 
             btnSignUp.setOnClickListener {
                 signUpViewModel.onEvent(RegistrationFormEvent.Submit)
@@ -93,7 +93,7 @@ class SignUpFragment : Fragment() {
 
     }
 
-    private fun textChangeListenerEvent() {
+    private fun setUpTextChangeListenerEvent() {
         binding.apply {
             edtName.addTextChangedListener {
                 signUpViewModel.onEvent(RegistrationFormEvent.NameChanged(it.toString()))

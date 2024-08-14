@@ -7,30 +7,17 @@ import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.StyleSpan
 import android.text.style.UnderlineSpan
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
-import com.facebook.AccessToken
-import com.facebook.CallbackManager
-import com.facebook.FacebookCallback
-import com.facebook.FacebookException
 import com.sci.recipeandroid.R
 import com.sci.recipeandroid.databinding.FragmentAuthenticationOptionsBinding
 import com.sci.recipeandroid.feature.auth.ui.viewmodel.AuthOptionViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
-import com.facebook.login.LoginManager
-import com.facebook.login.LoginResult
-import com.sci.recipeandroid.MainActivity
+import com.sci.recipeandroid.util.setOneTimeClickListener
 
 
 class AuthOptionFragment : Fragment() {
@@ -39,8 +26,6 @@ class AuthOptionFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val authViewModel: AuthOptionViewModel by viewModel()
-
-    private lateinit var callbackManager: CallbackManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,17 +40,26 @@ class AuthOptionFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         authViewModel.uiEvent.observe(viewLifecycleOwner) {
-            Toast.makeText(this.context, it, Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
         }
-        binding.googleBtn.setOnClickListener {
-            authViewModel.googleAuthentication(requireActivity())
+        binding.googleBtn.setOneTimeClickListener {
+            authViewModel.loginSignUpWithGoogle(requireActivity())
         }
 
         // Facebook login button
-        binding.facebookBtn.setOnClickListener {
-            authViewModel.facebookLogin(this)
+        binding.facebookBtn.setOneTimeClickListener {
+            authViewModel.loginWithFacebook(this)
         }
-        textDecoration()
+
+        //Email login button
+        binding.signupWithEmailBtn.setOneTimeClickListener {
+            requireActivity().supportFragmentManager
+                .beginTransaction()
+                .addToBackStack("AuthOptions")
+                .replace(R.id.host_fragment, SignUpFragment())
+                .commit()
+        }
+        setUpTextDecoration()
 
     }
 
@@ -75,7 +69,7 @@ class AuthOptionFragment : Fragment() {
         authViewModel.handleFacebookActivityResult(requestCode, resultCode, data)
     }
 
-    private fun textDecoration() {
+    private fun setUpTextDecoration() {
         //app title bold
         val fullText = getString(R.string.app_name_title)
         val spannableString = SpannableString(fullText)
@@ -84,7 +78,7 @@ class AuthOptionFragment : Fragment() {
         spannableString.setSpan(
             StyleSpan(Typeface.BOLD), chefStart, chefEnd,
             Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        binding?.tvAppNameTitle?.text = spannableString
+        binding.tvAppNameTitle.text = spannableString
 
         //Underline only privacy notice & Terms of Use
         val privacyToUString = getString(R.string.privacy_notice_terms_of_use_string)

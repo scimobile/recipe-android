@@ -2,7 +2,7 @@ package com.sci.recipeandroid.feature.auth.ui.viewmodel
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
+import androidx.credentials.exceptions.GetCredentialCancellationException
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
@@ -10,49 +10,50 @@ import androidx.lifecycle.viewModelScope
 import com.sci.recipeandroid.feature.auth.data.service.FacebookAuthenticator
 import com.sci.recipeandroid.feature.auth.data.service.GoogleAuthenticator
 import com.sci.recipeandroid.feature.auth.domain.repository.AuthRepository
+import com.sci.recipeandroid.util.MyCustomContext
 import com.sci.recipeandroid.util.SingleLiveEvent
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlin.coroutines.coroutineContext
 
 class AuthOptionViewModel(
     private val authRepository: AuthRepository,
     private val googleAuthenticator: GoogleAuthenticator,
     private val facebookAuthenticator: FacebookAuthenticator,
 ) : ViewModel() {
-
-
-    
     private val _uiEvent = SingleLiveEvent<String>()
     val uiEvent: LiveData<String> = _uiEvent
 
-    fun googleAuthentication(context: Context) {
-        viewModelScope.launch(Dispatchers.IO) {
-            googleAuthenticator.onAuthenticate(context)
+    fun loginSignUpWithGoogle(context: Context) {
+        viewModelScope.launch(MyCustomContext(context)) {
+            googleAuthenticator.generateGoogleToken()
                 .fold(
                     onSuccess = {
-                        authRepository.googleAuthentication(it)
+                        authRepository.authenticateWithGoogle(it)
                             .fold(
                                 onSuccess = { success: String ->
                                     _uiEvent.postValue(success)
                                 },
-                                onFailure = { backError: Throwable ->
+                                onFailure = { error: Throwable ->
                                     _uiEvent.postValue(
-                                        backError.localizedMessage ?: "An Unknown Error Occurred"
+                                        error.localizedMessage ?: "An Unknown Error Occurred"
                                     )
                                 }
                             )
                     },
-                    onFailure = {
-                        _uiEvent.postValue(
-                            it.localizedMessage
-                                ?: "An Unknown Error Occurred"
-                        )
+                    onFailure = { error:Throwable ->
+                        if (error !is GetCredentialCancellationException) {
+                            _uiEvent.postValue(
+                                error.localizedMessage
+                                    ?: "An Unknown Error Occurred"
+                            )
+                        }
+
                     }
                 )
         }
     }
 
-    fun facebookLogin(fragment: Fragment){
+    fun loginWithFacebook(fragment: Fragment) {
         facebookAuthenticator.facebookLogin(fragment = fragment,
             onSuccess = { accessToken ->
                 facebookAuthentication(accessToken)
@@ -65,7 +66,7 @@ class AuthOptionViewModel(
             })
     }
 
-    fun handleFacebookActivityResult(requestCode: Int, resultCode: Int, data: Intent?){
+    fun handleFacebookActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         facebookAuthenticator.handleFacebookActivityResult(
             resultCode = resultCode,
             requestCode = requestCode,
@@ -74,8 +75,8 @@ class AuthOptionViewModel(
 
     }
     private fun facebookAuthentication(accessToken: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            authRepository.facebookAuthentication(accessToken).fold(
+        viewModelScope.launch {
+            authRepository.authenticateWithFacebook(accessToken).fold(
                 onSuccess = { token ->
                     _uiEvent.postValue(token)
                 },
