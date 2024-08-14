@@ -53,6 +53,14 @@
         <action
             android:id="@+id/action_personalizeGoalsFragment_to_personalizeOptionsFragment"
             app:destination="@id/personalizeOptionsFragment" />
+        <action
+            android:id="@+id/action_personalizeGoalsFragment_to_nextFragment"
+            app:destination="@id/nextFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/nextFragment"
+        android:name="com.sci.recipeandroid.feature.personalize.ui.fragment.NextFragment"
+        android:label="NextFragment" />
+
 
 </navigation>

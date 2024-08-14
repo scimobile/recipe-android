@@ -12,66 +12,51 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.sci.recipeandroid.R
 import com.sci.recipeandroid.databinding.FragmentOnboardBinding
-import com.sci.recipeandroid.feature.onboarding.ui.model.OnBoardModel
+import com.sci.recipeandroid.feature.onboarding.data.OnBoardListProvider
+import com.sci.recipeandroid.feature.onboarding.ui.model.OnBoardUiModel
 
 class OnBoardFragment: Fragment() {
-    private var binding: FragmentOnboardBinding? = null
-    private var onBoardList = mutableListOf<OnBoardModel>()
-    val dots = arrayOfNulls<ImageView>(3)
-    var currentPage = 0
+    private var _binding: FragmentOnboardBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var onBoardList: List<OnBoardUiModel>
+    private val dots = arrayOfNulls<ImageView>(3)
+    private var currentPage = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentOnboardBinding.inflate(inflater, container, false)
-        return binding?.root
+    ): View {
+        _binding = FragmentOnboardBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        onBoardList.addAll(
-            listOf(
-                OnBoardModel(
-                    title = "Personalized Recipe Discovery",
-                    description = "Tell us your food preferences and we’ll only serve you delicious recipes ideas.",
-                    imagePath = R.drawable.onboard1
-                ),
-                OnBoardModel(
-                    title = "Never Forget an Ingredient",
-                    description = "Build your weekly grocery list and stay organized while you shop..",
-                    imagePath = R.drawable.onboard3
-                ),
-                OnBoardModel(
-                    title = "Your Favourite Recipes at Your Fingertips",
-                    description = "Save time on planning by having your favourite recipes always within reach.",
-                    imagePath = R.drawable.onboard2
-                )
-            )
-        )
+        // Get the onboard list from OnBoardListProvider
+        onBoardList = OnBoardListProvider().getOnBoardList()
         onBindSliderCount()
-        clickEvent()
+        setUpClickEvent()
     }
 
-    private fun clickEvent() {
-        binding?.apply {
+    private fun setUpClickEvent() {
+        binding.apply {
             btnGetStarted.setOnClickListener {
                 findNavController().navigate(R.id.action_onBoardFragment_to_personalizeOptionsFragment)
             }
             btnNext.setOnClickListener {
-                currentPage++
-                onBind()
+                if (currentPage < onBoardList.size - 1) {
+                    currentPage++
+                    onBind()
+                }
             }
         }
     }
 
     private fun onBindSliderCount() {
         val dotsCount = onBoardList.size
-        binding?.apply {
-            sliderDots.removeAllViews()
-        }
+        binding.sliderDots.removeAllViews()
 
         for (i in 0 until dotsCount) {
             dots[i] = ImageView(requireContext())
@@ -86,14 +71,11 @@ class OnBoardFragment: Fragment() {
                 LinearLayout.LayoutParams.WRAP_CONTENT
             )
             params.setMargins(8, 0, 8, 0)
-            binding?.apply {
-                sliderDots.addView(dots[i], params)
-            }
+            binding.sliderDots.addView(dots[i], params)
         }
 
         dots[currentPage]?.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.indicator_active))
         onBind()
-
     }
 
     private fun onBind() {
@@ -112,8 +94,9 @@ class OnBoardFragment: Fragment() {
                 R.drawable.indicator_active
             )
         )
-        binding?.apply {
-            val data = onBoardList[currentPage]
+
+        val data = onBoardList[currentPage]
+        binding.apply {
             data.imagePath?.let {
                 Glide.with(requireContext())
                     .load(it)
@@ -128,14 +111,16 @@ class OnBoardFragment: Fragment() {
                 btnNext.visibility = View.INVISIBLE
                 ivlogo.visibility = View.VISIBLE
                 btnGetStarted.visibility = View.VISIBLE
+            } else {
+                btnNext.visibility = View.VISIBLE
+                ivlogo.visibility = View.INVISIBLE
+                btnGetStarted.visibility = View.INVISIBLE
             }
-
-
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        binding = null
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

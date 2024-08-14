@@ -29,13 +29,13 @@
             android:layout_height="wrap_content"
             android:background="@drawable/line_options"
             android:layout_marginHorizontal="@dimen/margin_medium_x_14"
-            app:layout_constraintTop_toTopOf="@id/tvSkip"
+            app:layout_constraintTop_toTopOf="@id/btnSkip"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/tvSkip"
-            app:layout_constraintBottom_toBottomOf="@id/tvSkip"/>
+            app:layout_constraintEnd_toStartOf="@id/btnSkip"
+            app:layout_constraintBottom_toBottomOf="@id/btnSkip"/>
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvSkip"
+            android:id="@+id/btnSkip"
             style="@style/CustomFont_Login_Regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -59,7 +59,7 @@
             android:layout_marginTop="@dimen/margin_medium_x_16"
             android:layout_marginHorizontal="@dimen/margin_medium_x_16"
             style="@style/CustomFont_Black_Semi_Bold"
-            app:layout_constraintTop_toBottomOf="@id/tvSkip"
+            app:layout_constraintTop_toBottomOf="@id/btnSkip"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -80,9 +80,10 @@
             android:layout_width="@dimen/margin_none"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/tvRecipeDiet"
-            app:layout_constraintStart_toStartOf="@id/tvTitle"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="@id/tvTitle"
             android:layout_marginTop="@dimen/margin_medium_x_16"
+            android:layout_marginStart="@dimen/margin_medium_x_10"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="4"
             tools:listitem="@layout/item_view_diet_recipe"/>
@@ -103,27 +104,29 @@
             android:id="@+id/mTagAllergiesIngredient"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_medium_x_16"
+            android:layout_marginTop="20dp"
             android:background="@android:color/white"
             android:minWidth="55dp"
-            app:container_background_color="@color/color_surface"
-            app:container_border_color="@color/color_surface"
+            app:container_background_color="@color/white"
+            app:container_border_color="@color/white"
             app:container_enable_drag="false"
-            app:layout_constraintTop_toBottomOf="@id/tvAllergiesIngredient"
-            app:layout_constraintStart_toStartOf="@id/tvTitle"
+            app:horizontal_interval="@dimen/margin_medium_x_12"
             app:layout_constraintEnd_toEndOf="@id/tvTitle"
-            android:layout_marginBottom="@dimen/margin_medium_x_12"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@id/tvTitle"
+            app:layout_constraintTop_toBottomOf="@id/tvAllergiesIngredient"
             app:tag_background_color="@color/color_surface"
             app:tag_border_color="@color/gray"
             app:tag_border_width="1dp"
-            app:tag_vertical_padding="@dimen/margin_medium_x_10"
-            app:tag_horizontal_padding="@dimen/margin_medium_2"
             app:tag_clickable="true"
             app:tag_corner_radius="20dp"
+            app:tag_horizontal_padding="@dimen/margin_medium_2"
             app:tag_max_length="50"
             app:tag_text_color="@color/color_text_secondary"
             app:tag_text_size="13sp"
-            app:tag_theme="none"/>
+            app:tag_theme="none"
+            app:tag_vertical_padding="@dimen/margin_medium_x_10"
+            app:vertical_interval="@dimen/margin_medium_x_12" />
 
         <Button
             android:id="@+id/btnContinue"
@@ -140,7 +143,7 @@
             android:layout_marginTop="@dimen/margin_medium_x_30"
             android:text="@string/lbl_continue"
             android:paddingTop="@dimen/value_padding"
-            android:backgroundTint="@color/color_primary"
+            android:backgroundTint="@color/color_btn_disable"
             />
 
 

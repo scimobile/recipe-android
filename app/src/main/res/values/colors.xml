@@ -15,4 +15,6 @@
 
     <color name="color_surface">#FFFFFF</color>
 
+    <color name="color_btn_disable">#D8DBDF</color>
+
 </resources>

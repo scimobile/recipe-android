@@ -25,4 +25,7 @@
     <string name="title">What is your goal?</string>
     <string name="body">Select what’s important to you.</string>
     <string name="lbl_continue">CONTINUE</string>
+
+    <string name="drawable1">Here is my drawable: @[drawable/eat_healthy_icon]</string>
+
 </resources>

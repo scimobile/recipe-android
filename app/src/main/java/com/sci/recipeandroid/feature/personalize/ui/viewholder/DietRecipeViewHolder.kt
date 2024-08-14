@@ -7,26 +7,31 @@ import com.sci.recipeandroid.R
 import com.sci.recipeandroid.databinding.ItemViewDietRecipeBinding
 import com.sci.recipeandroid.feature.personalize.domain.model.DietRecipeModel
 
-class DietRecipeViewHolder(private val binding: ItemViewDietRecipeBinding,private val onClickItem: (Int) -> Unit) : RecyclerView.ViewHolder(binding.root) {
+class DietRecipeViewHolder(
+    private val binding: ItemViewDietRecipeBinding,
+    private val onClickItem: (Boolean) -> Unit
+) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(model: DietRecipeModel, isSelected: Boolean) {
         binding.apply {
             tvRecipeDiet.text = model.name
             Glide.with(itemView.context)
                 .load(model.imageUrl)
-        }
+                .error(R.drawable.none)
+                .into(ivRecipeDiet)
 
-        if (isSelected) {
-            binding.cardDietRecipe.strokeColor = ContextCompat.getColor(itemView.context, R.color.color_primary)
-        } else {
-            binding.cardDietRecipe.strokeColor = ContextCompat.getColor(itemView.context, R.color.color_surface)
+            cardDietRecipe.strokeColor = if (isSelected) {
+                ContextCompat.getColor(itemView.context, R.color.color_primary)
+            } else {
+                ContextCompat.getColor(itemView.context, R.color.color_surface)
+            }
         }
+    }
 
+    fun setSelectionCallback(callback: () -> Unit) {
         itemView.setOnClickListener {
-
-            onClickItem(
-                adapterPosition
-            )
+            onClickItem(adapterPosition == RecyclerView.NO_POSITION)
+            callback()
         }
     }
 }

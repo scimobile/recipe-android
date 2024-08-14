@@ -13,7 +13,8 @@ data class PersonalizeResponse(
 @Serializable
 data class PersonalizeData(
     val dietRecipe:List<DietRecipe>,
-    val allergiesIngredient:List<AllergiesIngredient>
+    val allergiesIngredient:List<AllergiesIngredient>,
+    val personalizeGoals:List<PersonalizeGoals>
 )
 
 @Serializable
@@ -26,5 +27,12 @@ data class DietRecipe (
 @Serializable
 data class AllergiesIngredient (
     val id:String,
+    val name:String?
+)
+
+@Serializable
+data class PersonalizeGoals(
+    val id: Int,
+    val iconUrl:String?,
     val name:String?
 )

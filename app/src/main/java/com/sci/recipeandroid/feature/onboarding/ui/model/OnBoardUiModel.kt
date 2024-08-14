@@ -1,9 +1,9 @@
 package com.sci.recipeandroid.feature.onboarding.ui.model
 
-data class OnBoardModel(
-    var title : String ?= "",
+data class OnBoardUiModel(
+    val title : String ?= "",
 
-    var description : String ?= "",
+    val description : String ?= "",
 
     var imagePath : Int ?= 0,
 

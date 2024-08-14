@@ -5,6 +5,6 @@ import com.sci.recipeandroid.feature.personalize.data.datasource.PersonalizeRemo
 import com.sci.recipeandroid.feature.personalize.domain.model.PersonalizeDataModel
 
 
-interface PersonalizeRepository{
-    suspend fun getPersonalizeData(): Result<PersonalizeDataModel>
+class PersonalizeRepositoryImpl(private val remoteDatasource: PersonalizeRemoteDataSource) :PersonalizeRepository{
+    override suspend fun getPersonalizeData(): Result<PersonalizeDataModel> = remoteDatasource.getPersonalizeData()
 }
