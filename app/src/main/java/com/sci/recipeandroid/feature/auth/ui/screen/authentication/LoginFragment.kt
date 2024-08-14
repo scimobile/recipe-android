@@ -7,15 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
-import androidx.fragment.app.viewModels
 import com.google.android.material.snackbar.Snackbar
 import com.sci.recipeandroid.R
 import com.sci.recipeandroid.databinding.FragmentLoginBinding
 import com.sci.recipeandroid.feature.auth.ui.viewmodel.LoginFormEvent
 import com.sci.recipeandroid.feature.auth.ui.viewmodel.LoginScreenEvent
 import com.sci.recipeandroid.feature.auth.ui.viewmodel.LoginViewModel
-import com.sci.recipeandroid.feature.auth.ui.viewmodel.RegistrationFormEvent
-import com.sci.recipeandroid.feature.auth.ui.viewmodel.SignUpScreenEvent
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -46,7 +43,7 @@ class LoginFragment : Fragment() {
                 )
             )
 
-            textChangeEventListener()
+            setUpTextChangeEventListener()
 
             //region observe login form state
             loginViewModel.loginFormState.observe(viewLifecycleOwner) {
@@ -110,7 +107,7 @@ class LoginFragment : Fragment() {
 
     }
 
-    private fun textChangeEventListener() {
+    private fun setUpTextChangeEventListener() {
         binding.apply {
             edtEmail.addTextChangedListener {
                 loginViewModel.onEvent(LoginFormEvent.EmailChanged(it.toString()))

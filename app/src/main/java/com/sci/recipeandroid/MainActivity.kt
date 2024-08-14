@@ -5,12 +5,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.sci.recipeandroid.feature.auth.data.service.GoogleAuthenticator
 import com.sci.recipeandroid.feature.auth.ui.screen.authentication.AuthOptionFragment
-import com.sci.recipeandroid.feature.auth.ui.screen.authentication.LoginFragment
-import com.sci.recipeandroid.feature.auth.ui.screen.authentication.SignUpFragment
-import org.koin.android.ext.android.inject
-import org.koin.core.parameter.parametersOf
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
