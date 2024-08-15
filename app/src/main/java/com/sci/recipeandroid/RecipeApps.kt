@@ -1,6 +1,7 @@
 package com.sci.recipeandroid
 
 import android.app.Application
+import com.sci.recipeandroid.feature.auth.di.dbModule
 import com.sci.recipeandroid.feature.auth.di.localDataSourceModule
 import com.sci.recipeandroid.feature.auth.di.remoteDataSourceModule
 import com.sci.recipeandroid.feature.auth.di.repositoryModule
@@ -21,7 +22,8 @@ class RecipeApps: Application() {
                 remoteDataSourceModule,
                 repositoryModule,
                 viewModelModule,
-                localDataSourceModule
+                localDataSourceModule,
+                dbModule
             )
         }
     }

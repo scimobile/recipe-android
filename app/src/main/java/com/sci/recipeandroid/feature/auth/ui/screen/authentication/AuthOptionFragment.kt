@@ -105,7 +105,13 @@ class AuthOptionFragment : Fragment() {
             Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
         )
         binding.btnTvLogIn.text = spannableStringForAlreadyLogIn
-
+        binding.btnTvLogIn.setOneTimeClickListener {
+            requireActivity().supportFragmentManager
+                .beginTransaction()
+                .addToBackStack("AuthOptions")
+                .replace(R.id.host_fragment, LoginFragment())
+                .commit()
+        }
     }
 
     override fun onDestroyView() {
