@@ -44,27 +44,30 @@ class PersonalizeOptionsFragment : Fragment() {
             layoutManager = GridLayoutManager(requireContext(),4)
         }
 
-        personalizeViewModel.liveData.observe(viewLifecycleOwner) {
+        personalizeViewModel.uiState.observe(viewLifecycleOwner) {
             Log.d("observerState", it.toString())
             when (it) {
                 PersonalizeUiState.Loading -> {
                     binding?.loading?.visibility = View.VISIBLE
                 }
 
-                is PersonalizeUiEvent.Success -> {
+                is PersonalizeUiState.Success -> {
                     binding?.loading?.visibility = View.GONE
                     mAdatper.updateList(it.personalizeData.dietRecipe)
                     it.personalizeData.allergiesIngredient.map {
                         it.name?.let { it1 -> binding?.mTagAllergiesIngredient?.addTag(it1)}
                     }
                 }
+            }
+        }
 
+        personalizeViewModel.uiEvent.observe(viewLifecycleOwner) {
+            Log.d("observerState", it.toString())
+            when (it) {
                 is PersonalizeUiEvent.Error -> {
                     binding?.loading?.visibility = View.GONE
                     Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
                 }
-
-                else -> {}
             }
         }
 

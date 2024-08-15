@@ -18,7 +18,7 @@ fun DietRecipe.toDomainModel(): DietRecipeModel {
     return DietRecipeModel(
         id = this.id,
         name = this.name.orEmpty(),
-        imageUrl = this.imageUrl.orEmpty()
+        imageUrl = this.imageUrl
     )
 }
 
@@ -35,7 +35,7 @@ fun PersonalizeGoals.toDomainModel(): PersonalizeGoalsModel {
     return PersonalizeGoalsModel(
         id = this.id,
         name = this.name.orEmpty(),
-        iconUrl = mapIconResNameToId(this.iconUrl.orEmpty())
+        iconUrl = this.iconUrl
     )
 }
 
@@ -47,6 +47,23 @@ fun mapIconResNameToId(iconResName: String): Int {
         "plan_better_icon" -> R.drawable.plan_better_icon
         "learn_to_cook_icon" -> R.drawable.learn_to_cook_icon
         "quick_and_easy_icon" -> R.drawable.quick_and_easy_icon
+        "none_image" -> R.drawable.none
+        "vegan_image" -> R.drawable.vegan
+        "vegetarian_image" -> R.drawable.vegetarian
+        "pescatarian_image" -> R.drawable.pescatarian
+        "paleo_image" -> R.drawable.paleo
+        "low_crab_image" -> R.drawable.low_carb
+        "keto_image" -> R.drawable.keto
         else -> R.drawable.eat_healthy_icon // Use a default icon as a fallback
+    }
+}
+
+fun PersonalizeResponse.toGoalsDomainModel(): List<PersonalizeGoalsModel> {
+    return data.personalizeGoals.map {
+        PersonalizeGoalsModel(
+            id = it.id,
+            name = it.name.orEmpty(),
+            iconUrl = it.iconUrl
+        )
     }
 }

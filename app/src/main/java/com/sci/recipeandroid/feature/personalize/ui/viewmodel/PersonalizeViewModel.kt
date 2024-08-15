@@ -13,29 +13,27 @@ import kotlinx.coroutines.launch
 
 class PersonalizeViewModel(private val personalizeRepository: PersonalizeRepository) : ViewModel() {
 
-    private val _liveData = SingleLiveEvent<PersonalizeUiEvent>()
-    val liveData: LiveData<PersonalizeUiEvent> = _liveData
+    val uiEvent = SingleLiveEvent<PersonalizeUiEvent>()
 
     private val _uiState = MutableLiveData<PersonalizeUiState>()
     val uiState : LiveData<PersonalizeUiState> = _uiState
 
     private val _isDietRecipeItemSelected = MutableLiveData<Boolean>(false)
-    val isDietRecipeItemSelected: LiveData<Boolean> get() = _isDietRecipeItemSelected
+    private val isDietRecipeItemSelected: LiveData<Boolean> get() = _isDietRecipeItemSelected
 
     private val _isAllergiesIngredientItemSelected = MutableLiveData<Boolean>(false)
-    val isAllergiesIngredientItemSelected: LiveData<Boolean> get() = _isAllergiesIngredientItemSelected
+    private val isAllergiesIngredientItemSelected: LiveData<Boolean> get() = _isAllergiesIngredientItemSelected
 
     init {
-        _liveData.value = PersonalizeUiState.Loading
+        _uiState.value = PersonalizeUiState.Loading
         viewModelScope.launch {
             personalizeRepository.getPersonalizeData()
                 .fold(
                     onSuccess = {
-                        Log.d("bookList", it.toString())
-                        _liveData.value = PersonalizeUiEvent.Success(it)
+                        _uiState.value = PersonalizeUiState.Success(it)
                     },
                     onFailure = {
-                        _liveData.value = PersonalizeUiEvent.Error(
+                        uiEvent.value = PersonalizeUiEvent.Error(
                             icon = "",
                             message = it.message.toString()
                         )
@@ -68,12 +66,11 @@ class PersonalizeViewModel(private val personalizeRepository: PersonalizeReposit
 }
 
 sealed class PersonalizeUiState {
-    data object Loading : PersonalizeUiEvent()
+    data object Loading : PersonalizeUiState()
+    data class Success(val personalizeData: PersonalizeDataModel) : PersonalizeUiState()
 }
 
 sealed class PersonalizeUiEvent {
-    data class Success(val personalizeData: PersonalizeDataModel) : PersonalizeUiEvent()
-
     data class Error(
         val icon: String,
         val message: String,

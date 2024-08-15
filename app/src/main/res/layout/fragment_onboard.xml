@@ -92,7 +92,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="@dimen/margin_medium_x_30"
         android:text="@string/lbl_next"
-        android:paddingTop="@dimen/value_padding"
+        android:paddingTop="@dimen/margin_medium_x_10"
         android:layout_marginEnd="@dimen/margin_medium_x_16"
         android:backgroundTint="@color/color_primary"
         />
@@ -109,7 +109,7 @@
         android:layout_marginBottom="@dimen/margin_medium_x_30"
         android:text="@string/lbl_get_started"
         android:visibility="gone"
-        android:paddingTop="@dimen/value_padding"
+        android:paddingTop="@dimen/margin_medium_x_10"
         android:backgroundTint="@color/color_primary"
         />
 

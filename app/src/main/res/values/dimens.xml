@@ -35,8 +35,6 @@
     <dimen name="margin_large_n">-24dp</dimen>
     <dimen name="margin_xlarge_n">-32dp</dimen>
 
-    <dimen name="value_padding">10dp</dimen>
-
     <dimen name="text_smaller">10sp</dimen>
     <dimen name="text_smaller_2">11sp</dimen>
     <dimen name="text_small">12sp</dimen>

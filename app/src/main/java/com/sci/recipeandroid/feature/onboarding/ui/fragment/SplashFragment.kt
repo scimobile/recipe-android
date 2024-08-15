@@ -23,7 +23,6 @@ class SplashFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentSplashBinding.inflate(inflater, container, false)
-        // Inflate the layout for this fragment
         return binding.root
     }
 
@@ -41,7 +40,7 @@ class SplashFragment : Fragment() {
 
         Handler(Looper.getMainLooper()).postDelayed({
             findNavController().navigate(R.id.action_splashFragment_to_onBoardFragment)
-        }, 3000)
+        }, 2500)
     }
 
 }

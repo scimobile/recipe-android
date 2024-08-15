@@ -20,7 +20,7 @@ data class PersonalizeData(
 @Serializable
 data class DietRecipe (
     val id:Int,
-    val imageUrl:String?,
+    val imageUrl:Int?,
     val name:String?
 )
 
@@ -33,6 +33,6 @@ data class AllergiesIngredient (
 @Serializable
 data class PersonalizeGoals(
     val id: Int,
-    val iconUrl:String?,
+    val iconUrl:Int?,
     val name:String?
 )

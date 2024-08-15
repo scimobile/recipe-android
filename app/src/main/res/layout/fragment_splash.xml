@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
-        android:id="@+id/iv_bgImage"
+        android:id="@+id/ivBgImage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
@@ -14,7 +14,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_welcome"
+        android:id="@+id/tvWelcome"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_medium_x_10"
@@ -23,13 +23,13 @@
         android:textSize="@dimen/text_heading_2x"
         android:textStyle="bold"
         android:fontFamily="@font/poppins_bold"
-        app:layout_constraintTop_toBottomOf="@id/iv_logo"
+        app:layout_constraintTop_toBottomOf="@id/ivLogo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:visibility="invisible"/>
 
     <ImageView
-        android:id="@+id/iv_logo"
+        android:id="@+id/ivLogo"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"

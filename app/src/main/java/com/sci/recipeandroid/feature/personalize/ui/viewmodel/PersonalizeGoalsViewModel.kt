@@ -1,58 +1,59 @@
-package com.sci.recipeandroid.feature.personalize.ui.viewmodel
-
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.sci.recipeandroid.feature.personalize.domain.repository.PersonalizeGoalsFakeRepositoryImpl
+import androidx.lifecycle.viewModelScope
 import com.sci.recipeandroid.feature.personalize.domain.model.PersonalizeGoalsModel
+import com.sci.recipeandroid.feature.personalize.domain.repository.PersonalizeRepository
+import com.sci.recipeandroid.util.SingleLiveEvent
+import kotlinx.coroutines.launch
 
-class PersonalizeGoalsViewModel : ViewModel() {
+class PersonalizeGoalsViewModel(
+    private val personalizeRepository: PersonalizeRepository
+) : ViewModel() {
 
-    private val repository = PersonalizeGoalsFakeRepositoryImpl()
+
+    val uiEvent = SingleLiveEvent<PersonalizeGoalsUiEvent>()
 
     private val _uiState = MutableLiveData<PersonalizeGoalsUiState>()
-    val uiState: LiveData<PersonalizeGoalsUiState> = _uiState
+    val uiState: LiveData<PersonalizeGoalsUiState>
+        get() = _uiState
 
     private val _selectedGoal = MutableLiveData<PersonalizeGoalsModel?>()
-    val selectedGoal: LiveData<PersonalizeGoalsModel?> = _selectedGoal
+    val selectedGoal: LiveData<PersonalizeGoalsModel?>
+        get() = _selectedGoal
 
     init {
-        loadGoals()
-    }
 
-    private fun loadGoals() {
         _uiState.value = PersonalizeGoalsUiState.Loading
-        val goals = repository.getPersonalizeGoals()
-        _uiState.value = PersonalizeGoalsUiState.Success(PersonalizeGoalsUiData(goals = goals))
+        viewModelScope.launch {
+            personalizeRepository.getPersonalizeGoalsList()
+                .fold(
+                    onSuccess = {
+                        _uiState.value = PersonalizeGoalsUiState.Success(it)
+                    },
+                    onFailure = {
+                        uiEvent.value = PersonalizeGoalsUiEvent.Error(
+                            icon = "",
+                            message = it.message.toString()
+                        )
+                    }
+                )
+        }
     }
 
     fun selectGoal(goal: PersonalizeGoalsModel) {
         _selectedGoal.value = goal
     }
-
-    fun sendSelectedGoal() {
-        val goal = _selectedGoal.value
-        if (goal != null) {
-            _uiState.value = PersonalizeGoalsUiState.Loading
-
-            repository.sendSelectedGoal(goal) { result: Result<Unit> ->
-                result.onSuccess {
-                    _uiState.postValue(PersonalizeGoalsUiState.SuccessSending)
-                }.onFailure { e ->
-                    _uiState.postValue(PersonalizeGoalsUiState.Error(e.message ?: "Unknown error"))
-                }
-            }
-        } else {
-            _uiState.value = PersonalizeGoalsUiState.Error("No goal selected")
-        }
-    }
 }
 
 sealed class PersonalizeGoalsUiState {
-    object Loading : PersonalizeGoalsUiState()
-    data class Success(val personalizeData: PersonalizeGoalsUiData) : PersonalizeGoalsUiState()
-    data class Error(val message: String) : PersonalizeGoalsUiState()
-    object SuccessSending : PersonalizeGoalsUiState()
+    data object Loading : PersonalizeGoalsUiState()
+    data class Success(val personalizeGoalsList: List<PersonalizeGoalsModel>) : PersonalizeGoalsUiState()
 }
 
-data class PersonalizeGoalsUiData(val goals: List<PersonalizeGoalsModel>)
+sealed class PersonalizeGoalsUiEvent {
+    data class Error(
+        val icon: String,
+        val message: String,
+    ) : PersonalizeGoalsUiEvent()
+}

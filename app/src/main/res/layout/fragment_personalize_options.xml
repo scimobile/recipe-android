@@ -142,7 +142,7 @@
             android:layout_marginBottom="@dimen/margin_medium_x_16"
             android:layout_marginTop="@dimen/margin_medium_x_30"
             android:text="@string/lbl_continue"
-            android:paddingTop="@dimen/value_padding"
+            android:paddingTop="@dimen/margin_medium_x_10"
             android:backgroundTint="@color/color_btn_disable"
             />
 

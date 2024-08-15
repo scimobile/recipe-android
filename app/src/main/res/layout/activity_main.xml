@@ -9,7 +9,7 @@
     android:background="@color/color_surface">
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fg_host"
+        android:id="@+id/fgHost"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="@dimen/margin_none"
