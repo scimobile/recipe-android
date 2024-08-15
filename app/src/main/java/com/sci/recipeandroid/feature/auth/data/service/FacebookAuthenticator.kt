@@ -34,7 +34,6 @@ class FacebookAuthenticator {
             }
 
             override fun onCancel() {
-               onCancel()
             }
 
             override fun onError(error: FacebookException) {

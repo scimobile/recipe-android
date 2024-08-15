@@ -13,6 +13,7 @@ import com.sci.recipeandroid.databinding.FragmentSignUpBinding
 import com.sci.recipeandroid.feature.auth.ui.viewmodel.RegistrationFormEvent
 import com.sci.recipeandroid.feature.auth.ui.viewmodel.SignUpViewModel
 import com.sci.recipeandroid.feature.auth.ui.viewmodel.SignUpScreenEvent
+import com.sci.recipeandroid.util.setOneTimeClickListener
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -46,7 +47,7 @@ class SignUpFragment : Fragment() {
 
             setUpTextChangeListenerEvent()
 
-            btnSignUp.setOnClickListener {
+            btnSignUp.setOneTimeClickListener {
                 signUpViewModel.onEvent(RegistrationFormEvent.Submit)
             }
         }

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.sci.recipeandroid.feature.auth.ui.screen.authentication.AuthOptionFragment
+import com.sci.recipeandroid.feature.auth.ui.screen.authentication.SignUpFragment
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             // Dynamically add the fragment
             supportFragmentManager.beginTransaction()
-                .replace(R.id.host_fragment, SignUpFragment())
+                .replace(R.id.host_fragment, AuthOptionFragment())
                 .commit()
         }
 

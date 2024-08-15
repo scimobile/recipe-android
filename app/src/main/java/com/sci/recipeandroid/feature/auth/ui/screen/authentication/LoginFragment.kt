@@ -13,6 +13,7 @@ import com.sci.recipeandroid.databinding.FragmentLoginBinding
 import com.sci.recipeandroid.feature.auth.ui.viewmodel.LoginFormEvent
 import com.sci.recipeandroid.feature.auth.ui.viewmodel.LoginScreenEvent
 import com.sci.recipeandroid.feature.auth.ui.viewmodel.LoginViewModel
+import com.sci.recipeandroid.util.setOneTimeClickListener
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -21,7 +22,7 @@ class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
 
-    private val loginViewModel: LoginViewModel by viewModel()
+    private val loginViewModel :LoginViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -98,7 +99,7 @@ class LoginFragment : Fragment() {
             }
             //endregion
 
-            btnLogin.setOnClickListener {
+            btnLogin.setOneTimeClickListener {
                 loginViewModel.onEvent(LoginFormEvent.Submit)
             }
 

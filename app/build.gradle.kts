@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     id("org.jetbrains.kotlin.plugin.serialization") version ("1.9.22")
+    kotlin("kapt")
 }
 
 android {
@@ -84,9 +85,10 @@ dependencies {
     implementation(libs.facebook.sdk)
 
     //room set up
-    kapt(libs.androidx.room.runtime)
-    implementation(libs.androidx.lifecycle.livedata.ktx)
+    //noinspection KaptUsageInsteadOfKsp
+    kapt(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
     annotationProcessor(libs.androidx.room.compiler)
 
 
