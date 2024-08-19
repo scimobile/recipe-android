@@ -1,6 +1,7 @@
 package com.sci.recipeandroid.feature.personalize.ui.fragment
 
 import PersonalizeGoalsUiEvent
+import PersonalizeGoalsUiState
 import PersonalizeGoalsViewModel
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,13 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import com.sci.recipeandroid.R
 import com.sci.recipeandroid.databinding.FragmentPersonalizeGoalsBinding
 import com.sci.recipeandroid.feature.personalize.ui.adapter.PersonalizeGoalsAdapter
-import com.sci.recipeandroid.util.exhaustive
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PersonalizeGoalsFragment : Fragment() {
@@ -41,22 +39,22 @@ class PersonalizeGoalsFragment : Fragment() {
             findNavController().navigate(R.id.action_personalizeGoalsFragment_to_nextFragment)
         }
 
-        binding?.btnContinue?.setOnClickListener {
-            findNavController().navigate(R.id.action_personalizeGoalsFragment_to_nextFragment)
-        }
-
-        personlizeGoalsAdapter = PersonalizeGoalsAdapter(onClickItem = { selectedGoal ->
-            personalizeGoalsViewModel.selectGoal(selectedGoal)
+        personlizeGoalsAdapter = PersonalizeGoalsAdapter(onClickItem = {
+            personalizeGoalsViewModel.selectItem(it)
         })
 
-        personalizeGoalsViewModel.uiState.observe(viewLifecycleOwner) { uiState ->
-            when (uiState) {
-                is PersonalizeGoalsUiState.Loading -> {
+        personalizeGoalsViewModel.uiState.observe(viewLifecycleOwner) {
+            when (it) {
+                PersonalizeGoalsUiState.Loading -> {
                     binding?.loading?.visibility = View.VISIBLE
                 }
                 is PersonalizeGoalsUiState.Success -> {
                     binding?.loading?.visibility = View.GONE
-                    personlizeGoalsAdapter.submitList(uiState.personalizeGoalsList)
+                    personlizeGoalsAdapter.updateList(it.personalizeGoalsList)
+                }
+                is PersonalizeGoalsUiState.UpdatePersonalizeGoalsList -> {
+                    binding?.loading?.visibility = View.GONE
+                    personlizeGoalsAdapter.updateList(it.items)
                 }
                 else -> {
                     binding?.loading?.visibility = View.GONE
@@ -81,12 +79,14 @@ class PersonalizeGoalsFragment : Fragment() {
 
         }
 
-        // Observe Selected Goal
-        personalizeGoalsViewModel.selectedGoal.observe(viewLifecycleOwner) { selectedGoal ->
-            if (selectedGoal != null) {
+        personalizeGoalsViewModel.selectedItem.observe(viewLifecycleOwner) { selectedItem ->
+            if (selectedItem != null) {
                 binding?.btnContinue?.isEnabled = true
                 binding?.btnContinue?.backgroundTintList =
                     requireContext().getColorStateList(R.color.color_primary)
+                binding?.btnContinue?.setOnClickListener {
+                    findNavController().navigate(R.id.action_personalizeGoalsFragment_to_nextFragment)
+                }
             } else {
                 binding?.btnContinue?.isEnabled = false
                 binding?.btnContinue?.backgroundTintList =
@@ -94,14 +94,9 @@ class PersonalizeGoalsFragment : Fragment() {
             }
         }
 
-        // Set up RecyclerView
         binding?.rvPersonalizeGoals?.apply {
             adapter = personlizeGoalsAdapter
-            layoutManager = GridLayoutManager(requireContext(), 2)
         }
-
-        // Continue Button Click Listener
-
     }
 
     override fun onDestroyView() {

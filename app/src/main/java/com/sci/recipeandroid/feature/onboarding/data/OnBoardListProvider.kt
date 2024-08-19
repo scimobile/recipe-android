@@ -14,12 +14,12 @@ class OnBoardListProvider {
             OnBoardUiModel(
                 title = "Never Forget an Ingredient",
                 description = "Build your weekly grocery list and stay organized while you shop.",
-                imagePath = R.drawable.onboard3
+                imagePath = R.drawable.onboard2
             ),
             OnBoardUiModel(
                 title = "Your Favourite Recipes at Your Fingertips",
                 description = "Save time on planning by having your favourite recipes always within reach.",
-                imagePath = R.drawable.onboard2
+                imagePath = R.drawable.onboard3
             )
         )
     }

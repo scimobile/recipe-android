@@ -3,20 +3,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.sci.recipeandroid.R
 import com.sci.recipeandroid.databinding.ItemViewPersonalizeGoalsBinding
-import com.sci.recipeandroid.feature.personalize.domain.model.PersonalizeGoalsModel
+import com.sci.recipeandroid.feature.personalize.ui.model.PersonalizeGoalsUiModel
 
 class PersonalizeGoalsViewHolder(
     private val binding: ItemViewPersonalizeGoalsBinding,
-    private val onClickItem: (PersonalizeGoalsModel) -> Unit
+    private val onClickItem: (String?) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(item: PersonalizeGoalsModel, isSelected: Boolean) {
-        binding.tvName.text = item.name
+    fun bind(personalizeGoalsUiModel: PersonalizeGoalsUiModel) {
+        binding.tvName.text = personalizeGoalsUiModel.personalizeGoalsModel.name
         Glide.with(binding.ivIcon.context)
-            .load(item.iconUrl)
+            .load(personalizeGoalsUiModel.personalizeGoalsModel.iconUrl)
             .into(binding.ivIcon)
 
-        if (isSelected) {
+        if (personalizeGoalsUiModel.isSelect) {
             binding.cardPersonalizeGoal.strokeColor = ContextCompat.getColor(itemView.context, R.color.color_primary)
             binding.tvName.setTextColor(ContextCompat.getColor(itemView.context, R.color.color_text_primary))
         } else {
@@ -25,7 +25,7 @@ class PersonalizeGoalsViewHolder(
         }
 
         binding.root.setOnClickListener {
-            onClickItem(item)
+            onClickItem(personalizeGoalsUiModel.personalizeGoalsModel.id)
         }
     }
 }

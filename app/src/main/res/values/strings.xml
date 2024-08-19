@@ -18,14 +18,9 @@
     <string name="lbl_none">None</string>
     <string name="btn_skip"><u>SKIP</u></string>
     <string name="eat_healthy">Eat Healthy</string>
-    <string name="budget_friendly">Budget-Friendly</string>
-    <string name="plan_better">Plan Better</string>
-    <string name="learn_cook">Learn to Cook</string>
-    <string name="quick_easy">Quick &amp; Easy</string>
     <string name="title">What is your goal?</string>
     <string name="body">Select what’s important to you.</string>
     <string name="lbl_continue">CONTINUE</string>
-
-    <string name="drawable1">Here is my drawable: @[drawable/eat_healthy_icon]</string>
+    <string name="gluten">Gluten</string>
 
 </resources>

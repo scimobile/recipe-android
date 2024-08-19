@@ -7,7 +7,6 @@ import com.sci.recipeandroid.feature.personalize.data.model.response.DietRecipe
 import com.sci.recipeandroid.feature.personalize.data.model.response.PersonalizeData
 import com.sci.recipeandroid.feature.personalize.data.model.response.PersonalizeGoals
 import com.sci.recipeandroid.feature.personalize.data.model.response.PersonalizeResponse
-import com.sci.recipeandroid.feature.personalize.domain.model.PersonalizeGoalsModel
 import io.ktor.client.HttpClient
 
 class PersonalizeService(private val httpClient: HttpClient) {
@@ -20,37 +19,37 @@ class PersonalizeService(private val httpClient: HttpClient) {
                 data = PersonalizeData(
                     dietRecipe = listOf(
                         DietRecipe(
-                            id = 0,
+                            id = "0",
                             imageUrl = mapIconResNameToId("none_image"),
                             name = "None"
                         ),
                         DietRecipe(
-                            id = 1,
+                            id = "1",
                             imageUrl = mapIconResNameToId("vegan_image"),
                             name = "Vegan"
                         ),
                         DietRecipe(
-                            id = 2,
+                            id = "2",
                             imageUrl = mapIconResNameToId("vegetarian_image"),
                             name = "Vegetarian"
                         ),
                         DietRecipe(
-                            id = 3,
+                            id = "3",
                             imageUrl = mapIconResNameToId("pescatarian_image"),
                             name = "Pescatarian"
                         ),
                         DietRecipe(
-                            id = 4,
+                            id = "4",
                             imageUrl = mapIconResNameToId("paleo_image"),
                             name = "Paleo"
                         ),
                         DietRecipe(
-                            id = 5,
+                            id = "5",
                             imageUrl = mapIconResNameToId("low_crab_image"),
                             name = "Low-Carb"
                         ),
                         DietRecipe(
-                            id = 6,
+                            id = "6",
                             imageUrl = mapIconResNameToId("keto_image"),
                             name = "Keto"
                         )
@@ -91,27 +90,27 @@ class PersonalizeService(private val httpClient: HttpClient) {
                     ),
                     personalizeGoals = listOf(
                         PersonalizeGoals(
-                            id = 1,
+                            id = "1",
                             name = "Eat Healthy",
                             iconUrl = mapIconResNameToId("eat_healthy_icon")
                         ),
                         PersonalizeGoals(
-                            id = 2,
+                            id = "2",
                             name = "Budget Friendly",
                             iconUrl = mapIconResNameToId("budget_friendly_icon")
                         ),
                         PersonalizeGoals(
-                            id = 3,
+                            id = "3",
                             name = "Plan Better",
                             iconUrl = mapIconResNameToId("plan_better_icon")
                         ),
                         PersonalizeGoals(
-                            id = 4,
+                            id = "4",
                             name = "Learn to Cook",
                             iconUrl = mapIconResNameToId("learn_to_cook_icon")
                         ),
                         PersonalizeGoals(
-                            id = 5,
+                            id = "5",
                             name = "Quick & Easy",
                             iconUrl = mapIconResNameToId("quick_and_easy_icon")
                         )

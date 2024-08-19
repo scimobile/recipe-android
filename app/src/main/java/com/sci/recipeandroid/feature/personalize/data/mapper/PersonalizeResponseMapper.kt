@@ -4,42 +4,6 @@ import com.sci.recipeandroid.R
 import com.sci.recipeandroid.feature.personalize.data.model.response.*
 import com.sci.recipeandroid.feature.personalize.domain.model.*
 
-// Map PersonalizeResponse data to PersonalizeDataModel
-fun PersonalizeResponse.toDomainModel(): PersonalizeDataModel {
-    return PersonalizeDataModel(
-        dietRecipe = this.data.dietRecipe.map { it.toDomainModel() },
-        allergiesIngredient = this.data.allergiesIngredient.map { it.toDomainModel() },
-        personalizeGoals = this.data.personalizeGoals.map { it.toDomainModel() }
-    )
-}
-
-// Map DietRecipe data model to domain model
-fun DietRecipe.toDomainModel(): DietRecipeModel {
-    return DietRecipeModel(
-        id = this.id,
-        name = this.name.orEmpty(),
-        imageUrl = this.imageUrl
-    )
-}
-
-// Map AllergiesIngredient data model to domain model
-fun AllergiesIngredient.toDomainModel(): AllergiesIngredientModel {
-    return AllergiesIngredientModel(
-        id = this.id,
-        name = this.name.orEmpty()
-    )
-}
-
-// Map PersonalizeGoals data model to domain model
-fun PersonalizeGoals.toDomainModel(): PersonalizeGoalsModel {
-    return PersonalizeGoalsModel(
-        id = this.id,
-        name = this.name.orEmpty(),
-        iconUrl = this.iconUrl
-    )
-}
-
-// Function to map the icon URL (or resource name) to a drawable resource ID
 fun mapIconResNameToId(iconResName: String): Int {
     return when (iconResName) {
         "eat_healthy_icon" -> R.drawable.eat_healthy_icon
@@ -54,7 +18,7 @@ fun mapIconResNameToId(iconResName: String): Int {
         "paleo_image" -> R.drawable.paleo
         "low_crab_image" -> R.drawable.low_carb
         "keto_image" -> R.drawable.keto
-        else -> R.drawable.eat_healthy_icon // Use a default icon as a fallback
+        else -> R.drawable.eat_healthy_icon
     }
 }
 
@@ -64,6 +28,25 @@ fun PersonalizeResponse.toGoalsDomainModel(): List<PersonalizeGoalsModel> {
             id = it.id,
             name = it.name.orEmpty(),
             iconUrl = it.iconUrl
+        )
+    }
+}
+
+fun PersonalizeResponse.toDietRecipeDomainModel(): List<DietRecipeModel> {
+    return data.dietRecipe.map {
+        DietRecipeModel(
+            id = it.id,
+            name = it.name.orEmpty(),
+            imageUrl = it.imageUrl
+        )
+    }
+}
+
+fun PersonalizeResponse.toAllergiesIngredientModel(): List<AllergiesIngredientModel> {
+    return data.allergiesIngredient.map {
+        AllergiesIngredientModel(
+            id = it.id,
+            name = it.name.orEmpty()
         )
     }
 }

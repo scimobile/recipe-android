@@ -61,4 +61,6 @@ dependencies {
     implementation(libs.kotlinx.serialization)
     implementation(libs.nav.ui)
     implementation(libs.nav.fragment)
+
+    implementation(libs.google.flexbox)
 }
