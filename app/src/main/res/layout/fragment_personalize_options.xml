@@ -164,5 +164,4 @@
         android:layout_marginVertical="@dimen/margin_medium_x_35"
         android:backgroundTint="@color/color_btn_disable"
         />
-
 </LinearLayout>

@@ -59,6 +59,7 @@ class PersonalizeViewModel(
                 item.copy(isSelect = false)
             }
         }
+
         _uiStateDietRecipe.postValue(
             DietRecipeUiState.UpdateDietRecipeList(
                 items = dietRecipeUiModel,
@@ -77,6 +78,7 @@ class PersonalizeViewModel(
                 item
             }
         }
+
         _uiStateAllergiesIngredient.postValue(
             AllergiesIngredientUiState.UpdateAllergiesIngredientList(
                 items = allergiesIngredientUiModel,
