@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="@dimen/margin_medium_x_16"
+    android:layout_marginHorizontal="@dimen/margin_medium_x_16"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/margin_medium_x_16">
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/margin_medium_x_18"
+            android:src="@drawable/leftarrow_icon"
+            android:background="@color/color_surface"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/btnSkip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_skip"
+            android:textColor="@color/color_text_primary"
+            android:textSize="@dimen/text_small"
+            android:fontFamily="@font/jetbrains_mono_semibold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btnBack"
+            app:layout_constraintBottom_toBottomOf="@id/btnBack"
+            android:clickable="true"/>
+
+        <View
+            android:id="@+id/vPersonalizeIndicator"
+            android:layout_width="@dimen/margin_none"
+            android:layout_height="@dimen/margin_card_medium"
+            android:layout_marginStart="@dimen/margin_medium_x_16"
+            android:layout_marginEnd="@dimen/margin_medium_x_16"
+            app:layout_constraintStart_toEndOf="@id/btnBack"
+            app:layout_constraintEnd_toStartOf="@id/btnSkip"
+            app:layout_constraintTop_toTopOf="@id/btnBack"
+            app:layout_constraintBottom_toBottomOf="@id/btnBack"
+            android:background="@drawable/rounded_corner"
+            android:backgroundTint="@color/color_primary"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_none"
+        android:layout_weight="1"
+        android:scrollbars="none"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ProgressBar
+                android:id="@+id/loading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_medium_3"
+                android:text="@string/title"
+                android:textColor="@color/color_text_primary"
+                android:textAlignment="center"
+                android:textSize="@dimen/text_heading_1x"
+                android:fontFamily="@font/poppins_semi_bold"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <TextView
+                android:id="@+id/tvBodyText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_medium_x_10"
+                android:text="@string/body"
+                android:textColor="@color/color_text_primary"
+                android:textAlignment="center"
+                android:textSize="@dimen/text_regular"
+                android:fontFamily="@font/poppins_regular"
+                app:layout_constraintTop_toBottomOf="@id/tvTitle"
+                app:layout_constraintStart_toStartOf="@id/tvTitle"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvPersonalizeGoals"
+                android:layout_width="@dimen/margin_none"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_medium_x_16"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvBodyText"
+                tools:listitem="@layout/item_view_personalize_goals"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    </ScrollView>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnContinue"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginVertical="@dimen/margin_medium_x_16"
+        android:text="@string/lbl_continue"
+        android:textSize="@dimen/text_regular"
+        android:textColor="@color/color_button_label"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:backgroundTint="@color/color_btn_disable"
+        android:background="@drawable/rounded_corner"/>
+
+</LinearLayout>

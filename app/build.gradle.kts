@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     id("org.jetbrains.kotlin.plugin.serialization") version ("1.9.22")
+    alias(libs.plugins.safe.args)
 }
 
 android {
@@ -28,6 +29,11 @@ android {
             )
         }
     }
+
+    buildFeatures {
+        viewBinding = true
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -53,4 +59,8 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.mmkv.android)
     implementation(libs.kotlinx.serialization)
+    implementation(libs.nav.ui)
+    implementation(libs.nav.fragment)
+
+    implementation(libs.google.flexbox)
 }

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardPersonalizeGoal"
+    app:cardCornerRadius="@dimen/margin_medium_x_12"
+    app:cardElevation="@dimen/margin_small"
+    app:cardPreventCornerOverlap="true"
+    app:cardUseCompatPadding="true"
+    app:strokeColor="@color/color_surface"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:backgroundTint="@color/color_surface">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/margin_medium_3"
+        android:layout_gravity="center_horizontal">
+
+        <ImageView
+            android:id="@+id/ivIcon"
+            android:layout_width="@dimen/margin_xxxlarge_2"
+            android:layout_height="wrap_content"
+            android:scaleType="fitCenter"
+            android:src="@drawable/eat_healthy_icon"/>
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_medium_x_10"
+            android:fontFamily="@font/poppins_semi_bold"
+            android:text="@string/eat_healthy"
+            android:textAlignment="center"
+            android:textColor="@color/color_text_secondary"
+            android:textSize="@dimen/text_small" />
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

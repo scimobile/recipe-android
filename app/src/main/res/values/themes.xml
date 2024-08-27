@@ -3,7 +3,49 @@
     <style name="Base.Theme.RecipeAndroid" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+
     </style>
 
     <style name="Theme.RecipeAndroid" parent="Base.Theme.RecipeAndroid" />
+
+    <style name="CustomFont_Black_Semi_Bold">
+        <item name="android:fontFamily">@font/poppins_semi_bold</item>
+        <item name="fontFamily">@font/poppins_semi_bold</item>
+        <item name="android:textSize">@dimen/text_heading_1x</item>
+        <item name="android:textColor">@color/color_text_primary</item>
+    </style>
+
+    <style name="CustomFont_Black_Regular">
+        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="fontFamily">@font/poppins_regular</item>
+        <item name="android:textSize">@dimen/text_regular</item>
+        <item name="android:textColor">@color/color_text_primary</item>
+    </style>
+
+    <style name="CustomFont_Login_Regular">
+        <item name="android:fontFamily">@font/jetbrains_mono_regular</item>
+        <item name="fontFamily">@font/jetbrains_mono_regular</item>
+        <item name="android:textSize">@dimen/text_regular</item>
+        <item name="android:textColor">@color/color_text_primary</item>
+    </style>
+
+    <style name="CustomFont_Button_Semi_Bold">
+        <item name="android:fontFamily">@font/poppins_semi_bold</item>
+        <item name="fontFamily">@font/poppins_semi_bold</item>
+        <item name="android:textSize">@dimen/text_regular</item>
+        <item name="android:textColor">@color/color_button_label</item>
+    </style>
+
+    <style name="CustomFont_Small_Semi_Bold">
+        <item name="android:fontFamily">@font/poppins_semi_bold</item>
+        <item name="fontFamily">@font/poppins_semi_bold</item>
+        <item name="android:textSize">@dimen/text_smaller_2</item>
+        <item name="android:textColor">@color/color_text_primary</item>
+    </style>
+
+    <style name="CustomFont_Tag_Small_Semi_Bold">
+        <item name="android:fontFamily">@font/poppins_semi_bold</item>
+        <item name="fontFamily">@font/poppins_semi_bold</item>
+        <item name="android:textSize">@dimen/text_regular</item>
+    </style>
 </resources>
