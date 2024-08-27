@@ -1,8 +1,14 @@
 package com.sci.recipeandroid
 
 import android.os.Bundle
+import android.view.View
+import android.view.ViewGroup
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
 import androidx.navigation.fragment.NavHostFragment
 import com.sci.recipeandroid.databinding.ActivityMainBinding
 

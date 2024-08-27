@@ -3,7 +3,9 @@
     <dimen name="margin_none">0dp</dimen>
     <dimen name="margin_xsmall">2dp</dimen>
     <dimen name="margin_small">4dp</dimen>
+    <dimen name="margin_small_2">5dp</dimen>
     <dimen name="margin_card_medium">6dp</dimen>
+    <dimen name="margin_card_medium_2">7dp</dimen>
     <dimen name="margin_medium">8dp</dimen>
     <dimen name="margin_medium_x_10">10dp</dimen>
     <dimen name="margin_medium_x_11">11dp</dimen>
@@ -16,8 +18,8 @@
     <dimen name="margin_medium_x_23">23dp</dimen>
     <dimen name="margin_medium_x_25">25dp</dimen>
     <dimen name="margin_medium_x_30">30dp</dimen>
-    <dimen name="margin_medium_2">16dp</dimen>
-    <dimen name="margin_card_medium_2">12dp</dimen>
+    <dimen name="margin_medium_x_35">35dp</dimen>
+    <dimen name="margin_medium_x_40">40dp</dimen>
     <dimen name="margin_medium_3">20dp</dimen>
     <dimen name="margin_large">24dp</dimen>
     <dimen name="margin_xlarge">32dp</dimen>

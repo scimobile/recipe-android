@@ -2,72 +2,112 @@ package com.sci.recipeandroid.feature.personalize.ui.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sci.recipeandroid.feature.personalize.domain.repository.PersonalizeRepository
-import com.sci.recipeandroid.feature.personalize.domain.model.PersonalizeDataModel
+import com.sci.recipeandroid.feature.personalize.ui.model.AllergiesIngredientUiModel
+import com.sci.recipeandroid.feature.personalize.ui.model.DietRecipeUiModel
 import com.sci.recipeandroid.util.SingleLiveEvent
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class PersonalizeViewModel(private val personalizeRepository: PersonalizeRepository) : ViewModel() {
+class PersonalizeViewModel(
+    private val personalizeRepository: PersonalizeRepository
+) : ViewModel() {
+
+    private val _uiStateDietRecipe = MutableLiveData<DietRecipeUiState>()
+    val uiStateDietRecipe: LiveData<DietRecipeUiState> = _uiStateDietRecipe
+    var dietRecipeUiModel: List<DietRecipeUiModel> = emptyList()
+
+    private val _uiStateAllergiesIngredient = MutableLiveData<AllergiesIngredientUiState>()
+    val uiStateAllergiesIngredient: LiveData<AllergiesIngredientUiState> = _uiStateAllergiesIngredient
+    var allergiesIngredientUiModel: List<AllergiesIngredientUiModel> = emptyList()
 
     val uiEvent = SingleLiveEvent<PersonalizeUiEvent>()
 
-    private val _uiState = MutableLiveData<PersonalizeUiState>()
-    val uiState : LiveData<PersonalizeUiState> = _uiState
-
-    private val _isDietRecipeItemSelected = MutableLiveData<Boolean>(false)
-    private val isDietRecipeItemSelected: LiveData<Boolean> get() = _isDietRecipeItemSelected
-
-    private val _isAllergiesIngredientItemSelected = MutableLiveData<Boolean>(false)
-    private val isAllergiesIngredientItemSelected: LiveData<Boolean> get() = _isAllergiesIngredientItemSelected
-
     init {
-        _uiState.value = PersonalizeUiState.Loading
         viewModelScope.launch {
-            personalizeRepository.getPersonalizeData()
-                .fold(
-                    onSuccess = {
-                        _uiState.value = PersonalizeUiState.Success(it)
-                    },
-                    onFailure = {
-                        uiEvent.value = PersonalizeUiEvent.Error(
-                            icon = "",
-                            message = it.message.toString()
-                        )
-                    }
-                )
+            _uiStateDietRecipe.postValue(DietRecipeUiState.Loading)
+            delay(800)
+            val resultDietRecipe = personalizeRepository.getDietRecipe()
+            resultDietRecipe.onSuccess { items ->
+                dietRecipeUiModel = items.map {
+                    DietRecipeUiModel(dietRecipeModel = it)
+                }
+            }
+            _uiStateDietRecipe.postValue(DietRecipeUiState.Success(dietRecipeUiModel))
+
+            _uiStateAllergiesIngredient.postValue(AllergiesIngredientUiState.Loading)
+            val resultAllergiesIngredient = personalizeRepository.getAllergiesIngredient()
+            resultAllergiesIngredient.onSuccess { items ->
+                allergiesIngredientUiModel = items.map {
+                    AllergiesIngredientUiModel(allergiesIngredientModel = it)
+                }
+            }
+            _uiStateAllergiesIngredient.postValue(AllergiesIngredientUiState.Success(allergiesIngredientUiModel))
         }
     }
 
-    val isButtonEnabled: LiveData<Boolean> = MediatorLiveData<Boolean>().apply {
-        addSource(isDietRecipeItemSelected) { recyclerViewSelected ->
-            value = recyclerViewSelected && _isAllergiesIngredientItemSelected.value == true
+    fun selectItemDietRecipe(id: String?) {
+        var selectedItem: DietRecipeUiModel? = null
+        dietRecipeUiModel = dietRecipeUiModel.map { item ->
+            if (item.dietRecipeModel.id == id) {
+                selectedItem = item.copy(isSelect = true)
+                selectedItem!!
+            } else {
+                item.copy(isSelect = false)
+            }
         }
-        addSource(isAllergiesIngredientItemSelected) { tagViewSelected ->
-            value = tagViewSelected && _isDietRecipeItemSelected.value == true
+        _uiStateDietRecipe.postValue(
+            DietRecipeUiState.UpdateDietRecipeList(
+                items = dietRecipeUiModel,
+                buttonEnabled = selectedItem != null
+            )
+        )
+    }
+
+    fun selectItemAllergiesIngredient(id: String?) {
+        var selectedItem: AllergiesIngredientUiModel? = null
+        allergiesIngredientUiModel = allergiesIngredientUiModel.map { item ->
+            if (item.allergiesIngredientModel.id == id) {
+                selectedItem = item.copy(isSelect = !item.isSelect)
+                selectedItem!!
+            } else {
+                item
+            }
         }
-    }
-
-    fun onDietRecipeItemSelected(selected: Boolean) {
-        _isDietRecipeItemSelected.value = selected
-    }
-
-    fun onAllergiesIngredientItemSelected(selected: Boolean) {
-        _isAllergiesIngredientItemSelected.value = selected
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        Log.d("viewmodel", "clear")
+        _uiStateAllergiesIngredient.postValue(
+            AllergiesIngredientUiState.UpdateAllergiesIngredientList(
+                items = allergiesIngredientUiModel,
+                buttonEnabled = selectedItem != null
+            )
+        )
     }
 }
 
-sealed class PersonalizeUiState {
-    data object Loading : PersonalizeUiState()
-    data class Success(val personalizeData: PersonalizeDataModel) : PersonalizeUiState()
+sealed class DietRecipeUiState {
+    data object Loading : DietRecipeUiState()
+    data class Success(
+        val dietRecipeList: List<DietRecipeUiModel>,
+        val buttonEnabled: Boolean = false
+    ) : DietRecipeUiState()
+    data class UpdateDietRecipeList(
+        val items: List<DietRecipeUiModel>,
+        val buttonEnabled: Boolean = false
+    ) : DietRecipeUiState()
+}
+
+sealed class AllergiesIngredientUiState {
+    data object Loading : AllergiesIngredientUiState()
+    data class Success(
+        val allergiesIngredientList: List<AllergiesIngredientUiModel>,
+        val buttonEnabled: Boolean = false
+    ) : AllergiesIngredientUiState()
+    data class UpdateAllergiesIngredientList(
+        val items: List<AllergiesIngredientUiModel>,
+        val buttonEnabled: Boolean = false
+    ) : AllergiesIngredientUiState()
 }
 
 sealed class PersonalizeUiEvent {

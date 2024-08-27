@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardAllergiesIngredient"
+    app:cardCornerRadius="@dimen/margin_xxxlarge"
+    app:strokeColor="@color/gray_2"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/margin_card_medium_2"
+    android:layout_marginVertical="@dimen/margin_small_2">
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/margin_medium_x_16"
+        android:paddingVertical="@dimen/margin_medium"
+        android:text="@string/gluten"
+        android:textAlignment="center"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:textSize="@dimen/text_regular"
+        android:textColor="@color/color_text_secondary"
+        android:background="@color/color_surface"/>
+
+</com.google.android.material.card.MaterialCardView>

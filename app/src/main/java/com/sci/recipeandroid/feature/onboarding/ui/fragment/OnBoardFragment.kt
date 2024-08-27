@@ -14,6 +14,7 @@ import com.sci.recipeandroid.R
 import com.sci.recipeandroid.databinding.FragmentOnboardBinding
 import com.sci.recipeandroid.feature.onboarding.data.OnBoardListProvider
 import com.sci.recipeandroid.feature.onboarding.ui.model.OnBoardUiModel
+import com.sci.recipeandroid.util.updateStatusBarColors
 
 class OnBoardFragment: Fragment() {
     private var _binding: FragmentOnboardBinding? = null
@@ -33,6 +34,8 @@ class OnBoardFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        updateStatusBarColors()
 
         // Get the onboard list from OnBoardListProvider
         onBoardList = OnBoardListProvider().getOnBoardList()

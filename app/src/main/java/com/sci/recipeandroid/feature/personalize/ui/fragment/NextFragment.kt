@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.sci.recipeandroid.databinding.FragmentNextBinding
-import com.sci.recipeandroid.databinding.FragmentPersonalizeGoalsBinding
 
 class NextFragment : Fragment() {
 
