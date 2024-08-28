@@ -14,7 +14,7 @@
     <string name="display_name">Display Name</string>
     <string name="password">Password</string>
     <string name="confirm_password">Confirm Password</string>
-    
+
     <string name="log_in_welcome_text">Welcome back? You’re just a tap away from something delicious.</string>
     <string name="log_in_title">Log In</string>
     <string name="start_cooking">START COOKING!</string>
@@ -38,5 +38,29 @@
     <string name="this_password_can_t_be_blank">This password can\'t be blank</string>
     <string name="the_email_can_t_be_blank">The email can\'t be blank</string>
     <string name="that_s_not_a_valid_email">That\'s not a valid email</string>
+
+    <string name="cart_recipe_item_count">%1$d Recipe • %2$d items</string>
+    <string name="recipe_name">Recipe name</string>
+    <string name="ingredient_name">Ingredient Name</string>
+    <string name="ingredient_quantity">Quantity</string>
+    <string name="recipe_title">Recipe Title</string>
+    <string name="view_recipe">VIEW RECIPE</string>
+
+    <string-array name="server_counts">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+    </string-array>
 
 </resources>

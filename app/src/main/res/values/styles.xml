@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="CustomAutoCompleteLayout" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu">
+        <item name="endIconTint">@color/white</item>
+        <item name="paddingEnd">0dp</item>
+    </style>
+    
+
+</resources>
