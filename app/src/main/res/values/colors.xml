@@ -7,9 +7,13 @@
     <color name="color_error">#F44336</color>
     <color name="gray">#C6C6C6</color>
 
+    <color name="color_button_active">#F17102</color>
     <color name="color_border_active">#F17102</color>
     <color name="color_text_primary">#1E1F20</color>
     <color name="color_text_secondary">#6B7280</color>
     <color name="color_button_inactive">#B6BAC3</color>
     <color name="color_input_layout_error">#94000B</color>
+
+    <color name="transparent_black">#80000000</color>
+    <color name="opacity_eighty_white">#80FFFFFF</color>
 </resources>

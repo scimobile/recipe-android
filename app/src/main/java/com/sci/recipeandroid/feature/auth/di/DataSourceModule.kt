@@ -4,6 +4,8 @@ import com.sci.recipeandroid.feature.auth.data.datasource.local.AuthLocalDataSou
 import com.sci.recipeandroid.feature.auth.data.datasource.local.AuthLocalDataSourceImpl
 import com.sci.recipeandroid.feature.auth.data.datasource.remote.AuthRemoteDataSource
 import com.sci.recipeandroid.feature.auth.data.datasource.remote.FakeAuthRemoteDataSource
+import com.sci.recipeandroid.feature.detail.data.datasource.remote.DetailRemoteDataSource
+import com.sci.recipeandroid.feature.detail.data.datasource.remote.MockDetailRemoteRemoteDataSourceImpl
 import org.koin.dsl.module
 
 val remoteDataSourceModule = module {
@@ -13,6 +15,9 @@ val remoteDataSourceModule = module {
 //            facebookAuthenticator = get()
 //        ) as AuthRemoteDataSource
         FakeAuthRemoteDataSource() as AuthRemoteDataSource
+    }
+    single {
+        MockDetailRemoteRemoteDataSourceImpl() as DetailRemoteDataSource
     }
 }
 

@@ -3,6 +3,7 @@ package com.sci.recipeandroid.feature.auth.di
 import com.sci.recipeandroid.feature.auth.ui.viewmodel.AuthOptionViewModel
 import com.sci.recipeandroid.feature.auth.ui.viewmodel.LoginViewModel
 import com.sci.recipeandroid.feature.auth.ui.viewmodel.SignUpViewModel
+import com.sci.recipeandroid.feature.detail.ui.viewmodel.DetailViewModel
 import com.sci.recipeandroid.util.Validator
 import com.sci.recipeandroid.util.ValidatorImpl
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -29,5 +30,12 @@ val viewModelModule = module {
             authRepository = get(),
             validator = get()
         )
+    }
+
+    viewModel {
+        DetailViewModel(
+            detailRepo = get()
+        )
+
     }
 }
