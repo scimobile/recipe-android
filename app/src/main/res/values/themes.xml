@@ -4,8 +4,27 @@
         <!-- Customize your light theme here. -->
         <!--<item name="colorPrimary">@color/black</item>-->
         <item name="android:includeFontPadding">false</item>
-
     </style>
 
     <style name="Theme.RecipeAndroid" parent="Base.Theme.RecipeAndroid" />
+
+    <style name="CustomRatingBarStyle" parent="Widget.AppCompat.RatingBar">
+        <item name="android:progressDrawable">@drawable/my_recipe_rating</item>
+        <item name="android:indeterminateDrawable">@drawable/my_recipe_rating</item>
+        <item name="android:minHeight">15dip</item>
+        <item name="android:maxHeight">47dip</item>
+    </style>
+
+    <style name="SmallCustomRatingBarStyle" parent="Widget.AppCompat.RatingBar.Small">
+        <item name="android:progressDrawable">@drawable/my_recipe_rating</item>
+        <item name="android:indeterminateDrawable">@drawable/my_recipe_rating</item>
+        <item name="android:minHeight">10dip</item>
+        <item name="android:maxHeight">24dip</item>
+    </style>
+
+    <style name="ThemeOverlay.App.Toolbar.Surface" parent="ThemeOverlay.Material3.Toolbar.Surface">
+        <item name="android:outlineAmbientShadowColor" tools:ignore="NewApi">@android:color/black</item>
+        <item name="android:outlineSpotShadowColor" tools:ignore="NewApi">@android:color/black</item>
+    </style>
+
 </resources>
