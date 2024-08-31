@@ -30,3 +30,5 @@ fun IngredientDetailModel.toUiModels(): IngredientUiModel = IngredientUiModel(
 fun List<RecipeDetailModel>.toRecipesUiModels() = this.map {
     it.toUiModels()
 }
+
+

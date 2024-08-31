@@ -9,7 +9,7 @@ class IngredientsSeparator {
 
     fun getGroupedIngredients(
         recipes: List<RecipeUiModel>
-    ): MutableMap<String, List<IngredientUiModel>> {
+    ): Pair<List<RecipeUiModel>, Map<String, List<IngredientUiModel>>> {
 
         // Aggregate ingredients by name and category
         val aggregatedIngredients = recipes
@@ -46,7 +46,7 @@ class IngredientsSeparator {
 //             category=Vegetables
 //         )]
         
-        return remainingIngredients
+        return Pair(recipes, remainingIngredients)
 
     }
 

@@ -21,6 +21,7 @@ class ParentRecipeAdapter(
     fun submitData(recipes: List<RecipeUiModel>, ingredientSize: Int) {
         this.recipes = recipes
         this.ingredientSize = ingredientSize
+        notifyDataSetChanged()
     }
 
     inner class ParentRecipeViewHolder(view: View): RecyclerView.ViewHolder(view) {

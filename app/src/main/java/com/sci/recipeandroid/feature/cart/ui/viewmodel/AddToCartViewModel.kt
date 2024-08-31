@@ -26,11 +26,10 @@ class AddToCartViewModel(
         _uiState.value = AddToCartUiState.Loading
         viewModelScope.launch {
             cartRecipeRepository.getAddedRecipeList().map {
-                it.toRecipesUiModels()
+                ingredientsSeparator.getGroupedIngredients(it.toRecipesUiModels())
             }.fold(
-                onSuccess = {
-                    val ingredients = ingredientsSeparator.getGroupedIngredients(it)
-                    _uiState.postValue(AddToCartUiState.Success(it, ingredients))
+                onSuccess = { (recipes, groupedIngredients) ->
+                    _uiState.postValue(AddToCartUiState.Success(recipes, groupedIngredients))
                 },
                 onFailure = {
                     _uiState.value = AddToCartUiState.Error("Failed to load data")
@@ -42,11 +41,10 @@ class AddToCartViewModel(
     fun updateIngredientCheckedStatus(ingredientId: String, checked: Boolean) {
         viewModelScope.launch {
             cartRecipeRepository.updateIngredientCheckedStatus(ingredientId, checked).map {
-                it.toRecipesUiModels()
+                ingredientsSeparator.getGroupedIngredients(it.toRecipesUiModels())
             }.fold(
-                onSuccess = {
-                    val ingredients = ingredientsSeparator.getGroupedIngredients(it)
-                    _uiState.postValue(AddToCartUiState.Success(it, ingredients))
+                onSuccess = { (recipes, groupedIngredients) ->
+                    _uiState.postValue(AddToCartUiState.Success(recipes, groupedIngredients))
                 },
                 onFailure = {
                     _uiState.value = AddToCartUiState.Error("Failed to load data")

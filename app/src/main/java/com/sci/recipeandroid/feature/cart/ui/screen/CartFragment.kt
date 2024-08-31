@@ -1,7 +1,7 @@
 package com.sci.recipeandroid.feature.cart.ui.screen
 
+import GroupedIngredientAdapter
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,13 +10,10 @@ import android.widget.Toast
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.project.addtocart.adapter.GroupedIngredientAdapter
 import com.sci.recipeandroid.R
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.sci.recipeandroid.databinding.FragmentCartBinding
 import com.sci.recipeandroid.feature.cart.ui.adapter.ParentRecipeAdapter
-import com.sci.recipeandroid.feature.cart.ui.model.IngredientUiModel
-import com.sci.recipeandroid.feature.cart.ui.model.RecipeUiModel
 import com.sci.recipeandroid.feature.cart.ui.viewmodel.AddToCartUiState
 import com.sci.recipeandroid.feature.cart.ui.viewmodel.AddToCartViewModel
 
@@ -67,9 +64,10 @@ class CartFragment : Fragment() {
         viewModel.uiState.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is AddToCartUiState.Loading -> {
-                    // Show loading state
+                    binding.progressBar.visibility = View.VISIBLE
                 }
                 is AddToCartUiState.Success -> {
+                    binding.progressBar.visibility = View.INVISIBLE
 
                     recipeAdapter?.submitData(
                         state.recipes,

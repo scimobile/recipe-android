@@ -17,8 +17,8 @@ class IngredientAdapter(
 ) : RecyclerView.Adapter<IngredientAdapter.IngredientViewHolder>() {
 
     lateinit var onCheckBoxClick: ((IngredientUiModel) -> Unit)
-
     private var ingredients: List<IngredientUiModel> = emptyList()
+
     fun submitData(ingredients: List<IngredientUiModel>){
         this.ingredients = ingredients
         notifyDataSetChanged()

@@ -2,6 +2,7 @@ package com.sci.recipeandroid.feature.cart.data.datasource
 
 import com.sci.recipeandroid.feature.cart.data.model.CartIngredientResponse
 import com.sci.recipeandroid.feature.cart.data.model.CartRecipeResponse
+import kotlinx.coroutines.delay
 
 class FakeCartRecipeRemoteDataSource(): CartRecipeRemoteDataSource {
 
