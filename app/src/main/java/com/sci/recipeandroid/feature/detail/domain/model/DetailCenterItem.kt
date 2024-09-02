@@ -2,7 +2,7 @@ package com.sci.recipeandroid.feature.detail.domain.model
 
 data class DetailCenterContainer(
     val nutritionPerServing: NutritionPerServing,
-    val ingredients:List<Ingredients>
+    var ingredients:List<Ingredients>
 ):DetailScreenData()
 
 data class NutritionPerServing(
@@ -13,7 +13,7 @@ data class NutritionPerServing(
 )
 data class Ingredients(
     val name: String,
-    val amount: Double,
+    var amount: Double,
     val amountUnit :String,
     val increaseRate:String,
     val image:String

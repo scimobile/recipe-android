@@ -8,10 +8,14 @@ import com.sci.recipeandroid.feature.detail.domain.model.DetailFooterItem
 import com.sci.recipeandroid.feature.detail.ui.adapter.detailfooter.AlsoLikeAdapter
 
 class DetailAlsoLikeViewHolder(
-    private val binding:DetailAlsoLikeViewholderBinding
-):DetailFooterBaseViewHolder(binding) {
+    private val binding: DetailAlsoLikeViewholderBinding,
+    private val onClick: (Double) -> Unit
+) : DetailFooterBaseViewHolder(binding) {
     private val recyclerView = binding.alsoLikeRv
-    private val adapter = AlsoLikeAdapter(){}
+    private val adapter = AlsoLikeAdapter(
+        onSavedClick = onClick
+    )
+
     init {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(
@@ -20,8 +24,9 @@ class DetailAlsoLikeViewHolder(
             false
         )
     }
+
     override fun bind(data: DetailFooterItem) {
-        if (data is AlsoLikeContainer){
+        if (data is AlsoLikeContainer) {
             adapter.updateList(data.alsoLikeList)
         }
     }

@@ -23,7 +23,8 @@ fun String.toDetailData(): DetailDataContainer {
                 ratingCount = "123",
                 isCommunityPick = false,
                 description = "These classic chocolate chip cookies are soft, chewy, and full of delicious chocolate chips.",
-                estimatedTime = "30 minutes"
+                estimatedTime = "30 minutes",
+                id = 1.0
             ),
             DetailCenterContainer(
                 ingredients = listOf(
@@ -127,29 +128,35 @@ fun String.toDetailData(): DetailDataContainer {
                     CompleteMealContainer(
                         completeMealList = listOf(
                             CompleteMeal(
+                                id = 1.1,
                                 name = "Garlic Bread",
                                 image = "https://example.com/garlic_bread.jpg",
-                                ratingPoint = 4.2f, ingredientAmt = 5
+                                ratingPoint = 4.2f, ingredientAmt = 5,
+
                             ),
                             CompleteMeal(
+                                id = 1.2,
                                 name = "Caesar Salad",
                                 image = "https://example.com/caesar_salad.jpg",
                                 ratingPoint = 4.0f,
                                 ingredientAmt = 7
                             ),
                             CompleteMeal(
+                                id = 1.3,
                                 name = "Roasted Vegetables",
                                 image = "https://example.com/roasted_veggies.jpg",
                                 ratingPoint = 4.5f,
                                 ingredientAmt = 6
                             ),
                             CompleteMeal(
+                                id = 1.4,
                                 name = "Creamy Tomato Soup",
                                 image = "https://example.com/tomato_soup.jpg",
                                 ratingPoint = 4.7f,
                                 ingredientAmt = 8
                             ),
                             CompleteMeal(
+                                id = 1.5,
                                 name = "Fruit Salad",
                                 image = "https://example.com/fruit_salad.jpg",
                                 ratingPoint = 4.3f,
@@ -160,25 +167,31 @@ fun String.toDetailData(): DetailDataContainer {
                     AlsoLikeContainer(
                         alsoLikeList = listOf(
                             AlsoLike(
+                                id = 2.1,
                                 name = "Chocolate Lava Cake",
                                 image = "https://example.com/lava_cake.jpg",
                                 ingredientAmt = 8
                             ),
                             AlsoLike(
+                                id = 2.2,
                                 name = "Strawberry Shortcake",
                                 image = "https://example.com/shortcake.jpg",
                                 ingredientAmt = 10
                             ),
                             AlsoLike(
+                                id = 2.3,
                                 name = "Blueberry Muffins",
                                 image = "https://example.com/muffins.jpg",
                                 ingredientAmt = 6
                             ),
                             AlsoLike(
+                                id = 2.4,
                                 name = "Apple Pie",
-                                image = "https://example.com/apple_pie.jpg", ingredientAmt = 12
+                                image = "https://example.com/apple_pie.jpg",
+                                ingredientAmt = 12
                             ),
                             AlsoLike(
+                                id = 2.5,
                                 name = "Cheesecake",
                                 image = "https://example.com/cheesecake.jpg",
                                 ingredientAmt = 10
