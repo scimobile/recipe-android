@@ -1,6 +1,7 @@
 package com.sci.recipeandroid.feature.detail.domain.model
 
 data class DetailHeaderContainer(
+    val id:Double,
     val recipeImg:String,
     val recipeName:String,
     val recipeOwner:String,

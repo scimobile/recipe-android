@@ -5,14 +5,17 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewbinding.ViewBinding
 import com.sci.recipeandroid.databinding.DetailFooterContainerViewholderBinding
 
 import com.sci.recipeandroid.feature.detail.domain.model.DetailFooterContainer
 
-class DetailFooterContainerAdapter(val onClick: (Int) -> Unit) :
-    RecyclerView.Adapter<DetailFooterContainerAdapter.DetailFooterContainerViewHolder>() {
-    private var productList = emptyList<DetailFooterContainer>()
+class DetailFooterContainerAdapter(
+    private val onCompleteMealSaved: (Double) -> Unit,
+    private val onAlsoLikeSaved: (Double) -> Unit
+) : RecyclerView.Adapter<DetailFooterContainerAdapter.DetailFooterContainerViewHolder>() {
+
+    private var dataList = emptyList<DetailFooterContainer>()
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -25,24 +28,41 @@ class DetailFooterContainerAdapter(val onClick: (Int) -> Unit) :
     }
 
     override fun getItemCount(): Int {
-        return productList.size
+        return dataList.size
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateList(productLists: List<DetailFooterContainer>) {
-        productList = productLists
+    fun updateList(dataList: List<DetailFooterContainer>) {
+        this.dataList = dataList
         notifyDataSetChanged()
     }
 
 
     override fun onBindViewHolder(holder: DetailFooterContainerViewHolder, position: Int) {
-        holder.bind(productList[position])
+        holder.bind(dataList[position])
     }
+
+//    override fun onBindViewHolder(
+//        holder: DetailFooterContainerViewHolder,
+//        position: Int,
+//        payloads: MutableList<Any>
+//    ) {
+//        if (payloads.isEmpty()) {
+//            super.onBindViewHolder(holder, position, payloads)
+//        } else {
+//
+//        }
+//
+//    }
 
     inner class DetailFooterContainerViewHolder(private val binding: DetailFooterContainerViewholderBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private val recyclerView = binding.detailFooterContainerRv
-        private val adapter = DetailFooterAdapter(onClick)
+        private val adapter = DetailFooterAdapter(
+            onCompleteMealClick = onCompleteMealSaved,
+            onAlsoLikeClick = onAlsoLikeSaved
+        )
+
         init {
             recyclerView.adapter = adapter
             recyclerView.layoutManager = LinearLayoutManager(

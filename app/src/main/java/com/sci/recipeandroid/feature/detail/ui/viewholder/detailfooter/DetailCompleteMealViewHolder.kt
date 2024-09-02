@@ -8,10 +8,13 @@ import com.sci.recipeandroid.feature.detail.domain.model.DetailFooterItem
 import com.sci.recipeandroid.feature.detail.ui.adapter.detailfooter.CompleteMealAdapter
 
 class DetailCompleteMealViewHolder(
-    private val binding: DetailCompleteMealViewholderBinding
+    private val binding: DetailCompleteMealViewholderBinding,
+    private val onClick: (Double) -> Unit
 ) : DetailFooterBaseViewHolder(binding) {
     private val recyclerView = binding.completeMealRv
-    private val adapter = CompleteMealAdapter {}
+    private val adapter = CompleteMealAdapter (
+        onClick = onClick
+    )
     init {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(

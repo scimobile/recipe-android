@@ -17,8 +17,10 @@ import com.sci.recipeandroid.feature.detail.ui.viewholder.detailfooter.DetailCom
 import com.sci.recipeandroid.feature.detail.ui.viewholder.detailfooter.DetailFooterBaseViewHolder
 import com.sci.recipeandroid.feature.detail.ui.viewholder.detailfooter.RecipeOwnerViewHolder
 
-class DetailFooterAdapter(val onClick: (Int) -> Unit) :
-    RecyclerView.Adapter<DetailFooterBaseViewHolder>() {
+class DetailFooterAdapter(
+    private val onAlsoLikeClick: (Double) -> Unit,
+    private val onCompleteMealClick: (Double) -> Unit,
+) : RecyclerView.Adapter<DetailFooterBaseViewHolder>() {
     private var footerItemList = emptyList<DetailFooterItem>()
     private val RECIPE_OWNER_VIEWHOLDER = 0
     private val COMPLETE_MEAL_VIEWHOLDER = 1
@@ -38,7 +40,10 @@ class DetailFooterAdapter(val onClick: (Int) -> Unit) :
                 DetailCompleteMealViewholderBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 ).apply {
-                    return DetailCompleteMealViewHolder(this)
+                    return DetailCompleteMealViewHolder(
+                        this,
+                        onClick = onCompleteMealClick
+                    )
                 }
             }
 
@@ -46,15 +51,17 @@ class DetailFooterAdapter(val onClick: (Int) -> Unit) :
                 DetailAlsoLikeViewholderBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 ).apply {
-                    return DetailAlsoLikeViewHolder(this)
+                    return DetailAlsoLikeViewHolder(
+                        this, onClick = onAlsoLikeClick
+                    )
                 }
             }
 
             else -> {
-                DetailAlsoLikeViewholderBinding.inflate(
+                DetailRecipeOwnerViewholderBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 ).apply {
-                    return DetailAlsoLikeViewHolder(this)
+                    return RecipeOwnerViewHolder(this)
                 }
             }
         }

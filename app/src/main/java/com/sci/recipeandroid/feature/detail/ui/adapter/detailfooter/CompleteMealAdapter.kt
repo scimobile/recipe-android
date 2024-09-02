@@ -10,13 +10,18 @@ import com.sci.recipeandroid.feature.detail.domain.model.DetailFooterItem
 import com.sci.recipeandroid.feature.detail.ui.viewholder.detailfooter.DetailCompleteMealViewHolder
 import com.sci.recipeandroid.feature.detail.ui.viewholder.detailfooter.itemviewholder.CompleteMealItemViewHolder
 
-class CompleteMealAdapter(val onClick:(Int)-> Unit) : RecyclerView.Adapter<CompleteMealItemViewHolder>() {
+class CompleteMealAdapter(
+    private val onClick: (Double) -> Unit
+) : RecyclerView.Adapter<CompleteMealItemViewHolder>() {
     private var completeMealList = emptyList<CompleteMeal>()
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):  CompleteMealItemViewHolder{
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CompleteMealItemViewHolder {
         DetailCompleteMealItemViewholderBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         ).apply {
-            return CompleteMealItemViewHolder(this)
+            return CompleteMealItemViewHolder(
+                this,
+                onClick = onClick
+            )
         }
     }
 
