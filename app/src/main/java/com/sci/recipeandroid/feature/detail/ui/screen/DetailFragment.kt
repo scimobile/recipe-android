@@ -3,7 +3,6 @@ package com.sci.recipeandroid.feature.detail.ui.screen
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,7 +31,7 @@ class DetailFragment : Fragment() {
         get() = _binding!!
 
     private val detailViewModel: DetailViewModel by viewModel()
-    private val detailId  = 1.0
+    private val detailId = 1.0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,7 +39,7 @@ class DetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentDetailBinding.inflate(inflater, container, false)
-        detailViewModel.getDetailData(detailId)
+
         return binding.root
     }
 
@@ -52,6 +51,8 @@ class DetailFragment : Fragment() {
         val savedBtn = binding.saveBtn
         val sharedBtn = binding.shareBtn
         adjustStatusBar(toolBar, requireActivity())
+        //this detailId will get from navigation component
+        detailViewModel.getDetailData(detailId)
 
         savedBtn.setOnClickListener {
             detailViewModel.onEvent(
@@ -65,7 +66,9 @@ class DetailFragment : Fragment() {
 
             },
             goToAllNutrition = {
-
+                detailViewModel.onEvent(
+                    DetailViewModel.ScreenEvent.NavigateToNutrition(detailId)
+                )
             },
             giveAmountResult = {
                 detailViewModel.onEvent(
@@ -91,7 +94,7 @@ class DetailFragment : Fragment() {
             detailFooterContainerAdapter
         )
 
-        detailViewModel.detailData.observe(viewLifecycleOwner) { screenState ->
+        detailViewModel.detailScnState.observe(viewLifecycleOwner) { screenState ->
             when (screenState) {
                 is DetailViewModel.DetailScreenState.Loading -> {
                     /*ToDo Write the loading logic */
@@ -129,29 +132,34 @@ class DetailFragment : Fragment() {
                 }
 
                 is DetailViewModel.DetailScreenUpdateState.SavedItemUpdate -> {
-                    Log.d("ISBookMarkMY", "${screenState.detailSavedUiModel.detailIdList}")
-                    if (screenState.detailSavedUiModel.detailIdList) {
-                        savedBtn.setIconResource(R.drawable.save_fill_ic)
-                        savedBtn.setIconTintResource(
-                            if (detailRecyclerView.computeVerticalScrollOffset() > 850) {
-                                R.color.black
-                            } else {
-                                R.color.white
-                            }
-                        )
-                    } else {
-                        savedBtn.setIconResource(R.drawable.save_outline_ic)
-                        savedBtn.setIconTintResource(
-                            if (detailRecyclerView.computeVerticalScrollOffset() > 850) {
-                                R.color.black
-                            } else {
-                                R.color.white
-                            }
-                        )
-                    }
+                    adjustBookMarkIcon(
+                        isBookMark = screenState.detailSavedUiModel.detailIdList,
+                        savedBtn = savedBtn,
+                        detailRecyclerView = detailRecyclerView
+                    )
                     detailFooterContainerAdapter.updateList(
                         listOf(screenState.detailSavedUiModel.detailFooterContainer)
                     )
+                }
+            }
+        }
+
+        detailViewModel.detailNavigation.observe(viewLifecycleOwner) {
+            when (it) {
+                is DetailViewModel.DetailNavigation.NavigateToDirection -> {
+                }
+
+                is DetailViewModel.DetailNavigation.NavigateToNutrition -> {
+                    val nutritionFragment = NutritionPerServingFragment()
+                    val bundle = Bundle()
+                    bundle.putDouble("id",it.id)
+                    nutritionFragment.arguments = bundle
+
+                    requireActivity().supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.host_fragment,nutritionFragment)
+                        .addToBackStack(DetailFragment::class.simpleName)
+                        .commit()
                 }
             }
         }
@@ -177,8 +185,6 @@ class DetailFragment : Fragment() {
                 )
             }
         })
-
-
     }
 
 
@@ -227,6 +233,31 @@ class DetailFragment : Fragment() {
         )
         sharedBtn.rippleColor = ColorStateList.valueOf(rippleBlendedColor)
         sharedBtn.icon.setTintList(ColorStateList.valueOf(iconBlendedColor))
+    }
+
+    private fun adjustBookMarkIcon(
+        isBookMark: Boolean, savedBtn: MaterialButton,
+        detailRecyclerView: RecyclerView
+    ) {
+        if (isBookMark) {
+            savedBtn.setIconResource(R.drawable.save_fill_ic)
+            savedBtn.setIconTintResource(
+                if (detailRecyclerView.computeVerticalScrollOffset() > 850) {
+                    R.color.black
+                } else {
+                    R.color.white
+                }
+            )
+        } else {
+            savedBtn.setIconResource(R.drawable.save_outline_ic)
+            savedBtn.setIconTintResource(
+                if (detailRecyclerView.computeVerticalScrollOffset() > 850) {
+                    R.color.black
+                } else {
+                    R.color.white
+                }
+            )
+        }
     }
 
 

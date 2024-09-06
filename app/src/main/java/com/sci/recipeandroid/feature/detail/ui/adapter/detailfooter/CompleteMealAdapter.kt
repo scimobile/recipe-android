@@ -6,9 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.sci.recipeandroid.databinding.DetailCompleteMealItemViewholderBinding
 import com.sci.recipeandroid.feature.detail.domain.model.CompleteMeal
-import com.sci.recipeandroid.feature.detail.domain.model.DetailFooterItem
-import com.sci.recipeandroid.feature.detail.ui.viewholder.detailfooter.DetailCompleteMealViewHolder
-import com.sci.recipeandroid.feature.detail.ui.viewholder.detailfooter.itemviewholder.CompleteMealItemViewHolder
+import com.sci.recipeandroid.feature.detail.ui.viewholder.detail.detailfooter.itemviewholder.CompleteMealItemViewHolder
 
 class CompleteMealAdapter(
     private val onClick: (Double) -> Unit

@@ -142,12 +142,15 @@
         app:layout_constraintStart_toStartOf="@id/detail_ingredient_rv"
         app:layout_constraintTop_toBottomOf="@id/detail_ingredient_rv" />
 
-    <TextView
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/view_all_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:shapeAppearance="@null"
+        style="@style/Widget.Material3.Button.TextButton"
         android:fontFamily="@font/poppins_semibold"
         android:text="@string/view_all"
+        app:rippleColor="@color/gray"
         android:textColor="@color/color_text_secondary"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@id/nutrition_tv"
@@ -288,13 +291,17 @@
         app:layout_constraintStart_toEndOf="@+id/vertical_divider_three"
         app:layout_constraintTop_toBottomOf="@id/calories_tv" />
 
-    <TextView
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/view_direction_tv"
+        style="@style/Widget.Material3.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:fontFamily="@font/jetbrains_mono_medium"
         android:text="@string/view_directions"
+        app:shapeAppearance="@null"
+        app:rippleColor="@color/gray"
+        android:textColor="@color/color_text_secondary"
         app:layout_constraintEnd_toEndOf="@id/guideline_end"
         app:layout_constraintStart_toStartOf="@id/guideline_start"
         app:layout_constraintTop_toBottomOf="@id/calorie_amt_tv" />

@@ -1,4 +1,4 @@
-package com.sci.recipeandroid.feature.detail.ui.viewholder.detailfooter
+package com.sci.recipeandroid.feature.detail.ui.viewholder.detail.detailfooter
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sci.recipeandroid.databinding.DetailCompleteMealItemViewholderBinding

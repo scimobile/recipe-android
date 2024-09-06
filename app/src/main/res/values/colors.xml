@@ -6,6 +6,7 @@
     <color name="dark_blue">#2E353D</color>
     <color name="color_error">#F44336</color>
     <color name="gray">#C6C6C6</color>
+    <color name="fully_white">#FFFFFF</color>">
 
     <color name="color_button_active">#F17102</color>
     <color name="color_border_active">#F17102</color>

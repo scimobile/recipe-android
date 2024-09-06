@@ -42,19 +42,6 @@ class DetailFooterContainerAdapter(
         holder.bind(dataList[position])
     }
 
-//    override fun onBindViewHolder(
-//        holder: DetailFooterContainerViewHolder,
-//        position: Int,
-//        payloads: MutableList<Any>
-//    ) {
-//        if (payloads.isEmpty()) {
-//            super.onBindViewHolder(holder, position, payloads)
-//        } else {
-//
-//        }
-//
-//    }
-
     inner class DetailFooterContainerViewHolder(private val binding: DetailFooterContainerViewholderBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private val recyclerView = binding.detailFooterContainerRv

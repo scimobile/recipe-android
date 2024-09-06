@@ -1,4 +1,4 @@
-package com.sci.recipeandroid.feature.detail.ui.viewholder.detailfooter.itemviewholder
+package com.sci.recipeandroid.feature.detail.ui.viewholder.detail.detailfooter.itemviewholder
 
 import androidx.recyclerview.widget.RecyclerView
 import com.sci.recipeandroid.R

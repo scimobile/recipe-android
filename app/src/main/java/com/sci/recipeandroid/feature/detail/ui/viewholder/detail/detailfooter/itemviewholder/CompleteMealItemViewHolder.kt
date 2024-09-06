@@ -1,4 +1,4 @@
-package com.sci.recipeandroid.feature.detail.ui.viewholder.detailfooter.itemviewholder
+package com.sci.recipeandroid.feature.detail.ui.viewholder.detail.detailfooter.itemviewholder
 
 import android.annotation.SuppressLint
 import android.content.res.ColorStateList

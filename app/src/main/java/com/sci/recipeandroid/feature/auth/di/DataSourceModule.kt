@@ -5,7 +5,7 @@ import com.sci.recipeandroid.feature.auth.data.datasource.local.AuthLocalDataSou
 import com.sci.recipeandroid.feature.auth.data.datasource.remote.AuthRemoteDataSource
 import com.sci.recipeandroid.feature.auth.data.datasource.remote.FakeAuthRemoteDataSource
 import com.sci.recipeandroid.feature.detail.data.datasource.remote.DetailRemoteDataSource
-import com.sci.recipeandroid.feature.detail.data.datasource.remote.MockDetailRemoteRemoteDataSourceImpl
+import com.sci.recipeandroid.feature.detail.data.datasource.remote.MockDetailRemoteDataSourceImpl
 import org.koin.dsl.module
 
 val remoteDataSourceModule = module {
@@ -17,7 +17,7 @@ val remoteDataSourceModule = module {
         FakeAuthRemoteDataSource() as AuthRemoteDataSource
     }
     single {
-        MockDetailRemoteRemoteDataSourceImpl() as DetailRemoteDataSource
+        MockDetailRemoteDataSourceImpl() as DetailRemoteDataSource
     }
 }
 

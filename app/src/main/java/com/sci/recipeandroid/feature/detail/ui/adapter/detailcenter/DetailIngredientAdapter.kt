@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.sci.recipeandroid.databinding.DetailIngredientViewholderBinding
 import com.sci.recipeandroid.feature.detail.domain.model.Ingredients
-import com.sci.recipeandroid.feature.detail.ui.viewholder.detailcenter.DetailIngredientViewHolder
+import com.sci.recipeandroid.feature.detail.ui.viewholder.detail.detailcenter.DetailIngredientViewHolder
 
 class DetailIngredientAdapter() : RecyclerView.Adapter<DetailIngredientViewHolder>() {
     private var ingredientList = emptyList<Ingredients>()
