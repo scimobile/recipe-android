@@ -1,6 +1,5 @@
 package com.sci.recipeandroid.feature.detail.ui.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,18 +13,21 @@ import com.sci.recipeandroid.feature.detail.domain.model.DetailFooterItem
 import com.sci.recipeandroid.feature.detail.domain.model.Ingredients
 import com.sci.recipeandroid.feature.detail.domain.repository.DetailRepo
 import com.sci.recipeandroid.feature.detail.ui.models.DetailSavedUiModel
+import com.sci.recipeandroid.util.SingleLiveEvent
 import com.sci.recipeandroid.util.multiSelectBy
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class DetailViewModel(
     private val detailRepo: DetailRepo,
 ) : ViewModel() {
-    private val detailScnData = MutableLiveData<DetailScreenState>()
-    val detailData: LiveData<DetailScreenState> = detailScnData
+    private val _detailScnData = MutableLiveData<DetailScreenState>()
+    val detailScnState: LiveData<DetailScreenState> = _detailScnData
 
-    private val detailScnUpdateState = MutableLiveData<DetailScreenUpdateState>()
-    val detailUpdateState: LiveData<DetailScreenUpdateState> = detailScnUpdateState
+    private val _detailScnUpdateState = MutableLiveData<DetailScreenUpdateState>()
+    val detailUpdateState: LiveData<DetailScreenUpdateState> = _detailScnUpdateState
+
+    private val _detailNavigation = SingleLiveEvent<DetailNavigation>()
+    val detailNavigation: LiveData<DetailNavigation> = _detailNavigation
 
     private var ingredientList = mutableListOf<Ingredients>()
 
@@ -39,8 +41,8 @@ class DetailViewModel(
     fun getDetailData(detailId: Double) {
         this.detailId = detailId
         viewModelScope.launch {
-            detailScnData.value = DetailScreenState.Loading
-            delay(3000)
+            _detailScnData.value = DetailScreenState.Loading
+//            delay(3000)
             detailRepo.getDetail(detailId)
                 .fold(
                     onSuccess = {
@@ -52,10 +54,10 @@ class DetailViewModel(
                                 detailFooterData.addAll(data.detailFooterItems)
                             }
                         }
-                        detailScnData.value = DetailScreenState.Success(it)
+                        _detailScnData.value = DetailScreenState.Success(it)
                     },
                     onFailure = {
-                        detailScnData.value = DetailScreenState.Error(it.message.toString())
+                        _detailScnData.value = DetailScreenState.Error(it.message.toString())
                     }
                 )
         }
@@ -69,7 +71,7 @@ class DetailViewModel(
                 ingredientList = ingredientList.map {
                     it.copy(amount = event.amount.toDouble() * it.amount)
                 }.toMutableList()
-                detailScnUpdateState.value =
+                _detailScnUpdateState.value =
                     DetailScreenUpdateState.IngredientUpdate(ingredientList)
             }
 
@@ -101,6 +103,7 @@ class DetailViewModel(
                         }
                     }
                 }
+                //adding the id of the bookmarked item if necessary
                 if (bookMarkItemIdList.isEmpty()) {
                     bookMarkItemIdList.add(event.footerItemId)
                 } else if (bookMarkItemIdList.contains(event.footerItemId)) {
@@ -108,14 +111,20 @@ class DetailViewModel(
                 } else {
                     bookMarkItemIdList.add(event.footerItemId)
                 }
-                Log.d("BookMarkItemList", "$bookMarkItemIdList")
-                detailScnUpdateState.value = DetailScreenUpdateState.SavedItemUpdate(
+
+                _detailScnUpdateState.value = DetailScreenUpdateState.SavedItemUpdate(
                     DetailSavedUiModel(
                         detailIdList = bookMarkItemIdList.contains(detailId),
                         detailFooterContainer = DetailFooterContainer(detailFooterData)
                     )
-
                 )
+            }
+
+            is ScreenEvent.NavigateToDirection -> {
+                _detailNavigation.value = DetailNavigation.NavigateToDirection(event.id)
+            }
+            is ScreenEvent.NavigateToNutrition -> {
+                _detailNavigation.value = DetailNavigation.NavigateToNutrition(event.id)
             }
         }
     }
@@ -134,9 +143,16 @@ class DetailViewModel(
             DetailScreenUpdateState()
     }
 
+    sealed class DetailNavigation {
+        data class NavigateToNutrition(val id: Double) : DetailNavigation()
+        data class NavigateToDirection(val id: Double) : DetailNavigation()
+    }
+
     sealed class ScreenEvent {
         data class UpdateServeAmt(val amount: Int) : ScreenEvent()
         data class UpdateSavedItem(val footerItemId: Double) : ScreenEvent()
+        data class NavigateToNutrition(val id: Double) : ScreenEvent()
+        data class NavigateToDirection(val id: Double) : ScreenEvent()
     }
 
 }

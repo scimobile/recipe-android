@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sci.recipeandroid.databinding.DetailCenterViewholderBinding
 import com.sci.recipeandroid.feature.detail.domain.model.DetailCenterContainer
 import com.sci.recipeandroid.feature.detail.domain.model.Ingredients
-import com.sci.recipeandroid.feature.detail.ui.viewholder.detailcenter.DetailCenterViewHolder
+import com.sci.recipeandroid.feature.detail.ui.viewholder.detail.detailcenter.DetailCenterViewHolder
 
 class DetailCenterAdapter(
     private val giveAmountResult: (Int) -> Unit,

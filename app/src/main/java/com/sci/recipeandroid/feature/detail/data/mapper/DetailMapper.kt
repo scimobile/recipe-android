@@ -21,7 +21,7 @@ fun String.toDetailData(): DetailDataContainer {
                 recipeOwner = "Chef John Doe",
                 ratingPoint = 4.1f,
                 ratingCount = "123",
-                isCommunityPick = false,
+                isCommunityPick = true,
                 description = "These classic chocolate chip cookies are soft, chewy, and full of delicious chocolate chips.",
                 estimatedTime = "30 minutes",
                 id = 1.0

@@ -1,4 +1,4 @@
-package com.sci.recipeandroid.feature.detail.ui.viewholder.detailcenter
+package com.sci.recipeandroid.feature.detail.ui.viewholder.detail.detailcenter
 
 import android.annotation.SuppressLint
 import android.util.Log

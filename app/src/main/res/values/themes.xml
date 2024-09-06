@@ -27,4 +27,15 @@
         <item name="android:outlineSpotShadowColor" tools:ignore="NewApi">@android:color/black</item>
     </style>
 
+    <style name="ToolBar.TextAppearance" parent="">
+        <item name="android:fontFamily">@font/poppins_semibold</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    
+    <style name="roundedImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">10dp</item>
+    </style>
+
 </resources>

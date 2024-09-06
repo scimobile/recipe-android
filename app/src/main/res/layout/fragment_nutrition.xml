@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fully_white"
+    tools:context=".feature.detail.ui.screen.NutritionPerServingFragment">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/nutrition_tool_bar"
+        style="@style/ThemeOverlay.App.Toolbar.Surface"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="@color/fully_white"
+        android:elevation="@dimen/margin_medium_x_15"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/back_arrow_ic"
+        app:title="Nutrition Per Serving"
+        app:titleCentered="true"
+        app:titleTextAppearance="@style/ToolBar.TextAppearance" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/nutrition_per_serve_rv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/nutrition_tool_bar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/nutrition_viewholder"
+        android:paddingBottom="120dp"
+        android:clipToPadding="false" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

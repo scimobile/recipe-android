@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/nutrition_tool_bar"
+        style="@style/ThemeOverlay.App.Toolbar.Surface"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="@color/fully_white"
+        android:elevation="@dimen/margin_medium_x_15"
+        app:navigationIcon="@drawable/back_arrow_ic"
+        app:title="Direction"
+        app:titleCentered="true"
+        app:titleTextAppearance="@style/ToolBar.TextAppearance" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/margin_medium_x_23"
+        android:paddingBottom="@dimen/margin_xlarge"
+        android:clipToPadding="false"
+        />
+</LinearLayout>

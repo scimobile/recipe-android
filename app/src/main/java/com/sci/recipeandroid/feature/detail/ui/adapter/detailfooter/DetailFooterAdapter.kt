@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.sci.recipeandroid.databinding.DetailAlsoLikeItemViewholderBinding
 import com.sci.recipeandroid.databinding.DetailAlsoLikeViewholderBinding
 import com.sci.recipeandroid.databinding.DetailCompleteMealViewholderBinding
 import com.sci.recipeandroid.databinding.DetailRecipeOwnerViewholderBinding
@@ -12,10 +11,10 @@ import com.sci.recipeandroid.feature.detail.domain.model.AlsoLikeContainer
 import com.sci.recipeandroid.feature.detail.domain.model.CompleteMealContainer
 import com.sci.recipeandroid.feature.detail.domain.model.DetailFooterItem
 import com.sci.recipeandroid.feature.detail.domain.model.RecipeOwnerContainer
-import com.sci.recipeandroid.feature.detail.ui.viewholder.detailfooter.DetailAlsoLikeViewHolder
-import com.sci.recipeandroid.feature.detail.ui.viewholder.detailfooter.DetailCompleteMealViewHolder
-import com.sci.recipeandroid.feature.detail.ui.viewholder.detailfooter.DetailFooterBaseViewHolder
-import com.sci.recipeandroid.feature.detail.ui.viewholder.detailfooter.RecipeOwnerViewHolder
+import com.sci.recipeandroid.feature.detail.ui.viewholder.detail.detailfooter.DetailAlsoLikeViewHolder
+import com.sci.recipeandroid.feature.detail.ui.viewholder.detail.detailfooter.DetailCompleteMealViewHolder
+import com.sci.recipeandroid.feature.detail.ui.viewholder.detail.detailfooter.DetailFooterBaseViewHolder
+import com.sci.recipeandroid.feature.detail.ui.viewholder.detail.detailfooter.RecipeOwnerViewHolder
 
 class DetailFooterAdapter(
     private val onAlsoLikeClick: (Double) -> Unit,

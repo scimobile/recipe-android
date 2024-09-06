@@ -52,5 +52,8 @@
     <string name="devider_text"> / </string>
     <string name="metric">Metric</string>
     <string name="us">US</string>
+    <string name="daily_values_explanation">* Percent Daily Values are based on a 2,000 calorie diet. Your Daily values may be higher or lower depending on your calorie needs.</string>
+    <string name="nutrition_disclaimer">Disclaimer: All information and tools presented and written within this site are intended for informational purposes only. If you have any concerns or questions about your health, please consult with a physician or other health-care professional.</string>
+    <string name="lorem_ipsum"><![CDATA[Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.]]></string>
 
 </resources>
