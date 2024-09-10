@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.sci.recipeandroid.databinding.DetailCenterViewholderBinding
 import com.sci.recipeandroid.feature.detail.domain.model.DetailCenterContainer
-import com.sci.recipeandroid.feature.detail.domain.model.Ingredients
+import com.sci.recipeandroid.feature.detail.domain.model.IngredientsModel
 import com.sci.recipeandroid.feature.detail.ui.viewholder.detail.detailcenter.DetailCenterViewHolder
 
 class DetailCenterAdapter(
@@ -40,7 +40,7 @@ class DetailCenterAdapter(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateIngredientList(ingredientLists: List<Ingredients>){
+    fun updateIngredientList(ingredientLists: List<IngredientsModel>){
         detailCenterContainerList[0].ingredients = ingredientLists
         notifyDataSetChanged()
     }

@@ -4,6 +4,7 @@ import com.sci.recipeandroid.feature.auth.ui.viewmodel.AuthOptionViewModel
 import com.sci.recipeandroid.feature.auth.ui.viewmodel.LoginViewModel
 import com.sci.recipeandroid.feature.auth.ui.viewmodel.SignUpViewModel
 import com.sci.recipeandroid.feature.detail.ui.viewmodel.DetailViewModel
+import com.sci.recipeandroid.feature.detail.ui.viewmodel.DirectionViewModel
 import com.sci.recipeandroid.feature.detail.ui.viewmodel.NutritionViewModel
 import com.sci.recipeandroid.util.Validator
 import com.sci.recipeandroid.util.ValidatorImpl
@@ -41,6 +42,11 @@ val viewModelModule = module {
 
     viewModel {
         NutritionViewModel(
+            detailRepo = get()
+        )
+    }
+    viewModel {
+        DirectionViewModel(
             detailRepo = get()
         )
     }

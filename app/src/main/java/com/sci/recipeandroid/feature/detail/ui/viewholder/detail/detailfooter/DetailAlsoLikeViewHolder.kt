@@ -1,7 +1,6 @@
 package com.sci.recipeandroid.feature.detail.ui.viewholder.detail.detailfooter
 
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.sci.recipeandroid.databinding.DetailAlsoLikeItemViewholderBinding
 import com.sci.recipeandroid.databinding.DetailAlsoLikeViewholderBinding
 import com.sci.recipeandroid.feature.detail.domain.model.AlsoLikeContainer
 import com.sci.recipeandroid.feature.detail.domain.model.DetailFooterItem
@@ -27,7 +26,7 @@ class DetailAlsoLikeViewHolder(
 
     override fun bind(data: DetailFooterItem) {
         if (data is AlsoLikeContainer) {
-            adapter.updateList(data.alsoLikeList)
+            adapter.updateList(data.alsoLikeModelList)
         }
     }
 }

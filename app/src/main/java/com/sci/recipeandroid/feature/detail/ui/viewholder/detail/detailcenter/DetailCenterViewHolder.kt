@@ -1,7 +1,6 @@
 package com.sci.recipeandroid.feature.detail.ui.viewholder.detail.detailcenter
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.sci.recipeandroid.databinding.DetailCenterViewholderBinding
@@ -36,10 +35,10 @@ class DetailCenterViewHolder(
     @SuppressLint("SetTextI18n")
     fun bind(detailCenterItemData: DetailCenterContainer) {
 
-        binding.proteinAmtTv.text = detailCenterItemData.nutritionPerServing.protein
-        binding.fatAmtTv.text = detailCenterItemData.nutritionPerServing.fat
-        binding.calorieAmtTv.text = detailCenterItemData.nutritionPerServing.calories
-        binding.carbAmtTv.text = detailCenterItemData.nutritionPerServing.carbs
+        binding.proteinAmtTv.text = detailCenterItemData.nutritionPerServeModel.protein
+        binding.fatAmtTv.text = detailCenterItemData.nutritionPerServeModel.fat
+        binding.calorieAmtTv.text = detailCenterItemData.nutritionPerServeModel.calories
+        binding.carbAmtTv.text = detailCenterItemData.nutritionPerServeModel.carbs
         binding.serveAmtTv.text = "Serve $serveAmt"
         binding.addBtn.setOnClickListener {
             serveAmt += 1

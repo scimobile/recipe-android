@@ -2,9 +2,6 @@ package com.sci.recipeandroid.feature.detail.domain.model
 
 abstract class NutritionScreenData
 
-data class NutritionScreenModel(
-    val nutritionScreenData: List<NutritionScreenData>,
-)
 data class NutritionHeaderModel(
     val calories: String
 ): NutritionScreenData()

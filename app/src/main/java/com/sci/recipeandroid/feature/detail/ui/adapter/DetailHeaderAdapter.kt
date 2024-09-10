@@ -5,11 +5,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.sci.recipeandroid.databinding.DetailHeaderViewholderBinding
-import com.sci.recipeandroid.feature.detail.domain.model.DetailHeaderContainer
+import com.sci.recipeandroid.feature.detail.domain.model.DetailHeaderContainerModel
 import com.sci.recipeandroid.feature.detail.ui.viewholder.detail.DetailHeaderViewHolder
 
 class DetailHeaderAdapter(val onClick:(Int)-> Unit) : RecyclerView.Adapter<DetailHeaderViewHolder>() {
-    private var headerContainerList = emptyList<DetailHeaderContainer>()
+    private var headerContainerList = emptyList<DetailHeaderContainerModel>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DetailHeaderViewHolder {
         DetailHeaderViewholderBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
@@ -23,7 +23,7 @@ class DetailHeaderAdapter(val onClick:(Int)-> Unit) : RecyclerView.Adapter<Detai
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateList(dataLists: List<DetailHeaderContainer>) {
+    fun updateList(dataLists: List<DetailHeaderContainerModel>) {
         headerContainerList = dataLists
         notifyDataSetChanged()
     }

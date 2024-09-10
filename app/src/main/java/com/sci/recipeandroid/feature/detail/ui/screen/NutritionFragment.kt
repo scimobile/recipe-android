@@ -1,7 +1,6 @@
 package com.sci.recipeandroid.feature.detail.ui.screen
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,7 @@ import com.sci.recipeandroid.feature.detail.ui.viewmodel.NutritionViewModel
 import com.sci.recipeandroid.util.SystemUiController.adjustStatusBar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class NutritionPerServingFragment : Fragment() {
+class NutritionFragment : Fragment() {
     private var _binding: FragmentNutritionBinding? = null
     val binding
         get() = _binding!!

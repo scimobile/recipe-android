@@ -5,15 +5,24 @@ import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updateLayoutParams
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.Target
 import com.sci.recipeandroid.databinding.DetailHeaderViewholderBinding
-import com.sci.recipeandroid.feature.detail.domain.model.DetailHeaderContainer
+import com.sci.recipeandroid.feature.detail.domain.model.DetailHeaderContainerModel
 
 class DetailHeaderViewHolder(private val binding: DetailHeaderViewholderBinding) :
     RecyclerView.ViewHolder(binding.root) {
     private val ratingBar = binding.ratingBar
     private val recipeNameCard = binding.recipeNameCard
     @SuppressLint("SetTextI18n")
-    fun bind(data: DetailHeaderContainer) {
+    fun bind(data: DetailHeaderContainerModel) {
+        Glide.with(binding.detailRecipeImg.context)
+            .load(data.recipeImg)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .apply(RequestOptions.overrideOf(Target.SIZE_ORIGINAL))
+            .into(binding.detailRecipeImg)
         binding.recipeTitleTv.text = "Teriyaki Chicken"
         binding.recipeOwnerName.text = data.recipeOwner
         binding.ratingCountTv.text = data.ratingCount + " Ratings"

@@ -1,6 +1,6 @@
 package com.sci.recipeandroid.feature.detail.domain.model
 
-data class DetailHeaderContainer(
+data class DetailHeaderContainerModel(
     val id:Double,
     val recipeImg:String,
     val recipeName:String,
@@ -10,4 +10,4 @@ data class DetailHeaderContainer(
     val isCommunityPick:Boolean,
     val description:String,
     val estimatedTime:String,
-):DetailScreenData()
+):DetailScreenModel()

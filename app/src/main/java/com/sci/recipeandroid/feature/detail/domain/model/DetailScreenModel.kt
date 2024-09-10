@@ -1,7 +1,7 @@
 package com.sci.recipeandroid.feature.detail.domain.model
 
-abstract class DetailScreenData
+abstract class DetailScreenModel
 
 data class DetailDataContainer(
-    val detailScreenData: List<DetailScreenData>
+    val detailScreenData: List<DetailScreenModel>
 )
