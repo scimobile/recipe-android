@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/nutrition_tool_bar"
+        android:id="@+id/direction_tool_bar"
         style="@style/ThemeOverlay.App.Toolbar.Surface"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
@@ -18,6 +18,7 @@
         app:titleTextAppearance="@style/ToolBar.TextAppearance" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/direction_rv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/margin_medium_x_23"

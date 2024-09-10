@@ -1,17 +1,17 @@
 package com.sci.recipeandroid.feature.detail.domain.model
 
 data class DetailCenterContainer(
-    val nutritionPerServing: NutritionPerServing,
-    var ingredients:List<Ingredients>
-):DetailScreenData()
+    val nutritionPerServeModel: NutritionPerServeModel,
+    var ingredients:List<IngredientsModel>
+):DetailScreenModel()
 
-data class NutritionPerServing(
+data class NutritionPerServeModel(
     val calories: String,
     val fat: String,
     val protein: String,
     val carbs: String
 )
-data class Ingredients(
+data class IngredientsModel(
     val name: String,
     var amount: Double,
     val amountUnit :String,

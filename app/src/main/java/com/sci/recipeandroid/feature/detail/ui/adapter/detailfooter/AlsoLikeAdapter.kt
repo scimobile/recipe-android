@@ -5,13 +5,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.sci.recipeandroid.databinding.DetailAlsoLikeItemViewholderBinding
-import com.sci.recipeandroid.feature.detail.domain.model.AlsoLike
+import com.sci.recipeandroid.feature.detail.domain.model.AlsoLikeModel
 import com.sci.recipeandroid.feature.detail.ui.viewholder.detail.detailfooter.itemviewholder.AlsoLikeItemViewHolder
 
 
 class AlsoLikeAdapter(private val onSavedClick: (Double) -> Unit) :
     RecyclerView.Adapter<AlsoLikeItemViewHolder>() {
-    private var productList = emptyList<AlsoLike>()
+    private var productList = emptyList<AlsoLikeModel>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlsoLikeItemViewHolder {
         DetailAlsoLikeItemViewholderBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
@@ -28,7 +28,7 @@ class AlsoLikeAdapter(private val onSavedClick: (Double) -> Unit) :
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateList(productLists: List<AlsoLike>) {
+    fun updateList(productLists: List<AlsoLikeModel>) {
         productList = productLists
         notifyDataSetChanged()
     }

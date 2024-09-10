@@ -5,14 +5,14 @@ abstract class DetailFooterItem
 
 data class DetailFooterContainer(
     val detailFooterItems: List<DetailFooterItem>
-) : DetailScreenData()
+) : DetailScreenModel()
 
 data class CompleteMealContainer(
-    var completeMealList: List<CompleteMeal>
+    var completeMealModelList: List<CompleteMealModel>
 ) : DetailFooterItem()
 
 data class AlsoLikeContainer(
-    var alsoLikeList: List<AlsoLike>
+    var alsoLikeModelList: List<AlsoLikeModel>
 ) : DetailFooterItem()
 
 data class RecipeOwnerContainer(
@@ -21,7 +21,7 @@ data class RecipeOwnerContainer(
     val ownerDescription: String
 ) : DetailFooterItem()
 
-data class CompleteMeal(
+data class CompleteMealModel(
     val id: Double,
     val name: String,
     val image: String,
@@ -30,7 +30,7 @@ data class CompleteMeal(
     var isBookmarked: Boolean = false
 )
 
-data class AlsoLike(
+data class AlsoLikeModel(
     val id: Double,
     val name: String,
     val image: String,

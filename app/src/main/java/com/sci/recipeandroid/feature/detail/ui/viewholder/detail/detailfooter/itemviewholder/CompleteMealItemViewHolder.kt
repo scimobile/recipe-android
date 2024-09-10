@@ -6,7 +6,7 @@ import android.graphics.Color
 import androidx.recyclerview.widget.RecyclerView
 import com.sci.recipeandroid.R
 import com.sci.recipeandroid.databinding.DetailCompleteMealItemViewholderBinding
-import com.sci.recipeandroid.feature.detail.domain.model.CompleteMeal
+import com.sci.recipeandroid.feature.detail.domain.model.CompleteMealModel
 
 class CompleteMealItemViewHolder(
     private val binding: DetailCompleteMealItemViewholderBinding,
@@ -19,14 +19,14 @@ class CompleteMealItemViewHolder(
     private val recipeImg = binding.recipeImg
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    fun bind(completeMeal: CompleteMeal) {
-        recipeName.text = completeMeal.name
-        ratingBar.rating = completeMeal.ratingPoint
+    fun bind(completeMealModel: CompleteMealModel) {
+        recipeName.text = completeMealModel.name
+        ratingBar.rating = completeMealModel.ratingPoint
         savedBtn.rippleColor = ColorStateList.valueOf(Color.WHITE)
         savedBtn.setOnClickListener {
-            onClick(completeMeal.id)
+            onClick(completeMealModel.id)
         }
-        if (completeMeal.isBookmarked) {
+        if (completeMealModel.isBookmarked) {
             savedBtn.setIconResource(R.drawable.save_fill_ic)
         }else{
             savedBtn.setIconResource(R.drawable.save_outline_ic)

@@ -1,8 +1,11 @@
 package com.sci.recipeandroid.feature.detail.ui.screen
 
+import android.annotation.SuppressLint
 import android.content.res.ColorStateList
+import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +19,7 @@ import com.sci.recipeandroid.R
 import com.sci.recipeandroid.databinding.FragmentDetailBinding
 import com.sci.recipeandroid.feature.detail.domain.model.DetailCenterContainer
 import com.sci.recipeandroid.feature.detail.domain.model.DetailFooterContainer
-import com.sci.recipeandroid.feature.detail.domain.model.DetailHeaderContainer
+import com.sci.recipeandroid.feature.detail.domain.model.DetailHeaderContainerModel
 import com.sci.recipeandroid.feature.detail.ui.adapter.DetailHeaderAdapter
 import com.sci.recipeandroid.feature.detail.ui.adapter.detailcenter.DetailCenterAdapter
 import com.sci.recipeandroid.feature.detail.ui.adapter.detailfooter.DetailFooterContainerAdapter
@@ -33,15 +36,26 @@ class DetailFragment : Fragment() {
     private val detailViewModel: DetailViewModel by viewModel()
     private val detailId = 1.0
 
+    //saved the screen state in bundle for screen rotation and navigation
+    private var savedScreenState: Bundle? = null
+
+    //saved the color of the tool bar icon in bundle for screen rotation
+    private var savedColor: Bundle? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentDetailBinding.inflate(inflater, container, false)
-
+        adjustStatusBar(binding.toolBar, requireActivity())
+        if (savedInstanceState == null && savedScreenState == null) {
+            detailViewModel.getDetailData(detailId)
+        }
         return binding.root
     }
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -50,9 +64,6 @@ class DetailFragment : Fragment() {
         val navBackBtn = binding.navigateBackImg
         val savedBtn = binding.saveBtn
         val sharedBtn = binding.shareBtn
-        adjustStatusBar(toolBar, requireActivity())
-        //this detailId will get from navigation component
-        detailViewModel.getDetailData(detailId)
 
         savedBtn.setOnClickListener {
             detailViewModel.onEvent(
@@ -63,7 +74,9 @@ class DetailFragment : Fragment() {
         val detailHeaderAdapter = DetailHeaderAdapter {}
         val detailCenterAdapter = DetailCenterAdapter(
             goToViewDirection = {
-
+                detailViewModel.onEvent(
+                    DetailViewModel.ScreenEvent.NavigateToDirection(detailId)
+                )
             },
             goToAllNutrition = {
                 detailViewModel.onEvent(
@@ -103,7 +116,7 @@ class DetailFragment : Fragment() {
                 is DetailViewModel.DetailScreenState.Success -> {
                     screenState.data.detailScreenData.onEach { data ->
                         when (data) {
-                            is DetailHeaderContainer -> {
+                            is DetailHeaderContainerModel -> {
                                 detailHeaderAdapter.updateList(listOf(data))
                             }
 
@@ -122,15 +135,12 @@ class DetailFragment : Fragment() {
                     /*ToDo Write the error logic */
                 }
 
+
             }
         }
 
         detailViewModel.detailUpdateState.observe(viewLifecycleOwner) { screenState ->
             when (screenState) {
-                is DetailViewModel.DetailScreenUpdateState.IngredientUpdate -> {
-                    detailCenterAdapter.updateIngredientList(screenState.ingredientList)
-                }
-
                 is DetailViewModel.DetailScreenUpdateState.SavedItemUpdate -> {
                     adjustBookMarkIcon(
                         isBookMark = screenState.detailSavedUiModel.detailIdList,
@@ -141,23 +151,36 @@ class DetailFragment : Fragment() {
                         listOf(screenState.detailSavedUiModel.detailFooterContainer)
                     )
                 }
+                is DetailViewModel.DetailScreenUpdateState.IngredientUpdate -> {
+                    detailCenterAdapter.updateIngredientList(screenState.ingredientList)
+                }
             }
         }
 
         detailViewModel.detailNavigation.observe(viewLifecycleOwner) {
             when (it) {
                 is DetailViewModel.DetailNavigation.NavigateToDirection -> {
+                    val directionFragment = DirectionFragment()
+                    val bundle = Bundle()
+                    bundle.putDouble("id", it.id)
+                    directionFragment.arguments = bundle
+
+                    requireActivity().supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.host_fragment, directionFragment)
+                        .addToBackStack(DetailFragment::class.simpleName)
+                        .commit()
                 }
 
                 is DetailViewModel.DetailNavigation.NavigateToNutrition -> {
-                    val nutritionFragment = NutritionPerServingFragment()
+                    val nutritionFragment = NutritionFragment()
                     val bundle = Bundle()
-                    bundle.putDouble("id",it.id)
+                    bundle.putDouble("id", it.id)
                     nutritionFragment.arguments = bundle
 
                     requireActivity().supportFragmentManager
                         .beginTransaction()
-                        .replace(R.id.host_fragment,nutritionFragment)
+                        .replace(R.id.host_fragment, nutritionFragment)
                         .addToBackStack(DetailFragment::class.simpleName)
                         .commit()
                 }
@@ -181,7 +204,8 @@ class DetailFragment : Fragment() {
                     scrollY,
                     toolBar,
                     navBackBtn,
-                    savedBtn, sharedBtn
+                    savedBtn, sharedBtn,
+                    savedInstanceState
                 )
             }
         })
@@ -193,13 +217,19 @@ class DetailFragment : Fragment() {
         toolBar: MaterialToolbar,
         backBtn: MaterialButton,
         savedBtn: MaterialButton,
-        sharedBtn: MaterialButton
+        sharedBtn: MaterialButton,
+        savedInstanceState: Bundle?
     ) {
         val maxScroll = 950
 
         // Calculate the fraction of the scroll (from 0 to 1)
         val fraction = (scrollY.coerceIn(0, maxScroll)).toFloat() / maxScroll
         toolBar.background.alpha = (255 * (fraction)).toInt()
+        if (scrollY > maxScroll) {
+            toolBar.elevation = 20f
+        } else {
+            toolBar.elevation = 0f
+        }
         // Define start and end colors
         val iconStartColor = backBtn.iconTint?.defaultColor ?: Color.LTGRAY
         val iconEndColor = Color.BLACK
@@ -207,32 +237,35 @@ class DetailFragment : Fragment() {
         val bgEndColor = Color.WHITE
 
         // Blend the colors based on the fraction
-        val iconBlendedColor = blendColors(iconStartColor, iconEndColor, fraction)
-        val rippleBlendedColor = blendColors(Color.LTGRAY, Color.GRAY, fraction)
+        val getSavedColor = savedInstanceState?.getBundle("color")?.getIntArray("BlendedColor")
+        val iconBlendedColor =
+            getSavedColor?.get(0) ?: blendColors(iconStartColor, iconEndColor, fraction)
+        val rippleBlendedColor =
+            getSavedColor?.get(1) ?: blendColors(Color.LTGRAY, Color.GRAY, fraction)
+        val bgBlendedColor =
+            getSavedColor?.get(2) ?: blendColors(bgStartColor, bgEndColor, fraction)
 
-        backBtn.background.setTintList(
-            ColorStateList.valueOf(
-                blendColors(bgStartColor, bgEndColor, fraction)
+        savedColor = Bundle().apply {
+            this.putIntArray(
+                "BlendedColor", intArrayOf(
+                    iconBlendedColor, rippleBlendedColor, bgBlendedColor
+                )
             )
-        )
+        }
+
+
+        backBtn.background.setTintList(ColorStateList.valueOf(bgBlendedColor))
         backBtn.rippleColor = ColorStateList.valueOf(rippleBlendedColor)
         backBtn.icon.setTintList(ColorStateList.valueOf(iconBlendedColor))
 
-        savedBtn.background.setTintList(
-            ColorStateList.valueOf(
-                blendColors(bgStartColor, bgEndColor, fraction)
-            )
-        )
+        savedBtn.background.setTintList(ColorStateList.valueOf(bgBlendedColor))
         savedBtn.rippleColor = ColorStateList.valueOf(rippleBlendedColor)
         savedBtn.icon.setTintList(ColorStateList.valueOf(iconBlendedColor))
 
-        sharedBtn.background.setTintList(
-            ColorStateList.valueOf(
-                blendColors(bgStartColor, bgEndColor, fraction)
-            )
-        )
+        sharedBtn.background.setTintList(ColorStateList.valueOf(bgBlendedColor))
         sharedBtn.rippleColor = ColorStateList.valueOf(rippleBlendedColor)
         sharedBtn.icon.setTintList(ColorStateList.valueOf(iconBlendedColor))
+
     }
 
     private fun adjustBookMarkIcon(
@@ -260,6 +293,18 @@ class DetailFragment : Fragment() {
         }
     }
 
+    private fun saveFragState() = Bundle().apply { this.putString("ScreenState", "Save") }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putBundle("detail", saveFragState())
+        outState.putBundle("color", savedColor)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        savedScreenState = saveFragState()
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

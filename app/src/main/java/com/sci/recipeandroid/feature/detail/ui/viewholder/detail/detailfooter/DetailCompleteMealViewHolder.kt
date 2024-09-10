@@ -1,7 +1,6 @@
 package com.sci.recipeandroid.feature.detail.ui.viewholder.detail.detailfooter
 
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.sci.recipeandroid.databinding.DetailCompleteMealItemViewholderBinding
 import com.sci.recipeandroid.databinding.DetailCompleteMealViewholderBinding
 import com.sci.recipeandroid.feature.detail.domain.model.CompleteMealContainer
 import com.sci.recipeandroid.feature.detail.domain.model.DetailFooterItem
@@ -25,7 +24,7 @@ class DetailCompleteMealViewHolder(
     }
     override fun bind(data: DetailFooterItem) {
         if (data is CompleteMealContainer) {
-            adapter.updateList(data.completeMealList)
+            adapter.updateList(data.completeMealModelList)
         }
     }
 }

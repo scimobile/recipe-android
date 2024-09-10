@@ -10,18 +10,19 @@ import com.sci.recipeandroid.feature.detail.domain.model.DetailCenterContainer
 import com.sci.recipeandroid.feature.detail.domain.model.DetailDataContainer
 import com.sci.recipeandroid.feature.detail.domain.model.DetailFooterContainer
 import com.sci.recipeandroid.feature.detail.domain.model.DetailFooterItem
-import com.sci.recipeandroid.feature.detail.domain.model.Ingredients
+import com.sci.recipeandroid.feature.detail.domain.model.IngredientsModel
 import com.sci.recipeandroid.feature.detail.domain.repository.DetailRepo
 import com.sci.recipeandroid.feature.detail.ui.models.DetailSavedUiModel
 import com.sci.recipeandroid.util.SingleLiveEvent
 import com.sci.recipeandroid.util.multiSelectBy
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class DetailViewModel(
     private val detailRepo: DetailRepo,
 ) : ViewModel() {
-    private val _detailScnData = MutableLiveData<DetailScreenState>()
-    val detailScnState: LiveData<DetailScreenState> = _detailScnData
+    private val _detailScnState = MutableLiveData<DetailScreenState>()
+    val detailScnState: LiveData<DetailScreenState> = _detailScnState
 
     private val _detailScnUpdateState = MutableLiveData<DetailScreenUpdateState>()
     val detailUpdateState: LiveData<DetailScreenUpdateState> = _detailScnUpdateState
@@ -29,20 +30,24 @@ class DetailViewModel(
     private val _detailNavigation = SingleLiveEvent<DetailNavigation>()
     val detailNavigation: LiveData<DetailNavigation> = _detailNavigation
 
-    private var ingredientList = mutableListOf<Ingredients>()
+    private var ingredientList = mutableListOf<IngredientsModel>()
 
     private var detailFooterData = mutableListOf<DetailFooterItem>()
 
     private var bookMarkItemIdList = mutableListOf<Double>()
 
-    private var detailId: Double? = null
+    var detailId: Double? = null
 
-
+    //    init {
+//        detailId?.let {
+//            getDetailData(it)
+//        }
+//    }
     fun getDetailData(detailId: Double) {
         this.detailId = detailId
         viewModelScope.launch {
-            _detailScnData.value = DetailScreenState.Loading
-//            delay(3000)
+            _detailScnState.value = DetailScreenState.Loading
+            delay(3000)
             detailRepo.getDetail(detailId)
                 .fold(
                     onSuccess = {
@@ -54,10 +59,10 @@ class DetailViewModel(
                                 detailFooterData.addAll(data.detailFooterItems)
                             }
                         }
-                        _detailScnData.value = DetailScreenState.Success(it)
+                        _detailScnState.value = DetailScreenState.Success(it)
                     },
                     onFailure = {
-                        _detailScnData.value = DetailScreenState.Error(it.message.toString())
+                        _detailScnState.value = DetailScreenState.Error(it.message.toString())
                     }
                 )
         }
@@ -79,7 +84,7 @@ class DetailViewModel(
                 detailFooterData.onEach {
                     when (it) {
                         is CompleteMealContainer -> {
-                            it.completeMealList = it.completeMealList.multiSelectBy(
+                            it.completeMealModelList = it.completeMealModelList.multiSelectBy(
                                 selectedId = event.footerItemId,
                                 selector = { completeMeal ->
                                     Pair(completeMeal.id, completeMeal.isBookmarked)
@@ -91,7 +96,7 @@ class DetailViewModel(
                         }
 
                         is AlsoLikeContainer -> {
-                            it.alsoLikeList = it.alsoLikeList.multiSelectBy(
+                            it.alsoLikeModelList = it.alsoLikeModelList.multiSelectBy(
                                 selectedId = event.footerItemId,
                                 selector = { alsoLike ->
                                     Pair(alsoLike.id, alsoLike.isBookmarked)
@@ -123,6 +128,7 @@ class DetailViewModel(
             is ScreenEvent.NavigateToDirection -> {
                 _detailNavigation.value = DetailNavigation.NavigateToDirection(event.id)
             }
+
             is ScreenEvent.NavigateToNutrition -> {
                 _detailNavigation.value = DetailNavigation.NavigateToNutrition(event.id)
             }
@@ -131,12 +137,17 @@ class DetailViewModel(
 
     sealed class DetailScreenState {
         data object Loading : DetailScreenState()
-        data class Success(val data: DetailDataContainer) : DetailScreenState()
+        data class Success(
+            val data: DetailDataContainer,
+        ) : DetailScreenState()
+
         data class Error(val message: String) : DetailScreenState()
+
+
     }
 
     sealed class DetailScreenUpdateState {
-        data class IngredientUpdate(val ingredientList: List<Ingredients>) :
+        data class IngredientUpdate(val ingredientList: List<IngredientsModel>) :
             DetailScreenUpdateState()
 
         data class SavedItemUpdate(val detailSavedUiModel: DetailSavedUiModel) :
