@@ -92,5 +92,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.livedata.ktx)
     annotationProcessor(libs.androidx.room.compiler)
 
+    implementation(libs.lottie)
+
 
 }

@@ -7,26 +7,32 @@ import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.sci.recipeandroid.R
 import com.sci.recipeandroid.feature.cart.domain.model.IngredientDetailModel
 import com.sci.recipeandroid.feature.cart.ui.model.IngredientUiModel
+import com.sci.recipeandroid.feature.cart.ui.model.RecipeUiModel
 
 class IngredientAdapter(
-    private val ingredientToRecipeMap: Map<String, List<String>>,
-) : RecyclerView.Adapter<IngredientAdapter.IngredientViewHolder>() {
+    private val recipes: List<RecipeUiModel>,
+    private val onCheckBoxClick: ((IngredientUiModel) -> Unit)
+) : ListAdapter<IngredientUiModel, IngredientAdapter.IngredientViewHolder>(DIFF_CALLBACK) {
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<IngredientUiModel>() {
+            override fun areItemsTheSame(oldItem: IngredientUiModel, newItem: IngredientUiModel): Boolean {
+                // Compare unique IDs to determine if items are the same
+                return oldItem.ingredientId == newItem.ingredientId
+            }
 
-    lateinit var onCheckBoxClick: ((IngredientUiModel) -> Unit)
-    private var ingredients: List<IngredientUiModel> = emptyList()
-
-    fun submitData(ingredients: List<IngredientUiModel>){
-        this.ingredients = ingredients
-        notifyDataSetChanged()
+            override fun areContentsTheSame(oldItem: IngredientUiModel, newItem: IngredientUiModel): Boolean {
+                // Compare all fields to determine if the content of items are the same
+                return oldItem == newItem
+            }
+        }
     }
 
-    inner class IngredientViewHolder(view: View) :
-        RecyclerView.ViewHolder(view) {
-            
+    inner class IngredientViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val nameTextView: TextView = view.findViewById(R.id.ingredientName)
         private val quantityTextView: TextView = view.findViewById(R.id.ingredientQuantity)
         private val checkbox: CheckBox = view.findViewById(R.id.ingredientCheckBox)
@@ -34,14 +40,14 @@ class IngredientAdapter(
 
         fun bind(ingredient: IngredientUiModel) {
             nameTextView.text = ingredient.name
-            quantityTextView.text = ingredient.amount.toString()
+            quantityTextView.text = "${ingredient.amount} ${ingredient.unit}"
             checkbox.isChecked = ingredient.checked
+            val ingredientToRecipeMap = createIngredientToRecipeMap(recipes)
             val recipeNames = ingredientToRecipeMap[ingredient.ingredientId] ?: emptyList()
 
             recipeName.text = when {
-                recipeNames.size > 1 ->{
-                    "Used in ${recipeNames.size} recipes"
-                }
+                recipeNames.size > 1 -> "Used in ${recipeNames.size} recipes"
+                recipeNames.isEmpty() -> "Not used"
                 else -> recipeNames[0]
             }
 
@@ -51,6 +57,12 @@ class IngredientAdapter(
         }
     }
 
+    private fun createIngredientToRecipeMap(recipes: List<RecipeUiModel>): Map<String, List<String>> {
+        return recipes.flatMap { recipe ->
+            recipe.items.map { it.ingredientId to recipe.title }
+        }.groupBy({ it.first }, { it.second })
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IngredientViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_cart_ingredient, parent, false)
@@ -58,9 +70,6 @@ class IngredientAdapter(
     }
 
     override fun onBindViewHolder(holder: IngredientViewHolder, position: Int) {
-        holder.bind(ingredients[position])
+        holder.bind(getItem(position))
     }
-
-    override fun getItemCount(): Int = ingredients.size
-
 }

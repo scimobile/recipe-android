@@ -16,7 +16,7 @@
 
         <ImageView
             android:id="@+id/recipeImage"
-            android:layout_width="150dp"
+            android:layout_width="160dp"
             android:layout_height="100dp"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
@@ -46,12 +46,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="8dp"
-            android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:fontFamily="@font/poppins_semibold"
             android:text="@string/view_recipe"
             android:textColor="@color/color_text_secondary"
-            android:textSize="16sp"
+            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recipeTitle" />
@@ -66,46 +65,31 @@
             app:srcCompat="@drawable/ic_keyboard_arrow_right"
             app:tint="@color/color_text_secondary" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/btn_drop_down"
-            android:layout_width="75dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+        <AutoCompleteTextView
+            android:id="@+id/edt_server_dropdown"
+            android:layout_width="65dp"
+            android:layout_height="match_parent"
             android:background="@drawable/bg_custom_server_drop_down"
-            app:hintEnabled="false"
-            app:boxStrokeColor="@android:color/transparent"
-            app:boxStrokeWidth="0dp"
-            android:padding="5dp"
-            app:endIconMode="dropdown_menu"
-            app:endIconDrawable="@drawable/ic_server_dropdown"
-            app:endIconMinSize="20dp"
-            android:focusable="false"
-            app:endIconTint="@color/white"
+            android:drawableStart="@drawable/ic_servers"
+            android:drawableEnd="@drawable/ic_server_dropdown"
+            android:drawableTint="@color/white"
+            android:fontFamily="@font/poppins_semibold"
+            android:inputType="none"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="5dp"
+            android:text="1"
+            android:textColor="@color/white"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_delete_recipe"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <AutoCompleteTextView
-                android:id="@+id/edt_server_dropdown"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:drawableStart="@drawable/ic_servers"
-                android:drawableTint="@color/white"
-                android:fontFamily="@font/poppins_semibold"
-                android:paddingVertical="0dp"
-                android:paddingStart="9dp"
-                android:paddingEnd="15dp"
-                android:text="14"
-                android:focusable="false"
-                android:textAlignment="viewEnd"
-                android:inputType="none"
-                android:textColor="@color/white"
-                android:textSize="11sp"
-                android:textStyle="bold" />
-        </com.google.android.material.textfield.TextInputLayout>
+            app:layout_constraintTop_toTopOf="@+id/btn_delete_recipe"
+            app:simpleItems="@array/server_counts" />
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/btn_delete_recipe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"

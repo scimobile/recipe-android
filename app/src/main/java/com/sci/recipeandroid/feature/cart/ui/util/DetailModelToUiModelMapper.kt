@@ -1,4 +1,4 @@
-package com.sci.recipeandroid.feature.cart.ui.mapper
+package com.sci.recipeandroid.feature.cart.ui.util
 
 import com.sci.recipeandroid.feature.cart.domain.model.IngredientDetailModel
 import com.sci.recipeandroid.feature.cart.domain.model.RecipeDetailModel
@@ -9,7 +9,7 @@ fun RecipeDetailModel.toUiModels(): RecipeUiModel = RecipeUiModel(
     items = this.items.toIngredientUiModels(),
     title = this.title,
     recipeId = this.recipeId,
-    server = this.server,
+    servingCount = this.servingCount,
     imageUrl = this.imageUrl
 )
 
@@ -24,7 +24,8 @@ fun IngredientDetailModel.toUiModels(): IngredientUiModel = IngredientUiModel(
     imageUrl = this.imageUrl,
     category = this.category,
     amount = this.amount,
-    amountPerPerson = this.amountPerPerson
+    amountPerPerson = this.amountPerPerson,
+    unit = this.unit
 )
 
 fun List<RecipeDetailModel>.toRecipesUiModels() = this.map {

@@ -1,18 +1,17 @@
-package com.sci.recipeandroid.feature.cart.data.datasource
+package com.sci.recipeandroid.feature.cart.data.service
 
 import com.sci.recipeandroid.feature.cart.data.model.CartIngredientResponse
 import com.sci.recipeandroid.feature.cart.data.model.CartRecipeResponse
-import kotlinx.coroutines.delay
 
-object FakeDatabase {
+object FakeData {
     private var recipes: MutableList<CartRecipeResponse> = mutableListOf()
 
     init {
         recipes = mutableListOf(
             CartRecipeResponse(
-                recipeId = "recipe1",
+                recipeId = "recipe1ID",
                 title = "Cajun Spiced Cauliflower Rice",
-                server = 1,
+                servingCount = 1,
                 imageUrl = "",
                 items = mutableListOf(
                     CartIngredientResponse(
@@ -21,8 +20,9 @@ object FakeDatabase {
                         amountPerPerson = 2,
                         category = "Meat & Seafood",
                         imageUrl = "",
-                        checked = false,
-                        ingredientId = "pork"
+                        checked = true,
+                        ingredientId = "porkID",
+                        unit = "lb"
                     ),
                     CartIngredientResponse(
                         name = "Lettuce",
@@ -31,14 +31,25 @@ object FakeDatabase {
                         imageUrl = "",
                         checked = false,
                         amountPerPerson = 2,
-                        ingredientId = "lettuce"
+                        ingredientId = "lettuceID",
+                        unit = "lb"
+                    ),
+                    CartIngredientResponse(
+                        name = "Cauliflower",
+                        amount = 2,
+                        amountPerPerson = 2,
+                        category = "Vegetables",
+                        imageUrl = "",
+                        checked = false,
+                        ingredientId = "cauliflowerID",
+                        unit = "lb"
                     )
                 )
             ),
             CartRecipeResponse(
-                recipeId = "recipe2",
+                recipeId = "recipe2ID",
                 title = "Easy Korean Beef",
-                server = 2,
+                servingCount = 2,
                 imageUrl = "",
                 items = mutableListOf(
                     CartIngredientResponse(
@@ -48,23 +59,25 @@ object FakeDatabase {
                         imageUrl = "",
                         checked = false,
                         amountPerPerson = 2,
-                        ingredientId = "chili"
+                        ingredientId = "chiliID",
+                        unit = "lb"
                     ),
                     CartIngredientResponse(
                         name = "Pork",
                         amount = 4,
                         category = "Meat & Seafood",
                         imageUrl = "",
-                        checked = false,
+                        checked = true,
                         amountPerPerson = 2,
-                        ingredientId = "pork"
+                        ingredientId = "porkID",
+                        unit = "lb"
                     )
                 )
             ),
             CartRecipeResponse(
-                recipeId = "recipe3",
+                recipeId = "recipe3ID",
                 title = "Basil Pork",
-                server = 2,
+                servingCount = 2,
                 imageUrl = "",
                 items = mutableListOf(
                     CartIngredientResponse(
@@ -74,7 +87,8 @@ object FakeDatabase {
                         imageUrl = "",
                         checked = true,
                         amountPerPerson = 2,
-                        ingredientId = "chicken"
+                        ingredientId = "chickenID",
+                        unit = "lb"
                     ),
                     CartIngredientResponse(
                         name = "Chili",
@@ -83,13 +97,14 @@ object FakeDatabase {
                         imageUrl = "",
                         checked = false,
                         amountPerPerson = 2,
-                        ingredientId = "chili"
+                        ingredientId = "chiliID",
+                        unit = "lb"
                     )
                 )
             )
         )
     }
-    
+
     fun getRecipes(): List<CartRecipeResponse> {
         return recipes
     }
@@ -98,14 +113,25 @@ object FakeDatabase {
         recipes.removeAll { it.recipeId == recipeId }
     }
 
-    // Function to update the checked state of an ingredient by its ID
-    fun updateIngredientCheckedState(ingredientId: String, isChecked: Boolean): List<CartRecipeResponse> {
+    fun deleteAllRecipe(){
+        recipes.clear()
+    }
+
+    fun updateIngredientCheckedState(ingredientId: String, isChecked: Boolean) {
         recipes.forEach { recipe ->
             recipe.items.find { it.ingredientId == ingredientId }?.let { ingredient ->
                 ingredient.checked = isChecked
             }
         }
-        return recipes
+    }
+
+    fun updateRecipeServingSize(recipeId: String, newServingSize: Int) {
+        recipes.find { it.recipeId == recipeId }?.let { recipe ->
+            recipe.servingCount = newServingSize
+            recipe.items.forEach { ingredient ->
+                ingredient.amount = ingredient.amountPerPerson * newServingSize
+            }
+        }
     }
 
 }

@@ -16,7 +16,6 @@ import com.sci.recipeandroid.R
 import com.sci.recipeandroid.databinding.FragmentAuthenticationOptionsBinding
 import com.sci.recipeandroid.feature.auth.ui.viewmodel.AuthOptionViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
-
 import com.sci.recipeandroid.util.setOneTimeClickListener
 
 

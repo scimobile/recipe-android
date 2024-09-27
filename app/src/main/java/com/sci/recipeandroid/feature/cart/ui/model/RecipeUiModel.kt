@@ -4,6 +4,6 @@ data class RecipeUiModel(
     val recipeId: String,
     val title: String,
     val imageUrl: String,
-    val server: Int,
+    val servingCount: Int,
     val items: List<IngredientUiModel>
 )

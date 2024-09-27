@@ -7,5 +7,6 @@ data class IngredientUiModel(
     val imageUrl: String,
     var checked: Boolean,
     val amountPerPerson: Int,
-    val category: String
+    val category: String,
+    val unit: String
 )
