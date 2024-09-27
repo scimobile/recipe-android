@@ -4,9 +4,9 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.sci.recipeandroid.databinding.DetailAlsoLikeViewholderBinding
-import com.sci.recipeandroid.databinding.DetailCompleteMealViewholderBinding
-import com.sci.recipeandroid.databinding.DetailRecipeOwnerViewholderBinding
+import com.sci.recipeandroid.databinding.ItemViewDetailAlsoLikeBinding
+import com.sci.recipeandroid.databinding.ItemViewDetailCompleteMealBinding
+import com.sci.recipeandroid.databinding.ItemViewDetailRecipeOwnerBinding
 import com.sci.recipeandroid.feature.detail.domain.model.AlsoLikeContainer
 import com.sci.recipeandroid.feature.detail.domain.model.CompleteMealContainer
 import com.sci.recipeandroid.feature.detail.domain.model.DetailFooterItem
@@ -19,6 +19,8 @@ import com.sci.recipeandroid.feature.detail.ui.viewholder.detail.detailfooter.Re
 class DetailFooterAdapter(
     private val onAlsoLikeClick: (Double) -> Unit,
     private val onCompleteMealClick: (Double) -> Unit,
+    private val onCompleteMealAddToCartClick: (Double) -> Unit,
+    private val onAlsoLikeAddToCartClick: (Double) -> Unit
 ) : RecyclerView.Adapter<DetailFooterBaseViewHolder>() {
     private var footerItemList = emptyList<DetailFooterItem>()
     private val RECIPE_OWNER_VIEWHOLDER = 0
@@ -28,7 +30,7 @@ class DetailFooterAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DetailFooterBaseViewHolder {
         when (viewType) {
             RECIPE_OWNER_VIEWHOLDER -> {
-                DetailRecipeOwnerViewholderBinding.inflate(
+                ItemViewDetailRecipeOwnerBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 ).apply {
                     return RecipeOwnerViewHolder(this)
@@ -36,28 +38,31 @@ class DetailFooterAdapter(
             }
 
             COMPLETE_MEAL_VIEWHOLDER -> {
-                DetailCompleteMealViewholderBinding.inflate(
+                ItemViewDetailCompleteMealBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 ).apply {
                     return DetailCompleteMealViewHolder(
                         this,
-                        onClick = onCompleteMealClick
+                        onClick = onCompleteMealClick,
+                        onAddToCartClick = onCompleteMealAddToCartClick
                     )
                 }
             }
 
             ALSO_LIKE_VIEWHOLDER -> {
-                DetailAlsoLikeViewholderBinding.inflate(
+                ItemViewDetailAlsoLikeBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 ).apply {
                     return DetailAlsoLikeViewHolder(
-                        this, onClick = onAlsoLikeClick
+                        this,
+                        onClick = onAlsoLikeClick,
+                        onAddToCartClick = onAlsoLikeAddToCartClick
                     )
                 }
             }
 
             else -> {
-                DetailRecipeOwnerViewholderBinding.inflate(
+                ItemViewDetailRecipeOwnerBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 ).apply {
                     return RecipeOwnerViewHolder(this)

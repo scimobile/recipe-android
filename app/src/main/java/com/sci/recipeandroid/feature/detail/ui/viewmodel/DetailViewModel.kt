@@ -1,5 +1,6 @@
 package com.sci.recipeandroid.feature.detail.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,9 +11,10 @@ import com.sci.recipeandroid.feature.detail.domain.model.DetailCenterContainer
 import com.sci.recipeandroid.feature.detail.domain.model.DetailDataContainer
 import com.sci.recipeandroid.feature.detail.domain.model.DetailFooterContainer
 import com.sci.recipeandroid.feature.detail.domain.model.DetailFooterItem
-import com.sci.recipeandroid.feature.detail.domain.model.IngredientsModel
 import com.sci.recipeandroid.feature.detail.domain.repository.DetailRepo
-import com.sci.recipeandroid.feature.detail.ui.models.DetailSavedUiModel
+import com.sci.recipeandroid.feature.detail.ui.models.DetailCenterUiModels
+import com.sci.recipeandroid.feature.detail.ui.models.DetailSavedUiModels
+import com.sci.recipeandroid.feature.detail.ui.models.IngredientUiModels
 import com.sci.recipeandroid.util.SingleLiveEvent
 import com.sci.recipeandroid.util.multiSelectBy
 import kotlinx.coroutines.delay
@@ -30,19 +32,17 @@ class DetailViewModel(
     private val _detailNavigation = SingleLiveEvent<DetailNavigation>()
     val detailNavigation: LiveData<DetailNavigation> = _detailNavigation
 
-    private var ingredientList = mutableListOf<IngredientsModel>()
+    private var detailCenterUiModelsList = mutableListOf<DetailCenterUiModels>()
 
     private var detailFooterData = mutableListOf<DetailFooterItem>()
 
     private var bookMarkItemIdList = mutableListOf<Double>()
 
-    var detailId: Double? = null
+    private var addToCartList = mutableListOf<Double>()
 
-    //    init {
-//        detailId?.let {
-//            getDetailData(it)
-//        }
-//    }
+    private var detailId: Double? = null
+    private val amount: Int? = null
+
     fun getDetailData(detailId: Double) {
         this.detailId = detailId
         viewModelScope.launch {
@@ -50,16 +50,38 @@ class DetailViewModel(
             delay(3000)
             detailRepo.getDetail(detailId)
                 .fold(
-                    onSuccess = {
-                        it.detailScreenData.onEach { data ->
-                            if (data is DetailCenterContainer) {
-                                ingredientList.addAll(data.ingredients)
+                    onSuccess = { result ->
+                        val data = DetailDataContainer(
+                            detailScreenData = result.detailScreenData.map { data ->
+                                when (data) {
+
+                                    is DetailCenterContainer -> {
+                                        val detailCenterData = DetailCenterUiModels(
+                                            serveAmt = 1,
+                                            selectedUnit = "us",
+                                            isAddedToCart = false,
+                                            nutritionPerServeModel = data.nutritionPerServeModel,
+                                            ingredients = data.ingredients.map { ingredientsModel ->
+                                                IngredientUiModels(
+                                                    ingredientModel = ingredientsModel,
+                                                    selectedUnit = "us"
+                                                )
+                                            }
+                                        )
+                                        detailCenterUiModelsList.add(detailCenterData)
+                                        detailCenterData
+                                    }
+
+                                    is DetailFooterContainer -> {
+                                        detailFooterData.addAll(data.detailFooterItems)
+                                        data
+                                    }
+
+                                    else -> data
+                                }
                             }
-                            if (data is DetailFooterContainer) {
-                                detailFooterData.addAll(data.detailFooterItems)
-                            }
-                        }
-                        _detailScnState.value = DetailScreenState.Success(it)
+                        )
+                        _detailScnState.value = DetailScreenState.Success(data)
                     },
                     onFailure = {
                         _detailScnState.value = DetailScreenState.Error(it.message.toString())
@@ -73,11 +95,31 @@ class DetailViewModel(
     fun onEvent(event: ScreenEvent) {
         when (event) {
             is ScreenEvent.UpdateServeAmt -> {
-                ingredientList = ingredientList.map {
-                    it.copy(amount = event.amount.toDouble() * it.amount)
+                detailCenterUiModelsList = detailCenterUiModelsList.map { data ->
+                    data.copy(
+                        serveAmt = event.amount,
+                        ingredients = data.ingredients.map {
+                            it.ingredientModel.amountPerUsUnit =
+                                it.ingredientModel.amountPerUsUnit.copy(
+                                    usAmt = (it.ingredientModel.increaseRate) +
+                                            it.ingredientModel.amountPerUsUnit.usAmt
+                                )
+                            it.ingredientModel.amountPerMetricUnit =
+                                it.ingredientModel.amountPerMetricUnit.copy(
+                                    metricAmt = (it.ingredientModel.increaseRate) +
+                                            it.ingredientModel.amountPerMetricUnit.metricAmt
+                                )
+                            it
+                        }
+                    )
                 }.toMutableList()
+
                 _detailScnUpdateState.value =
-                    DetailScreenUpdateState.IngredientUpdate(ingredientList)
+                    DetailScreenUpdateState.DetailCenterUpdate(
+                        detailCenterUiModelsList,
+                        isAddedToCart = addToCartList.contains(detailId),
+                        isBookMarked = bookMarkItemIdList.contains(detailId)
+                    )
             }
 
             is ScreenEvent.UpdateSavedItem -> {
@@ -108,7 +150,8 @@ class DetailViewModel(
                         }
                     }
                 }
-                //adding the id of the bookmarked item if necessary
+
+                //region adding the id of the bookmarked item to post to the server
                 if (bookMarkItemIdList.isEmpty()) {
                     bookMarkItemIdList.add(event.footerItemId)
                 } else if (bookMarkItemIdList.contains(event.footerItemId)) {
@@ -116,12 +159,16 @@ class DetailViewModel(
                 } else {
                     bookMarkItemIdList.add(event.footerItemId)
                 }
+                //endregion
+                Log.wtf("CenterStateData", bookMarkItemIdList.toString())
 
                 _detailScnUpdateState.value = DetailScreenUpdateState.SavedItemUpdate(
-                    DetailSavedUiModel(
-                        detailIdList = bookMarkItemIdList.contains(detailId),
+                    DetailSavedUiModels(
+                        isBookMarked = bookMarkItemIdList.contains(detailId),
                         detailFooterContainer = DetailFooterContainer(detailFooterData)
-                    )
+                    ),
+                    detailCenterUiModels = detailCenterUiModelsList,
+                    isAddedToCart = addToCartList.contains(detailId)
                 )
             }
 
@@ -132,26 +179,107 @@ class DetailViewModel(
             is ScreenEvent.NavigateToNutrition -> {
                 _detailNavigation.value = DetailNavigation.NavigateToNutrition(event.id)
             }
+
+            is ScreenEvent.AddToCart -> {
+                detailFooterData.onEach {
+                    when (it) {
+                        is CompleteMealContainer -> {
+                            it.completeMealModelList = it.completeMealModelList.multiSelectBy(
+                                selectedId = event.recipeId,
+                                selector = { completeMeal ->
+                                    Pair(completeMeal.id, completeMeal.isAddedToCart)
+                                },
+                                bind = { completeMeal, isSelect ->
+                                    completeMeal.copy(isAddedToCart = isSelect)
+                                }
+                            )
+                        }
+
+                        is AlsoLikeContainer -> {
+                            it.alsoLikeModelList = it.alsoLikeModelList.multiSelectBy(
+                                selectedId = event.recipeId,
+                                selector = { alsoLike ->
+                                    Pair(alsoLike.id, alsoLike.isAddedToCart)
+                                },
+                                bind = { alsoLike, isSelect ->
+                                    alsoLike.copy(isAddedToCart = isSelect)
+                                }
+                            )
+                        }
+                    }
+                }
+
+                //region adding the id of the added to cart item to post to the server
+                if (addToCartList.isEmpty()) {
+                    addToCartList.add(event.recipeId)
+                } else if (addToCartList.contains(event.recipeId)) {
+                    addToCartList.remove(event.recipeId)
+                } else {
+                    addToCartList.add(event.recipeId)
+                }
+                //endregion
+                detailCenterUiModelsList = detailCenterUiModelsList.map {
+                    it.copy(
+                        isAddedToCart = addToCartList.contains(detailId)
+                    )
+                }.toMutableList()
+
+                _detailScnUpdateState.value = DetailScreenUpdateState.AddToCartUpdate(
+                    DetailFooterContainer(detailFooterData),
+                    detailCenterUiModels = detailCenterUiModelsList,
+                    isAddedToCart = addToCartList.contains(detailId),
+                    isBookMarked = bookMarkItemIdList.contains(detailId)
+                )
+            }
+
+            is ScreenEvent.UpdateUnit -> {
+                detailCenterUiModelsList = detailCenterUiModelsList.map {
+                    it.copy(
+                        isAddedToCart = addToCartList.contains(detailId),
+                        ingredients = it.ingredients.map { ingredientUiModels ->
+                            ingredientUiModels.copy(selectedUnit = event.unit)
+                        },
+                        selectedUnit = event.unit
+                    )
+                }.toMutableList()
+
+                _detailScnUpdateState.value =
+                    DetailScreenUpdateState.DetailCenterUpdate(
+                        detailCenterUiModelsList,
+                        isAddedToCart = addToCartList.contains(detailId),
+                        isBookMarked = bookMarkItemIdList.contains(detailId)
+                    )
+            }
         }
     }
 
     sealed class DetailScreenState {
         data object Loading : DetailScreenState()
-        data class Success(
-            val data: DetailDataContainer,
-        ) : DetailScreenState()
+
+        data class Success(val data: DetailDataContainer) : DetailScreenState()
 
         data class Error(val message: String) : DetailScreenState()
-
-
     }
 
     sealed class DetailScreenUpdateState {
-        data class IngredientUpdate(val ingredientList: List<IngredientsModel>) :
-            DetailScreenUpdateState()
+        data class DetailCenterUpdate(
+            val detailCenterDataList: List<DetailCenterUiModels>,
+            val isAddedToCart: Boolean,
+            val isBookMarked: Boolean
+        ) : DetailScreenUpdateState()
 
-        data class SavedItemUpdate(val detailSavedUiModel: DetailSavedUiModel) :
-            DetailScreenUpdateState()
+        data class SavedItemUpdate(
+            val detailSavedUiModel: DetailSavedUiModels,
+            val detailCenterUiModels: List<DetailCenterUiModels>,
+            val isAddedToCart: Boolean
+        ) : DetailScreenUpdateState()
+
+        data class AddToCartUpdate(
+            val detailFooterContainer: DetailFooterContainer,
+            val detailCenterUiModels: List<DetailCenterUiModels>,
+            val isAddedToCart: Boolean,
+            val isBookMarked: Boolean
+        ) : DetailScreenUpdateState()
     }
 
     sealed class DetailNavigation {
@@ -162,6 +290,8 @@ class DetailViewModel(
     sealed class ScreenEvent {
         data class UpdateServeAmt(val amount: Int) : ScreenEvent()
         data class UpdateSavedItem(val footerItemId: Double) : ScreenEvent()
+        data class UpdateUnit(val unit: String) : ScreenEvent()
+        data class AddToCart(val recipeId: Double) : ScreenEvent()
         data class NavigateToNutrition(val id: Double) : ScreenEvent()
         data class NavigateToDirection(val id: Double) : ScreenEvent()
     }

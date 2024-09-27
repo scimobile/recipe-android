@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sci.recipeandroid.feature.detail.domain.model.DirectionModel
 import com.sci.recipeandroid.feature.detail.domain.repository.DetailRepo
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class DirectionViewModel(
@@ -17,6 +18,7 @@ class DirectionViewModel(
     fun getDirection(id: Double){
         viewModelScope.launch {
             _directionScnState.value = DirectionScreenState.Loading
+            delay(3000)
             detailRepo.getDirection(id).fold(
                 onSuccess = {
                     _directionScnState.value = DirectionScreenState.Success(it)

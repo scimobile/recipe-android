@@ -5,13 +5,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.sci.recipeandroid.databinding.DetailFooterContainerViewholderBinding
-
+import com.sci.recipeandroid.databinding.ItemViewDetailFooterContainerBinding
 import com.sci.recipeandroid.feature.detail.domain.model.DetailFooterContainer
 
 class DetailFooterContainerAdapter(
     private val onCompleteMealSaved: (Double) -> Unit,
-    private val onAlsoLikeSaved: (Double) -> Unit
+    private val onAlsoLikeSaved: (Double) -> Unit,
+    private val onAlsoLikeAddToCartClick: (Double) -> Unit,
+    private val onCompleteMealAddToCartClick: (Double) -> Unit,
 ) : RecyclerView.Adapter<DetailFooterContainerAdapter.DetailFooterContainerViewHolder>() {
 
     private var dataList = emptyList<DetailFooterContainer>()
@@ -20,7 +21,7 @@ class DetailFooterContainerAdapter(
         parent: ViewGroup,
         viewType: Int
     ): DetailFooterContainerViewHolder {
-        DetailFooterContainerViewholderBinding.inflate(
+        ItemViewDetailFooterContainerBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         ).apply {
             return DetailFooterContainerViewHolder(this)
@@ -42,12 +43,14 @@ class DetailFooterContainerAdapter(
         holder.bind(dataList[position])
     }
 
-    inner class DetailFooterContainerViewHolder(private val binding: DetailFooterContainerViewholderBinding) :
+    inner class DetailFooterContainerViewHolder(private val binding: ItemViewDetailFooterContainerBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private val recyclerView = binding.detailFooterContainerRv
         private val adapter = DetailFooterAdapter(
             onCompleteMealClick = onCompleteMealSaved,
-            onAlsoLikeClick = onAlsoLikeSaved
+            onAlsoLikeClick = onAlsoLikeSaved,
+            onAlsoLikeAddToCartClick = onAlsoLikeAddToCartClick,
+            onCompleteMealAddToCartClick = onCompleteMealAddToCartClick,
         )
 
         init {

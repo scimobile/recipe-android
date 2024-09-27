@@ -1,9 +1,11 @@
 package com.sci.recipeandroid.feature.detail.data.mapper
 
-import com.sci.recipeandroid.feature.detail.domain.model.AlsoLikeModel
 import com.sci.recipeandroid.feature.detail.domain.model.AlsoLikeContainer
-import com.sci.recipeandroid.feature.detail.domain.model.CompleteMealModel
+import com.sci.recipeandroid.feature.detail.domain.model.AlsoLikeModel
+import com.sci.recipeandroid.feature.detail.domain.model.AmountPerMetricUnit
+import com.sci.recipeandroid.feature.detail.domain.model.AmountPerUsUnit
 import com.sci.recipeandroid.feature.detail.domain.model.CompleteMealContainer
+import com.sci.recipeandroid.feature.detail.domain.model.CompleteMealModel
 import com.sci.recipeandroid.feature.detail.domain.model.DetailCenterContainer
 import com.sci.recipeandroid.feature.detail.domain.model.DetailDataContainer
 import com.sci.recipeandroid.feature.detail.domain.model.DetailFooterContainer
@@ -29,86 +31,107 @@ fun String.toDetailModel(): DetailDataContainer {
             DetailCenterContainer(
                 ingredients = listOf(
                     IngredientsModel(
-                        name = "Flour",
-                        amount = 1.0,
-                        amountUnit = "cup",
-                        increaseRate = "1.5x",
-                        image = "flour_image_url"
+                        name = "Chick",
+                        amountPerMetricUnit = AmountPerMetricUnit(
+                            metricAmt = 1.5,
+                            metricUnit = "g"
+                        ),
+                        amountPerUsUnit = AmountPerUsUnit(
+                            usAmt = 1.0,
+                            usUnit = "pound"
+                        ),
+                        increaseRate = 1.5,
+                        image = "flour_image_url",
                     ),
                     IngredientsModel(
                         name = "Sugar",
-                        amount = 0.5,
-                        amountUnit = "cup",
-                        increaseRate = "2x",
-                        image = "sugar_image_url"
+                        increaseRate = 2.0,
+                        image = "sugar_image_url",
+                        amountPerMetricUnit = AmountPerMetricUnit(
+                            metricAmt = 1.0,
+                            metricUnit = "g"
+                        ), amountPerUsUnit = AmountPerUsUnit(
+                            usAmt = 2.0,
+                            usUnit = "tsp"
+                        )
                     ),
                     IngredientsModel(
                         name = "Flour",
-                        amount = 1.0,
-                        amountUnit = "cup",
-                        increaseRate = "1.5x",
-                        image = "flour_image_url"
+                        increaseRate = 1.5,
+                        image = "flour_image_url",
+                        amountPerUsUnit = AmountPerUsUnit(
+                            usAmt = 3.0,
+                            usUnit = "tsp"
+                        ),
+                        amountPerMetricUnit = AmountPerMetricUnit(
+                            metricAmt = 1.5,
+                            metricUnit = "g"
+                        ),
                     ),
                     IngredientsModel(
                         name = "Sugar",
-                        amount = 0.5,
-                        amountUnit = "cup",
-                        increaseRate = "2x",
-                        image = "sugar_image_url"
+                        increaseRate = 2.0,
+                        image = "sugar_image_url",
+                        amountPerMetricUnit = AmountPerMetricUnit(
+                            metricAmt = 2.0,
+                            metricUnit = "g"
+                        ),
+                        amountPerUsUnit = AmountPerUsUnit(
+                            usAmt = 4.0,
+                            usUnit = "pound"
+                        )
                     ),
                     IngredientsModel(
                         name = "Eggs",
-                        amount = 2.0,
-                        amountUnit = "",
-                        increaseRate = "1x",
-                        image = "egg_image_url"
+                        increaseRate = 1.0,
+                        image = "egg_image_url",
+                        amountPerMetricUnit = AmountPerMetricUnit(
+                            metricAmt = 2.5,
+                            metricUnit = "g"
+                        ),
+                        amountPerUsUnit = AmountPerUsUnit(
+                            usAmt = 5.0,
+                            usUnit = "pound"
+                        )
                     ),
                     IngredientsModel(
                         name = "Butter",
-                        amount = 0.25,
-                        amountUnit = "cup",
-                        increaseRate = "1.25x", image = "butter_image_url"
+                        increaseRate = 1.25,
+                        image = "butter_image_url",
+                        amountPerMetricUnit = AmountPerMetricUnit(
+                            metricAmt = 3.0,
+                            metricUnit = "g"
+                        ),
+                        amountPerUsUnit = AmountPerUsUnit(
+                            usAmt = 6.0,
+                            usUnit = "pound"
+                        )
                     ),
                     IngredientsModel(
                         name = "Milk",
-                        amount = 1.0,
-                        amountUnit = "cup",
-                        increaseRate = "1x",
-                        image = "milk_image_url"
+                        increaseRate = 2.0,
+                        image = "milk_image_url",
+                        amountPerMetricUnit = AmountPerMetricUnit(
+                            metricAmt = 4.0,
+                            metricUnit = "g"
+                        ),
+                        amountPerUsUnit = AmountPerUsUnit(
+                            usAmt = 7.0,
+                            usUnit = "pound"
+                        )
                     ),
                     IngredientsModel(
                         name = "Baking Powder",
-                        amount = 1.5,
-                        amountUnit = "tsp",
-                        increaseRate = "1x",
-                        image = "baking_powder_image_url"
-                    ),
-                    IngredientsModel(
-                        name = "Vanilla Extract",
-                        amount = 1.0,
-                        amountUnit = "tsp",
-                        increaseRate = "1x",
-                        image = "vanilla_extract_image_url"
-                    ),
-                    IngredientsModel(
-                        name = "Chocolate Chips",
-                        amount = 1.0,
-                        amountUnit = "cup",
-                        increaseRate = "1.5x",
-                        image = "chocolate_chips_image_url"
-                    ),
-                    IngredientsModel(
-                        name = "Salt",
-                        amount = 0.25,
-                        amountUnit = "tsp", increaseRate = "1x",
-                        image = "salt_image_url"
-                    ),
-                    IngredientsModel(
-                        name = "Cinnamon",
-                        amount = 1.0,
-                        amountUnit = "tsp",
-                        increaseRate = "0.5x",
-                        image = "cinnamon_image_url"
+                        increaseRate = 1.0,
+                        image = "baking_powder_image_url",
+                        amountPerMetricUnit = AmountPerMetricUnit(
+                            metricAmt = 5.0,
+                            metricUnit = "g"
+                        ),
+                        amountPerUsUnit = AmountPerUsUnit(
+                            usAmt = 8.0,
+                            usUnit = "pound"
+                        )
                     )
                 ),
                 nutritionPerServeModel = NutritionPerServeModel(
@@ -133,7 +156,7 @@ fun String.toDetailModel(): DetailDataContainer {
                                 image = "https://example.com/garlic_bread.jpg",
                                 ratingPoint = 4.2f, ingredientAmt = 5,
 
-                            ),
+                                ),
                             CompleteMealModel(
                                 id = 1.2,
                                 name = "Caesar Salad",

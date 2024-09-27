@@ -27,7 +27,8 @@ data class CompleteMealModel(
     val image: String,
     val ratingPoint: Float,
     val ingredientAmt: Int,
-    var isBookmarked: Boolean = false
+    var isBookmarked: Boolean = false,
+    val isAddedToCart: Boolean = false
 )
 
 data class AlsoLikeModel(
@@ -35,5 +36,6 @@ data class AlsoLikeModel(
     val name: String,
     val image: String,
     val ingredientAmt: Int,
-    var isBookmarked: Boolean = false
+    var isBookmarked: Boolean = false,
+    val isAddedToCart: Boolean = false
 )

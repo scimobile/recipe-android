@@ -1,11 +1,11 @@
 package com.sci.recipeandroid.feature.detail.ui.viewholder.nutrition
 
-import com.sci.recipeandroid.databinding.NutritionSubTypeViewholderBinding
+import com.sci.recipeandroid.databinding.ItemViewNutritionSubTypeBinding
 import com.sci.recipeandroid.feature.detail.domain.model.NutritionScreenData
 import com.sci.recipeandroid.feature.detail.domain.model.SubTypeNutritionModel
 
 class NutritionSubTypeViewHolder(
-    private val binding: NutritionSubTypeViewholderBinding
+    private val binding: ItemViewNutritionSubTypeBinding
 ) : NutritionBaseViewHolder(binding) {
     private val subNutritionNameTv = binding.nutritionTv
     private val subNutritionAmtTv = binding.nutritionAmtTv

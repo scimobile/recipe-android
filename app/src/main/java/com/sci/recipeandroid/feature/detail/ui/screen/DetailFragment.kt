@@ -1,9 +1,8 @@
 package com.sci.recipeandroid.feature.detail.ui.screen
 
-import android.annotation.SuppressLint
 import android.content.res.ColorStateList
-import android.content.res.Configuration
 import android.graphics.Color
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,16 +16,22 @@ import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
 import com.sci.recipeandroid.R
 import com.sci.recipeandroid.databinding.FragmentDetailBinding
-import com.sci.recipeandroid.feature.detail.domain.model.DetailCenterContainer
 import com.sci.recipeandroid.feature.detail.domain.model.DetailFooterContainer
 import com.sci.recipeandroid.feature.detail.domain.model.DetailHeaderContainerModel
 import com.sci.recipeandroid.feature.detail.ui.adapter.DetailHeaderAdapter
 import com.sci.recipeandroid.feature.detail.ui.adapter.detailcenter.DetailCenterAdapter
 import com.sci.recipeandroid.feature.detail.ui.adapter.detailfooter.DetailFooterContainerAdapter
+import com.sci.recipeandroid.feature.detail.ui.models.DetailCenterUiModels
 import com.sci.recipeandroid.feature.detail.ui.viewmodel.DetailViewModel
 import com.sci.recipeandroid.util.ColorUtil.blendColors
+import com.sci.recipeandroid.util.ColorUtil.blendRGBColors
+import com.sci.recipeandroid.util.SharedIntentBuilder
+import com.sci.recipeandroid.util.SystemUiController.adjustNavigationBar
 import com.sci.recipeandroid.util.SystemUiController.adjustStatusBar
+import com.sci.recipeandroid.util.setOneTimeClickListener
+import io.ktor.http.CacheControl
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import kotlin.properties.Delegates
 
 class DetailFragment : Fragment() {
     private var _binding: FragmentDetailBinding? = null
@@ -39,8 +44,9 @@ class DetailFragment : Fragment() {
     //saved the screen state in bundle for screen rotation and navigation
     private var savedScreenState: Bundle? = null
 
-    //saved the color of the tool bar icon in bundle for screen rotation
-    private var savedColor: Bundle? = null
+    //saved the add to cart state in bundle for screen rotation
+    private var savedBookMarkState: Bundle? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,13 +54,13 @@ class DetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentDetailBinding.inflate(inflater, container, false)
-        adjustStatusBar(binding.toolBar, requireActivity())
+        adjustStatusBar(binding.toolBar, requireActivity(), Color.WHITE)
+        adjustNavigationBar(binding.buttonGradientFramelayout, requireActivity(), Color.TRANSPARENT)
         if (savedInstanceState == null && savedScreenState == null) {
             detailViewModel.getDetailData(detailId)
         }
         return binding.root
     }
-
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -64,6 +70,7 @@ class DetailFragment : Fragment() {
         val navBackBtn = binding.navigateBackImg
         val savedBtn = binding.saveBtn
         val sharedBtn = binding.shareBtn
+        val addToCartBtn = binding.addToCartBtn
 
         savedBtn.setOnClickListener {
             detailViewModel.onEvent(
@@ -71,6 +78,17 @@ class DetailFragment : Fragment() {
             )
         }
 
+        sharedBtn.setOneTimeClickListener {
+            startActivity(SharedIntentBuilder("message").textSenderIntent())
+        }
+
+        addToCartBtn.setOneTimeClickListener {
+            detailViewModel.onEvent(
+                DetailViewModel.ScreenEvent.AddToCart(detailId)
+            )
+        }
+
+        //region adapter set up
         val detailHeaderAdapter = DetailHeaderAdapter {}
         val detailCenterAdapter = DetailCenterAdapter(
             goToViewDirection = {
@@ -87,6 +105,16 @@ class DetailFragment : Fragment() {
                 detailViewModel.onEvent(
                     DetailViewModel.ScreenEvent.UpdateServeAmt(it)
                 )
+            },
+            addToCart = {
+                detailViewModel.onEvent(
+                    DetailViewModel.ScreenEvent.AddToCart(detailId)
+                )
+            },
+            onSelectUnit = {
+                detailViewModel.onEvent(
+                    DetailViewModel.ScreenEvent.UpdateUnit(it)
+                )
             }
         )
         val detailFooterContainerAdapter = DetailFooterContainerAdapter(
@@ -99,14 +127,26 @@ class DetailFragment : Fragment() {
                 detailViewModel.onEvent(
                     DetailViewModel.ScreenEvent.UpdateSavedItem(it)
                 )
+            },
+            onCompleteMealAddToCartClick = {
+                detailViewModel.onEvent(
+                    DetailViewModel.ScreenEvent.AddToCart(it)
+                )
+            },
+            onAlsoLikeAddToCartClick = {
+                detailViewModel.onEvent(
+                    DetailViewModel.ScreenEvent.AddToCart(it)
+                )
             }
         )
+        //endregion
 
         val detailAdapter = ConcatAdapter(
-            detailHeaderAdapter, detailCenterAdapter,
+            detailHeaderAdapter,
+            detailCenterAdapter,
             detailFooterContainerAdapter
         )
-
+        //region screen state observer
         detailViewModel.detailScnState.observe(viewLifecycleOwner) { screenState ->
             when (screenState) {
                 is DetailViewModel.DetailScreenState.Loading -> {
@@ -120,7 +160,7 @@ class DetailFragment : Fragment() {
                                 detailHeaderAdapter.updateList(listOf(data))
                             }
 
-                            is DetailCenterContainer -> {
+                            is DetailCenterUiModels -> {
                                 detailCenterAdapter.updateList(listOf(data))
                             }
 
@@ -140,19 +180,59 @@ class DetailFragment : Fragment() {
         }
 
         detailViewModel.detailUpdateState.observe(viewLifecycleOwner) { screenState ->
+            Log.wtf("ScreenState", "$screenState")
             when (screenState) {
                 is DetailViewModel.DetailScreenUpdateState.SavedItemUpdate -> {
+
                     adjustBookMarkIcon(
-                        isBookMark = screenState.detailSavedUiModel.detailIdList,
+                        isBookMark = screenState.detailSavedUiModel.isBookMarked,
                         savedBtn = savedBtn,
                         detailRecyclerView = detailRecyclerView
                     )
                     detailFooterContainerAdapter.updateList(
                         listOf(screenState.detailSavedUiModel.detailFooterContainer)
                     )
+                    detailCenterAdapter.updateList(
+                        screenState.detailCenterUiModels
+                    )
+                    setUpAddToCartState(
+                        isAddedToCart = screenState.isAddedToCart,
+                        addToCartBtn = addToCartBtn
+                    )
                 }
-                is DetailViewModel.DetailScreenUpdateState.IngredientUpdate -> {
-                    detailCenterAdapter.updateIngredientList(screenState.ingredientList)
+
+                is DetailViewModel.DetailScreenUpdateState.DetailCenterUpdate -> {
+                    detailCenterAdapter.updateList(
+                        screenState.detailCenterDataList
+                    )
+                    setUpAddToCartState(
+                        isAddedToCart = screenState.isAddedToCart,
+                        addToCartBtn = addToCartBtn
+                    )
+                    adjustBookMarkIcon(
+                        isBookMark = screenState.isBookMarked,
+                        savedBtn = savedBtn,
+                        detailRecyclerView = detailRecyclerView
+                    )
+                }
+
+                is DetailViewModel.DetailScreenUpdateState.AddToCartUpdate -> {
+                    detailFooterContainerAdapter.updateList(
+                        listOf(screenState.detailFooterContainer)
+                    )
+                    detailCenterAdapter.updateList(
+                        screenState.detailCenterUiModels
+                    )
+                    setUpAddToCartState(
+                        isAddedToCart = screenState.isAddedToCart,
+                        addToCartBtn = addToCartBtn
+                    )
+
+                    adjustBookMarkIcon(
+                        isBookMark = screenState.isBookMarked,
+                        savedBtn = savedBtn,
+                        detailRecyclerView = detailRecyclerView
+                    )
                 }
             }
         }
@@ -187,14 +267,19 @@ class DetailFragment : Fragment() {
             }
         }
 
+        //endregion
+        detailRecyclerView.adapter?.stateRestorationPolicy =
+            RecyclerView.Adapter.StateRestorationPolicy.ALLOW
 
         detailRecyclerView.adapter = detailAdapter
         detailRecyclerView.layoutManager = LinearLayoutManager(
             requireContext(), LinearLayoutManager.VERTICAL, false
         )
+
         detailRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
+
             }
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -204,11 +289,29 @@ class DetailFragment : Fragment() {
                     scrollY,
                     toolBar,
                     navBackBtn,
-                    savedBtn, sharedBtn,
-                    savedInstanceState
+                    savedBtn,
+                    sharedBtn,
                 )
             }
         })
+    }
+
+    private fun setUpAddToCartState(
+        isAddedToCart: Boolean,
+        addToCartBtn: MaterialButton
+    ) {
+        if (isAddedToCart) {
+            addToCartBtn.isEnabled = false
+            addToCartBtn.backgroundTintList = ColorStateList.valueOf(
+                requireContext().getColor(R.color.color_button_inactive)
+            )
+            addToCartBtn.setTextColor(Color.WHITE)
+        } else {
+            addToCartBtn.backgroundTintList = ColorStateList.valueOf(
+                requireContext().getColor(R.color.color_button_active)
+            )
+            addToCartBtn.setTextColor(Color.WHITE)
+        }
     }
 
 
@@ -217,54 +320,51 @@ class DetailFragment : Fragment() {
         toolBar: MaterialToolbar,
         backBtn: MaterialButton,
         savedBtn: MaterialButton,
-        sharedBtn: MaterialButton,
-        savedInstanceState: Bundle?
+        sharedBtn: MaterialButton
     ) {
         val maxScroll = 950
-
-        // Calculate the fraction of the scroll (from 0 to 1)
-        val fraction = (scrollY.coerceIn(0, maxScroll)).toFloat() / maxScroll
-        toolBar.background.alpha = (255 * (fraction)).toInt()
-        if (scrollY > maxScroll) {
-            toolBar.elevation = 20f
-        } else {
-            toolBar.elevation = 0f
-        }
         // Define start and end colors
         val iconStartColor = backBtn.iconTint?.defaultColor ?: Color.LTGRAY
         val iconEndColor = Color.BLACK
         val bgStartColor = backBtn.backgroundTintList?.defaultColor ?: Color.WHITE
         val bgEndColor = Color.WHITE
 
-        // Blend the colors based on the fraction
-        val getSavedColor = savedInstanceState?.getBundle("color")?.getIntArray("BlendedColor")
-        val iconBlendedColor =
-            getSavedColor?.get(0) ?: blendColors(iconStartColor, iconEndColor, fraction)
-        val rippleBlendedColor =
-            getSavedColor?.get(1) ?: blendColors(Color.LTGRAY, Color.GRAY, fraction)
-        val bgBlendedColor =
-            getSavedColor?.get(2) ?: blendColors(bgStartColor, bgEndColor, fraction)
-
-        savedColor = Bundle().apply {
-            this.putIntArray(
-                "BlendedColor", intArrayOf(
-                    iconBlendedColor, rippleBlendedColor, bgBlendedColor
-                )
+        // Calculate the fraction of the scroll (from 0 to 1)
+        val fraction = (scrollY.coerceIn(0, maxScroll)).toFloat() / maxScroll
+        toolBar.setBackgroundColor(
+            Color.argb(
+                (255 * fraction).toInt(),
+                255, 255, 255
             )
+        )
+        if (scrollY > maxScroll) {
+            toolBar.elevation = 20f
+        } else {
+            toolBar.elevation = 0f
         }
+        Log.d("Fraction", "$fraction")
 
+        // Calculate the blended color based on the fraction
+        val iconBlendedColor = blendColors(Color.WHITE, Color.BLACK, fraction)
+        val rippleBlendedColor = blendColors(Color.LTGRAY, Color.GRAY, fraction)
+        val bgBlendedColor = blendColors(bgStartColor, bgEndColor, fraction)
 
-        backBtn.background.setTintList(ColorStateList.valueOf(bgBlendedColor))
+        backBtn.background.setTint(bgBlendedColor)
         backBtn.rippleColor = ColorStateList.valueOf(rippleBlendedColor)
-        backBtn.icon.setTintList(ColorStateList.valueOf(iconBlendedColor))
+        backBtn.iconTint = ColorStateList.valueOf(iconBlendedColor)
 
-        savedBtn.background.setTintList(ColorStateList.valueOf(bgBlendedColor))
+
+        Log.d("BlendedColor", "$iconBlendedColor")
+
+        savedBtn.background.setTint(bgBlendedColor)
         savedBtn.rippleColor = ColorStateList.valueOf(rippleBlendedColor)
-        savedBtn.icon.setTintList(ColorStateList.valueOf(iconBlendedColor))
+        savedBtn.iconTint = ColorStateList.valueOf(iconBlendedColor)
 
-        sharedBtn.background.setTintList(ColorStateList.valueOf(bgBlendedColor))
+
+        sharedBtn.background.setTint(bgBlendedColor)
         sharedBtn.rippleColor = ColorStateList.valueOf(rippleBlendedColor)
-        sharedBtn.icon.setTintList(ColorStateList.valueOf(iconBlendedColor))
+        sharedBtn.iconTint = ColorStateList.valueOf(iconBlendedColor)
+
 
     }
 
@@ -272,6 +372,10 @@ class DetailFragment : Fragment() {
         isBookMark: Boolean, savedBtn: MaterialButton,
         detailRecyclerView: RecyclerView
     ) {
+        savedBookMarkState = Bundle().apply {
+            this.putBoolean("isBookMarked", isBookMark)
+        }
+
         if (isBookMark) {
             savedBtn.setIconResource(R.drawable.save_fill_ic)
             savedBtn.setIconTintResource(
@@ -298,7 +402,7 @@ class DetailFragment : Fragment() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putBundle("detail", saveFragState())
-        outState.putBundle("color", savedColor)
+        outState.putBundle("isBookMarked", savedBookMarkState)
     }
 
     override fun onStop() {

@@ -1,6 +1,5 @@
 package com.sci.recipeandroid.feature.detail.ui.viewholder
 
-import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -8,11 +7,11 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.sci.recipeandroid.R
-import com.sci.recipeandroid.databinding.DirectionViewholderBinding
+import com.sci.recipeandroid.databinding.ItemViewDirectionBinding
 import com.sci.recipeandroid.feature.detail.domain.model.DirectionModel
 
 class DirectionViewHolder(
-    private val binding: DirectionViewholderBinding,
+    private val binding: ItemViewDirectionBinding,
 ) : RecyclerView.ViewHolder(binding.root) {
     fun bind(directionModel: DirectionModel,isLastItem: Boolean) {
         binding.stepTv.text = directionModel.name

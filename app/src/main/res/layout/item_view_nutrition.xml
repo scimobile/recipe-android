@@ -10,6 +10,7 @@
         android:layout_alignParentStart="true"
         android:layout_marginStart="20dp"
         android:fontFamily="@font/poppins_semibold"
+        android:autoSizeTextType="uniform"
         android:text="Fat"
         android:textSize="16sp"
         android:layout_marginVertical="15dp"/>

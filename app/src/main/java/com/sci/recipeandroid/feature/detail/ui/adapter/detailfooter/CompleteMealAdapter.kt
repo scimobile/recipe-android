@@ -4,21 +4,23 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.sci.recipeandroid.databinding.DetailCompleteMealItemViewholderBinding
+import com.sci.recipeandroid.databinding.ItemViewDetailCompleteMealItemBinding
 import com.sci.recipeandroid.feature.detail.domain.model.CompleteMealModel
 import com.sci.recipeandroid.feature.detail.ui.viewholder.detail.detailfooter.itemviewholder.CompleteMealItemViewHolder
 
 class CompleteMealAdapter(
-    private val onClick: (Double) -> Unit
+    private val onClick: (Double) -> Unit,
+    private val onAddToCartClick: (Double) -> Unit
 ) : RecyclerView.Adapter<CompleteMealItemViewHolder>() {
     private var completeMealModelList = emptyList<CompleteMealModel>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CompleteMealItemViewHolder {
-        DetailCompleteMealItemViewholderBinding.inflate(
+        ItemViewDetailCompleteMealItemBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         ).apply {
             return CompleteMealItemViewHolder(
                 this,
-                onClick = onClick
+                onClick = onClick,
+                onAddToCartClick = onAddToCartClick
             )
         }
     }

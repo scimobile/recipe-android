@@ -4,10 +4,10 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.sci.recipeandroid.databinding.NutritionDisclaimerViewholderBinding
-import com.sci.recipeandroid.databinding.NutritionHeaderViewholderBinding
-import com.sci.recipeandroid.databinding.NutritionSubTypeViewholderBinding
-import com.sci.recipeandroid.databinding.NutritionViewholderBinding
+import com.sci.recipeandroid.databinding.ItemViewNutritionBinding
+import com.sci.recipeandroid.databinding.ItemViewNutritionDisclaimerBinding
+import com.sci.recipeandroid.databinding.ItemViewNutritionHeaderBinding
+import com.sci.recipeandroid.databinding.ItemViewNutritionSubTypeBinding
 import com.sci.recipeandroid.feature.detail.domain.model.NutritionFooterModel
 import com.sci.recipeandroid.feature.detail.domain.model.NutritionHeaderModel
 import com.sci.recipeandroid.feature.detail.domain.model.NutritionModel
@@ -29,22 +29,22 @@ class NutritionAdapter : RecyclerView.Adapter<NutritionBaseViewHolder>() {
     private var nutritionData = emptyList<NutritionScreenData>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NutritionBaseViewHolder {
         when(viewType){
-            TYPE_HEADER -> NutritionHeaderViewholderBinding.inflate(
+            TYPE_HEADER -> ItemViewNutritionHeaderBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
             ).apply {
                 return NutritionHeaderViewHolder(this)
             }
-            TYPE_NUTRITION_PARENT -> NutritionViewholderBinding.inflate(
+            TYPE_NUTRITION_PARENT -> ItemViewNutritionBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
             ).apply {
                 return NutritionViewHolder(this)
             }
-            TYPE_SUB_TYPE -> NutritionSubTypeViewholderBinding.inflate(
+            TYPE_SUB_TYPE -> ItemViewNutritionSubTypeBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
             ).apply {
                 return NutritionSubTypeViewHolder(this)
             }
-            TYPE_FOOTER -> NutritionDisclaimerViewholderBinding.inflate(
+            TYPE_FOOTER -> ItemViewNutritionDisclaimerBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
             ).apply {
                 return NutritionFooterViewHolder(this)

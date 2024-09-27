@@ -26,15 +26,16 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/nutrition_per_serve_rv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/nutrition_tool_bar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/nutrition_viewholder"
-        android:paddingBottom="120dp"
-        android:clipToPadding="false" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nutrition_tool_bar"
+        tools:listitem="@layout/item_view_nutrition"
+        android:paddingBottom="20dp"
+        android:clipToPadding="false"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
