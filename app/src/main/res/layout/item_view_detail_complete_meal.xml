@@ -29,6 +29,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/complete_meal_tv"
-        tools:listitem="@layout/detail_complete_meal_item_viewholder" />
+        tools:listitem="@layout/item_view_detail_complete_meal_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

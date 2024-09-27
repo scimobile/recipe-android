@@ -85,6 +85,7 @@
             app:layout_constraintEnd_toEndOf="parent"/>
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/add_to_cart_btn"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:backgroundTint="@color/color_button_active"

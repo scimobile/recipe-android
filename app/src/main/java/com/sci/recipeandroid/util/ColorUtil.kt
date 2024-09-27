@@ -1,6 +1,10 @@
 package com.sci.recipeandroid.util
 
 import android.graphics.Color
+import android.util.Log
+import androidx.annotation.ColorInt
+import androidx.annotation.FloatRange
+
 
 object ColorUtil {
      fun blendColors(startColor: Int, endColor: Int, fraction: Float): Int {
@@ -21,5 +25,20 @@ object ColorUtil {
 
         return Color.argb(blendedAlpha, blendedRed, blendedGreen, blendedBlue)
     }
+
+   fun blendRGBColors(startColor: Int, endColor: Int, fraction: Float): Int {
+      val startRed = Color.red(startColor)
+      val startGreen = Color.green(startColor)
+      val startBlue = Color.blue(startColor)
+
+      val endRed = Color.red(endColor)
+      val endGreen = Color.green(endColor)
+      val endBlue = Color.blue(endColor)
+
+      val blendedRed = (startRed + ((endRed - startRed) * fraction)).toInt()
+      val blendedGreen = (startGreen + ((endGreen - startGreen) * fraction)).toInt()
+      val blendedBlue = (startBlue + ((endBlue - startBlue) * fraction)).toInt()
+      return Color.rgb(blendedRed, blendedGreen, blendedBlue)
+   }
 
 }

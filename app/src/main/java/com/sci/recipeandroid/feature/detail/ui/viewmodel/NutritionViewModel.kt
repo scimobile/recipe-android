@@ -20,6 +20,7 @@ class NutritionViewModel(
     fun getNutritionData(id: Double) {
         viewModelScope.launch() {
             _nutritionScnState.value = NutritionScreenState.Loading
+            delay(3000)
             detailRepo.getNutritionData(id)
                 .fold(
                     onFailure = {},

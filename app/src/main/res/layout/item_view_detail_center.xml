@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="15dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="15dp" />
+
+    <TextView
+        android:id="@+id/ingredients_title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="@string/ingredients"
+        android:textColor="@color/black"
+        android:textSize="28sp"
+        app:layout_constraintStart_toStartOf="@id/guideline_start"
+        app:layout_constraintTop_toTopOf="@id/guideline_start" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/remove_btn"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="20dp"
+        android:insetLeft="0dp"
+        android:insetTop="0dp"
+        android:insetRight="0dp"
+        android:insetBottom="0dp"
+        android:padding="0dp"
+        app:backgroundTint="@android:color/transparent"
+        app:icon="@drawable/remove_circle_outline_ic"
+        app:iconSize="35dp"
+        app:iconTint="@color/black"
+        app:layout_constraintStart_toStartOf="@id/ingredients_title_tv"
+        app:layout_constraintTop_toBottomOf="@id/ingredients_title_tv"
+        app:rippleColor="@color/gray" />
+
+    <TextView
+        android:id="@+id/serve_amt_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Serves 1"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/remove_btn"
+        app:layout_constraintEnd_toStartOf="@id/add_btn"
+        app:layout_constraintStart_toEndOf="@id/remove_btn"
+        app:layout_constraintTop_toTopOf="@id/remove_btn" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/add_btn"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="15dp"
+        android:insetLeft="0dp"
+        android:insetTop="0dp"
+        android:insetRight="0dp"
+        android:insetBottom="0dp"
+        android:padding="0dp"
+        app:backgroundTint="@android:color/transparent"
+        app:icon="@drawable/add_circle_ic"
+        app:iconSize="35dp"
+        app:iconTint="@color/black"
+        app:layout_constraintBottom_toBottomOf="@id/remove_btn"
+        app:layout_constraintStart_toEndOf="@id/serve_amt_tv"
+        app:layout_constraintTop_toTopOf="@id/remove_btn"
+        app:rippleColor="@color/gray" />
+
+    <TextView
+        android:id="@+id/metric_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="@string/metric"
+        android:textColor="@color/color_text_secondary"
+        app:layout_constraintBottom_toBottomOf="@id/add_btn"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end"
+        app:layout_constraintTop_toTopOf="@id/add_btn" />
+
+    <TextView
+        android:id="@+id/devider_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="@string/devider_text"
+        android:textColor="@color/color_text_secondary"
+        app:layout_constraintBottom_toBottomOf="@id/metric_tv"
+        app:layout_constraintEnd_toStartOf="@id/metric_tv"
+        app:layout_constraintTop_toTopOf="@id/metric_tv" />
+
+    <TextView
+        android:id="@+id/us_unit_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="@string/us"
+        android:textColor="@color/color_text_secondary"
+        app:layout_constraintBottom_toBottomOf="@id/metric_tv"
+        app:layout_constraintEnd_toStartOf="@id/devider_tv"
+        app:layout_constraintTop_toTopOf="@id/metric_tv" />
+
+    <!--region Ingredient list-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/detail_ingredient_rv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:paddingStart="10dp"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end"
+        app:layout_constraintStart_toStartOf="@id/guideline_start"
+        app:layout_constraintTop_toBottomOf="@id/remove_btn"
+        tools:itemCount="4"
+        tools:listitem="@layout/item_view_detail_ingredient" />
+    <!--endregion-->
+
+    <!--region Nutrition per serving title-->
+    <TextView
+        android:id="@+id/nutrition_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="@string/nutrition_per_serving"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@id/detail_ingredient_rv"
+        app:layout_constraintTop_toBottomOf="@id/detail_ingredient_rv" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/view_all_tv"
+        style="@style/Widget.Material3.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="@string/view_all"
+        android:textColor="@color/color_text_secondary"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@id/nutrition_tv"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end"
+        app:layout_constraintTop_toTopOf="@id/nutrition_tv"
+        app:rippleColor="@color/gray"
+        app:shapeAppearance="@null" />
+    <!--endregion-->
+
+    <!--region Nutrition per serving item table-->
+    <LinearLayout
+        android:id="@+id/nutrition_table"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="4"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end"
+        app:layout_constraintStart_toStartOf="@id/guideline_start"
+        app:layout_constraintTop_toBottomOf="@id/nutrition_tv">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/calories_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="CALORIES"
+                android:textAlignment="center"
+                android:textColor="@color/color_text_secondary" />
+
+            <TextView
+                android:id="@+id/calorie_amt_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/calories_tv"
+                android:layout_marginTop="10dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/poppins_semibold"
+                android:maxLines="1"
+                android:text="318g"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/vertical_divider_one"
+                android:layout_width="2dp"
+                android:layout_height="50dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="20dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/fat_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="FAT"
+                android:textAlignment="center"
+                android:textColor="@color/color_text_secondary" />
+
+            <TextView
+                android:id="@+id/fat_amt_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/fat_tv"
+                android:layout_marginTop="10dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/poppins_semibold"
+                android:maxLines="1"
+                android:text="125.5g"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/vertical_divider_two"
+                android:layout_width="2dp"
+                android:layout_height="50dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="20dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/protein_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="PROTEIN"
+                android:textAlignment="center"
+                android:textColor="@color/color_text_secondary" />
+
+            <TextView
+                android:id="@+id/protein_amt_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/protein_tv"
+                android:layout_marginTop="10dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/poppins_semibold"
+                android:maxLines="1"
+                android:text="25.6g"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/vertical_divider_three"
+                android:layout_width="2dp"
+                android:layout_height="50dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="20dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/carb_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="CARBS"
+                android:textAlignment="center"
+                android:textColor="@color/color_text_secondary" />
+
+            <TextView
+                android:id="@+id/carb_amt_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/carb_tv"
+                android:layout_marginTop="10dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/poppins_semibold"
+                android:maxLines="1"
+                android:text="25.6g"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/view_direction_tv"
+        style="@style/Widget.Material3.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/jetbrains_mono_medium"
+        android:text="@string/view_directions"
+        android:textColor="@color/color_text_secondary"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end"
+        app:layout_constraintStart_toStartOf="@id/guideline_start"
+        app:layout_constraintTop_toBottomOf="@id/nutrition_table"
+        app:rippleColor="@color/gray"
+        app:shapeAppearance="@null" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/add_to_cart_btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="@string/add_to_cart"
+        android:textSize="17sp"
+        app:backgroundTint="@color/color_button_active"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end"
+        app:layout_constraintStart_toStartOf="@id/guideline_start"
+        app:layout_constraintTop_toBottomOf="@id/view_direction_tv" />
+    <!--endregion -->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

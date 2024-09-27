@@ -26,7 +26,7 @@
         tools:itemCount="10"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:orientation="horizontal"
-        tools:listitem="@layout/detail_also_like_item_viewholder"
+        tools:listitem="@layout/item_view_detail_also_like_item"
         android:clipToPadding="false"
         android:paddingHorizontal="15dp"
         android:paddingVertical="5dp"

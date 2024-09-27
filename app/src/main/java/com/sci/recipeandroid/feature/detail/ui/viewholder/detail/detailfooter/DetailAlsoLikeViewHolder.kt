@@ -1,18 +1,20 @@
 package com.sci.recipeandroid.feature.detail.ui.viewholder.detail.detailfooter
 
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.sci.recipeandroid.databinding.DetailAlsoLikeViewholderBinding
+import com.sci.recipeandroid.databinding.ItemViewDetailAlsoLikeBinding
 import com.sci.recipeandroid.feature.detail.domain.model.AlsoLikeContainer
 import com.sci.recipeandroid.feature.detail.domain.model.DetailFooterItem
 import com.sci.recipeandroid.feature.detail.ui.adapter.detailfooter.AlsoLikeAdapter
 
 class DetailAlsoLikeViewHolder(
-    private val binding: DetailAlsoLikeViewholderBinding,
-    private val onClick: (Double) -> Unit
+    private val binding: ItemViewDetailAlsoLikeBinding,
+    private val onClick: (Double) -> Unit,
+    private val onAddToCartClick: (Double) -> Unit
 ) : DetailFooterBaseViewHolder(binding) {
     private val recyclerView = binding.alsoLikeRv
     private val adapter = AlsoLikeAdapter(
-        onSavedClick = onClick
+        onSavedClick = onClick,
+        onAddToCartClick = onAddToCartClick
     )
 
     init {

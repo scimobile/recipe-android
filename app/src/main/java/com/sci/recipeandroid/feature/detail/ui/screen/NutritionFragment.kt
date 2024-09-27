@@ -1,5 +1,6 @@
 package com.sci.recipeandroid.feature.detail.ui.screen
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.sci.recipeandroid.databinding.FragmentNutritionBinding
 import com.sci.recipeandroid.feature.detail.ui.adapter.NutritionAdapter
 import com.sci.recipeandroid.feature.detail.ui.viewmodel.NutritionViewModel
+import com.sci.recipeandroid.util.SystemUiController.adjustNavigationBar
 import com.sci.recipeandroid.util.SystemUiController.adjustStatusBar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -21,6 +23,9 @@ class NutritionFragment : Fragment() {
 
     private val viewModel: NutritionViewModel by viewModel()
 
+    //saved the screen state in bundle for screen rotation and navigation
+    private var savedScreenState: Bundle? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -28,18 +33,21 @@ class NutritionFragment : Fragment() {
     ): View {
         _binding = FragmentNutritionBinding.inflate(inflater, container, false)
         detailId = this.arguments?.getDouble("id")
+        adjustStatusBar(binding.nutritionToolBar, requireActivity(), Color.WHITE)
+        adjustNavigationBar(binding.nutritionPerServeRv, requireActivity(), Color.TRANSPARENT)
+        if (savedInstanceState == null && savedScreenState == null) {
+            detailId?.let { viewModel.getNutritionData(it) }
+        }
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val toolBar = binding.nutritionToolBar
-        adjustStatusBar(toolBar, requireActivity())
-        detailId?.let { viewModel.getNutritionData(it) }
         val recyclerView = binding.nutritionPerServeRv
+
         val adapter = NutritionAdapter()
         recyclerView.adapter = adapter
-        recyclerView.isNestedScrollingEnabled = false
         recyclerView.layoutManager = LinearLayoutManager(
             requireContext(), LinearLayoutManager.VERTICAL, false
         )
@@ -59,7 +67,17 @@ class NutritionFragment : Fragment() {
 
     }
 
+    private fun saveFragState() = Bundle().apply { this.putString("ScreenState", "Save") }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putBundle("nutrition", saveFragState())
+    }
+
+    override fun onStop() {
+        super.onStop()
+        savedScreenState = saveFragState()
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

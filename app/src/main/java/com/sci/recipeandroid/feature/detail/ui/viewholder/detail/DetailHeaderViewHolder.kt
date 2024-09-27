@@ -9,10 +9,10 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
-import com.sci.recipeandroid.databinding.DetailHeaderViewholderBinding
+import com.sci.recipeandroid.databinding.ItemViewDetailHeaderBinding
 import com.sci.recipeandroid.feature.detail.domain.model.DetailHeaderContainerModel
 
-class DetailHeaderViewHolder(private val binding: DetailHeaderViewholderBinding) :
+class DetailHeaderViewHolder(private val binding: ItemViewDetailHeaderBinding) :
     RecyclerView.ViewHolder(binding.root) {
     private val ratingBar = binding.ratingBar
     private val recipeNameCard = binding.recipeNameCard
