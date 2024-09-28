@@ -2,6 +2,7 @@ package com.sci.recipeandroid.feature.cart.ui.view
 
 
 import GroupedIngredientAdapter
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -79,7 +80,6 @@ class CartFragment : Fragment() {
     }
 
     private fun setUpAdapter() {
-        Log.d("CartFragment", "SetUpAdapter")
         if (childRecipeAdapter == null) {
             childRecipeAdapter = RecipeAdapter(
                 onItemDelete = {
@@ -87,6 +87,9 @@ class CartFragment : Fragment() {
                 },
                 onServingSizeChange = {
                     viewModel.updateServingSize(it.recipeId, it.servingCount)
+                },
+                onItemClick = {
+                    //navigate to Recipe detail screen
                 }
             )
             parentRecipeAdapter = RecipeContainerAdapter(childRecipeAdapter!!)
@@ -98,6 +101,9 @@ class CartFragment : Fragment() {
                     ingredientId = it.ingredientId,
                     checked = it.checked
                 )
+            },
+            onItemClick = {
+                //navigate to ingredient detail screen
             }
         )
         val concatAdapter = ConcatAdapter(parentRecipeAdapter, groupedIngredientAdapter)
@@ -122,7 +128,8 @@ class CartFragment : Fragment() {
                         listOf(
                             RecipeContainerUiModel(
                                 recipes = state.recipes,
-                                ingredientSize = state.groupedIngredients.sumOf { it.ingredients.size },
+                                ingredientSize = state.groupedIngredients.sumOf {
+                                    it.ingredients.size },
                                 recipeSize = state.recipes.size
                             )
                         )

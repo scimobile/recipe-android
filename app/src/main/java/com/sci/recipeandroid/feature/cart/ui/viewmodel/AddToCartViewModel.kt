@@ -11,6 +11,7 @@ import com.sci.recipeandroid.feature.cart.ui.model.RecipeUiModel
 import com.sci.recipeandroid.feature.cart.ui.util.getGroupedIngredients
 import com.sci.recipeandroid.util.SingleLiveEvent
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class AddToCartViewModel(
@@ -30,7 +31,7 @@ class AddToCartViewModel(
         fetchRecipes()
     }
 
-    fun fetchRecipes() {
+    private fun fetchRecipes() {
         viewModelScope.launch(Dispatchers.IO) {
             _uiState.postValue(AddToCartUiState.Loading)
             cartRecipeRepository.getAddedRecipeList().map {
@@ -84,6 +85,7 @@ class AddToCartViewModel(
 
     fun deleteAllRecipe(){
         viewModelScope.launch(Dispatchers.IO) {
+            _uiState.postValue(AddToCartUiState.Loading)
             cartRecipeRepository.deleteAllRecipe().fold(
                 onSuccess = {
                     recipes = emptyList()
@@ -131,7 +133,7 @@ class AddToCartViewModel(
 }
 
 sealed class AddToCartUiState {
-    object Loading : AddToCartUiState()
+    data object Loading : AddToCartUiState()
 
     data class Success(
         val recipes: List<RecipeUiModel>,

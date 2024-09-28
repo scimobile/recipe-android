@@ -16,7 +16,8 @@ import com.sci.recipeandroid.feature.cart.ui.model.RecipeUiModel
 
 class IngredientAdapter(
     private val recipes: List<RecipeUiModel>,
-    private val onCheckBoxClick: ((IngredientUiModel) -> Unit)
+    private val onCheckBoxClick: (IngredientUiModel) -> Unit,
+    private val onItemClick: (IngredientUiModel) -> Unit
 ) : ListAdapter<IngredientUiModel, IngredientAdapter.IngredientViewHolder>(DIFF_CALLBACK) {
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<IngredientUiModel>() {
@@ -53,6 +54,10 @@ class IngredientAdapter(
 
             checkbox.setOnCheckedChangeListener { _, isChecked ->
                 onCheckBoxClick(ingredient.copy(checked = isChecked))
+            }
+
+            itemView.setOnClickListener {
+                onItemClick.invoke(ingredient)
             }
         }
     }

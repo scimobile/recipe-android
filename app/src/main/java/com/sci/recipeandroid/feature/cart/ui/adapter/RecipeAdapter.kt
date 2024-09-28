@@ -10,13 +10,15 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.sci.recipeandroid.R
 import com.sci.recipeandroid.feature.cart.ui.model.RecipeUiModel
 
 class RecipeAdapter(
     private val onItemDelete: (RecipeUiModel) -> Unit,
-    private val onServingSizeChange: (RecipeUiModel) -> Unit
+    private val onServingSizeChange: (RecipeUiModel) -> Unit,
+    private val onItemClick: (RecipeUiModel) -> Unit
 ) : ListAdapter<RecipeUiModel, RecipeAdapter.RecipeViewHolder>(RecipeDiffCallback()) {
     
     inner class RecipeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -40,6 +42,9 @@ class RecipeAdapter(
 
         fun bind(recipe: RecipeUiModel) {
             titleTextView.text = recipe.title
+            /*Glide.with(itemView.context)
+                .load(recipe.imageUrl)
+                .into(imageView)*/
 
             if (serverCount.text.toString() != recipe.servingCount.toString()) {
                 serverCount.setText(recipe.servingCount.toString(), false)
@@ -76,6 +81,11 @@ class RecipeAdapter(
                     }
                     .show()
             }
+
+            itemView.setOnClickListener {
+                onItemClick.invoke(recipe)
+            }
+
         }
 
     }

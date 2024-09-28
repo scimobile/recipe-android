@@ -12,7 +12,8 @@ import com.sci.recipeandroid.feature.cart.ui.model.IngredientUiModel
 import com.sci.recipeandroid.feature.cart.ui.model.RecipeUiModel
 
 class GroupedIngredientAdapter(
-    private val onCheckBoxClick: (IngredientUiModel) -> Unit
+    private val onCheckBoxClick: (IngredientUiModel) -> Unit,
+    private val onItemClick: (IngredientUiModel) -> Unit
 ) : ListAdapter<GroupedIngredientUiModel, GroupedIngredientAdapter.CategoryViewHolder>(CategoryDiffCallback()) {
 
     private var recipes: List<RecipeUiModel> = emptyList()
@@ -35,7 +36,11 @@ class GroupedIngredientAdapter(
         }
 
         private fun setUpIngredientRecycler(ingredients: List<IngredientUiModel>) {
-            val ingredientAdapter = IngredientAdapter(recipes, onCheckBoxClick = onCheckBoxClick)
+            val ingredientAdapter = IngredientAdapter(
+                recipes = recipes,
+                onCheckBoxClick = onCheckBoxClick,
+                onItemClick = onItemClick
+            )
             ingredientAdapter.submitList(ingredients)
             ingredientRecyclerView.adapter = ingredientAdapter
         }
