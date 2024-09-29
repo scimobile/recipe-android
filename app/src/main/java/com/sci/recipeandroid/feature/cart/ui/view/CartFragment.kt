@@ -117,10 +117,12 @@ class CartFragment : Fragment() {
                 is AddToCartUiState.Loading -> {
                     binding.progressBar.visibility = View.VISIBLE
                     binding.rvCart.visibility = View.INVISIBLE
+                    binding.coordinatorLayout.setBackgroundResource(R.color.white)
                 }
                 is AddToCartUiState.Success -> {
                     binding.progressBar.visibility = View.INVISIBLE
                     binding.rvCart.visibility = View.VISIBLE
+                    binding.coordinatorLayout.setBackgroundResource(R.color.color_cart_screen_background)
                     setUpEmptyState(state)
 
                     //Recipe Part
