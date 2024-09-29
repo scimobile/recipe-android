@@ -1,6 +1,7 @@
 package com.sci.recipeandroid.feature.auth.ui.screen.authentication
 
 import android.content.Intent
+import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.SpannableString
@@ -11,12 +12,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.fragment.app.Fragment
 import com.sci.recipeandroid.R
 import com.sci.recipeandroid.databinding.FragmentAuthenticationOptionsBinding
 import com.sci.recipeandroid.feature.auth.ui.viewmodel.AuthOptionViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
-
 import com.sci.recipeandroid.util.setOneTimeClickListener
 
 
@@ -38,6 +39,10 @@ class AuthOptionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val window = requireActivity().window
+        window.statusBarColor = Color.TRANSPARENT
+        window.navigationBarColor = Color.TRANSPARENT
+        WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = true
 
         authViewModel.uiEvent.observe(viewLifecycleOwner) {
             Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
