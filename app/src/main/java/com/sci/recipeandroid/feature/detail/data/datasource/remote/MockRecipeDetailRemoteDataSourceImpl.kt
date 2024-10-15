@@ -1,11 +1,10 @@
 package com.sci.recipeandroid.feature.detail.data.datasource.remote
 
-import com.sci.recipeandroid.feature.detail.data.mapper.toNutritionScreenData
 import com.sci.recipeandroid.feature.detail.data.model.Nutrition
 import com.sci.recipeandroid.feature.detail.data.model.NutritionResponse
 import com.sci.recipeandroid.feature.detail.data.model.NutritionSubType
 
-class MockDetailRemoteDataSourceImpl() : DetailRemoteDataSource {
+class MockRecipeDetailRemoteDataSourceImpl() : RecipeDetailRemoteDataSource {
     override fun getDetail(id: Double): Result<String> {
         return Result.success("")
     }

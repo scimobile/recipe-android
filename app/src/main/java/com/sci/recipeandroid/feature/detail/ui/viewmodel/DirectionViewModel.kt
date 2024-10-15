@@ -5,12 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sci.recipeandroid.feature.detail.domain.model.DirectionModel
-import com.sci.recipeandroid.feature.detail.domain.repository.DetailRepo
+import com.sci.recipeandroid.feature.detail.domain.repository.RecipeDetailRepo
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class DirectionViewModel(
-    private val detailRepo: DetailRepo
+    private val recipeDetailRepo: RecipeDetailRepo
 ): ViewModel() {
     private val _directionScnState = MutableLiveData<DirectionScreenState>()
     val directionScnState: LiveData<DirectionScreenState> = _directionScnState
@@ -19,7 +19,7 @@ class DirectionViewModel(
         viewModelScope.launch {
             _directionScnState.value = DirectionScreenState.Loading
             delay(3000)
-            detailRepo.getDirection(id).fold(
+            recipeDetailRepo.getDirection(id).fold(
                 onSuccess = {
                     _directionScnState.value = DirectionScreenState.Success(it)
                 },

@@ -11,8 +11,8 @@ import com.sci.recipeandroid.feature.auth.domain.repository.AuthRepositoryImpl
 import com.sci.recipeandroid.feature.auth.ui.viewmodel.AuthOptionViewModel
 import com.sci.recipeandroid.feature.auth.ui.viewmodel.LoginViewModel
 import com.sci.recipeandroid.feature.auth.ui.viewmodel.SignUpViewModel
-import com.sci.recipeandroid.feature.detail.data.datasource.remote.DetailRemoteDataSource
-import com.sci.recipeandroid.feature.detail.data.datasource.remote.MockDetailRemoteDataSourceImpl
+import com.sci.recipeandroid.feature.detail.data.datasource.remote.RecipeDetailRemoteDataSource
+import com.sci.recipeandroid.feature.detail.data.datasource.remote.MockRecipeDetailRemoteDataSourceImpl
 import com.sci.recipeandroid.util.Validator
 import com.sci.recipeandroid.util.ValidatorImpl
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -26,9 +26,6 @@ val authDiModule = module {
 //            facebookAuthenticator = get()
 //        ) as AuthRemoteDataSource
         FakeAuthRemoteDataSource() as AuthRemoteDataSource
-    }
-    single {
-        MockDetailRemoteDataSourceImpl() as DetailRemoteDataSource
     }
 
     single {
