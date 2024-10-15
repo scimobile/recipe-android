@@ -11,7 +11,7 @@ import com.sci.recipeandroid.feature.detail.domain.model.DetailCenterContainer
 import com.sci.recipeandroid.feature.detail.domain.model.DetailDataContainer
 import com.sci.recipeandroid.feature.detail.domain.model.DetailFooterContainer
 import com.sci.recipeandroid.feature.detail.domain.model.DetailFooterItem
-import com.sci.recipeandroid.feature.detail.domain.repository.DetailRepo
+import com.sci.recipeandroid.feature.detail.domain.repository.RecipeDetailRepo
 import com.sci.recipeandroid.feature.detail.ui.models.DetailCenterUiModels
 import com.sci.recipeandroid.feature.detail.ui.models.DetailSavedUiModels
 import com.sci.recipeandroid.feature.detail.ui.models.IngredientUiModels
@@ -21,7 +21,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class DetailViewModel(
-    private val detailRepo: DetailRepo,
+    private val recipeDetailRepo: RecipeDetailRepo,
 ) : ViewModel() {
     private val _detailScnState = MutableLiveData<DetailScreenState>()
     val detailScnState: LiveData<DetailScreenState> = _detailScnState
@@ -48,7 +48,7 @@ class DetailViewModel(
         viewModelScope.launch {
             _detailScnState.value = DetailScreenState.Loading
             delay(3000)
-            detailRepo.getDetail(detailId)
+            recipeDetailRepo.getDetail(detailId)
                 .fold(
                     onSuccess = { result ->
                         val data = DetailDataContainer(

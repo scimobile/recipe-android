@@ -1,18 +1,16 @@
 package com.sci.recipeandroid.feature.detail.ui.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sci.recipeandroid.feature.detail.domain.model.NutritionScreenData
-import com.sci.recipeandroid.feature.detail.domain.repository.DetailRepo
-import kotlinx.coroutines.Dispatchers
+import com.sci.recipeandroid.feature.detail.domain.repository.RecipeDetailRepo
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class NutritionViewModel(
-    private val detailRepo: DetailRepo,
+    private val recipeDetailRepo: RecipeDetailRepo,
 ) : ViewModel() {
     private val _nutritionScnState = MutableLiveData<NutritionScreenState>()
     val nutritionScnState :LiveData<NutritionScreenState> = _nutritionScnState
@@ -21,7 +19,7 @@ class NutritionViewModel(
         viewModelScope.launch() {
             _nutritionScnState.value = NutritionScreenState.Loading
             delay(3000)
-            detailRepo.getNutritionData(id)
+            recipeDetailRepo.getNutritionData(id)
                 .fold(
                     onFailure = {},
                     onSuccess = {

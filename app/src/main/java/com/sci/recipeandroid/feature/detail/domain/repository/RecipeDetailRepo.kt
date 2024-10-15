@@ -4,7 +4,7 @@ import com.sci.recipeandroid.feature.detail.domain.model.DetailDataContainer
 import com.sci.recipeandroid.feature.detail.domain.model.DirectionModel
 import com.sci.recipeandroid.feature.detail.domain.model.NutritionScreenData
 
-interface DetailRepo {
+interface RecipeDetailRepo {
     fun getDetail(id :Double):Result<DetailDataContainer>
 
     fun getNutritionData(id: Double):Result<List<NutritionScreenData>>
