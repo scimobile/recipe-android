@@ -7,9 +7,7 @@ import com.sci.recipeandroid.feature.auth.di.remoteDataSourceModule
 import com.sci.recipeandroid.feature.auth.di.repositoryModule
 import com.sci.recipeandroid.feature.auth.di.socialAuthModule
 import com.sci.recipeandroid.feature.auth.di.viewModelModule
-import com.sci.recipeandroid.feature.cart.di.cartRecipeDataSourceModule
-import com.sci.recipeandroid.feature.cart.di.cartRecipeRepositoryModule
-import com.sci.recipeandroid.feature.cart.di.cartViewModelModule
+import com.sci.recipeandroid.feature.cart.di.cartModule
 import com.tencent.mmkv.MMKV
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -28,9 +26,7 @@ class RecipeApps: Application() {
                 localDataSourceModule,
                 dbModule,
 
-                cartRecipeRepositoryModule,
-                cartViewModelModule,
-                cartRecipeDataSourceModule
+                cartModule
             )
         }
     }
