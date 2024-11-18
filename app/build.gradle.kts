@@ -91,6 +91,9 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.lifecycle.livedata.ktx)
     annotationProcessor(libs.androidx.room.compiler)
+    
+    //concat adapter for recyclerview
+    implementation (libs.androidx.recyclerview)
 
     implementation(libs.lottie)
 

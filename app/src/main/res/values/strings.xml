@@ -38,6 +38,23 @@
     <string name="this_password_can_t_be_blank">This password can\'t be blank</string>
     <string name="the_email_can_t_be_blank">The email can\'t be blank</string>
     <string name="that_s_not_a_valid_email">That\'s not a valid email</string>
+    <string name="community_pick_img">community_pick_img</string>
+    <string name="community_pick">Community Pick</string>
+    <string name="recipe">Recipe</string>
+    <string name="by">By</string>
+    <string name="nutrition_per_serving">Nutrition per serving</string>
+    <string name="view_all">View All</string>
+    <string name="view_directions"><u>View Directions</u></string>
+    <string name="complete_the_meal">Complete the meal</string>
+    <string name="you_might_also_like">You might also like</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="add_to_cart">Add To Cart</string>
+    <string name="devider_text"> / </string>
+    <string name="metric">Metric</string>
+    <string name="us">US</string>
+    <string name="daily_values_explanation">* Percent Daily Values are based on a 2,000 calorie diet. Your Daily values may be higher or lower depending on your calorie needs.</string>
+    <string name="nutrition_disclaimer">Disclaimer: All information and tools presented and written within this site are intended for informational purposes only. If you have any concerns or questions about your health, please consult with a physician or other health-care professional.</string>
+    <string name="lorem_ipsum"><![CDATA[Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.]]></string>
 
     <string name="cart_recipe_item_count">%1$d Recipe • %2$d items</string>
     <string name="recipe_name">Recipe name</string>
