@@ -75,6 +75,7 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.mmkv.android)
     implementation(libs.kotlinx.serialization)
+    implementation (libs.androidx.recyclerview)
 
     //google login and sign up
     implementation (libs.androidx.credentials)
@@ -93,6 +94,8 @@ dependencies {
     
     //concat adapter for recyclerview
     implementation (libs.androidx.recyclerview)
+
+    implementation(libs.lottie)
 
 
 }

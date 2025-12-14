@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="black">#FF000000</color>
-    <color name="white">#FAFAFA</color>
+    <color name="white">#FFFFFF</color>
     <color name="brown">#A67B5B</color>
     <color name="dark_blue">#2E353D</color>
     <color name="color_error">#F44336</color>
@@ -14,7 +14,7 @@
     <color name="color_text_secondary">#6B7280</color>
     <color name="color_button_inactive">#B6BAC3</color>
     <color name="color_input_layout_error">#94000B</color>
-
+    <color name="color_cart_screen_background">#D8DBDF</color>
     <color name="transparent_black">#80000000</color>
     <color name="opacity_eighty_white">#80FFFFFF</color>
 </resources>

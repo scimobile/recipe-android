@@ -53,7 +53,6 @@ class LoginViewModel(
     private fun logIn(email: String, password: String){
         viewModelScope.launch(Dispatchers.IO) {
             _loginScreenEvent.postValue(LoginScreenEvent.Loading)
-            delay(3000)
             authRepository.logIn(email, password)
                 .fold(
                     onFailure = {

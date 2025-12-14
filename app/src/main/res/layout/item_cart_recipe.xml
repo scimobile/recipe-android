@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="3dp"
+    app:cardCornerRadius="10dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardUseCompatPadding="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/recipeImage"
+            android:layout_width="160dp"
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/recipe_image" />
+
+        <TextView
+            android:id="@+id/recipeTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginVertical="8dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/poppins_semibold"
+            android:maxLines="2"
+            android:text="@string/recipe_title"
+            android:textColor="@color/color_text_primary"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recipeImage" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="@string/view_recipe"
+            android:textColor="@color/color_text_secondary"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recipeTitle" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView3"
+            app:layout_constraintStart_toEndOf="@+id/textView3"
+            app:layout_constraintTop_toTopOf="@+id/textView3"
+            app:srcCompat="@drawable/ic_keyboard_arrow_right"
+            app:tint="@color/color_text_secondary" />
+
+        <AutoCompleteTextView
+            android:id="@+id/edt_server_dropdown"
+            android:layout_width="65dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_custom_server_drop_down"
+            android:drawableStart="@drawable/ic_servers"
+            android:drawableEnd="@drawable/ic_server_dropdown"
+            android:drawableTint="@color/white"
+            android:fontFamily="@font/poppins_semibold"
+            android:inputType="none"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="5dp"
+            android:text="1"
+            android:textColor="@color/white"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_delete_recipe"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btn_delete_recipe"
+            app:simpleItems="@array/server_counts" />
+
+        <ImageView
+            android:id="@+id/btn_delete_recipe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_remove_recipe" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

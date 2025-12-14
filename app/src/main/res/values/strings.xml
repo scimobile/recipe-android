@@ -17,7 +17,7 @@
 
     <string name="log_in_welcome_text">Welcome back? You’re just a tap away from something delicious.</string>
     <string name="log_in_title">Log In</string>
-    <string name="start_cooking">START COOKING!</string>
+    <string name="start_cooking">START COOKING !</string>
     <string name="password_hint_text">Password</string>
     <string name="email_text_hint">Email</string>
     <string name="privacy_notice_terms_of_use_string">By using SideChef, you agree to our Privacy Notice and\nTerms of Use</string>
@@ -55,5 +55,29 @@
     <string name="daily_values_explanation">* Percent Daily Values are based on a 2,000 calorie diet. Your Daily values may be higher or lower depending on your calorie needs.</string>
     <string name="nutrition_disclaimer">Disclaimer: All information and tools presented and written within this site are intended for informational purposes only. If you have any concerns or questions about your health, please consult with a physician or other health-care professional.</string>
     <string name="lorem_ipsum"><![CDATA[Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.]]></string>
+
+    <string name="cart_recipe_item_count">%1$d Recipe • %2$d items</string>
+    <string name="recipe_name">Recipe name</string>
+    <string name="ingredient_name">Ingredient Name</string>
+    <string name="ingredient_quantity">Quantity</string>
+    <string name="recipe_title">Recipe Title</string>
+    <string name="view_recipe">VIEW RECIPE</string>
+
+    <string-array name="server_counts">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+    </string-array>
 
 </resources>
